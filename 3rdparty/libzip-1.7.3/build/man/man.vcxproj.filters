@@ -1,0 +1,611 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\ZIP_SOURCE_GET_ARGS.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\ZIP_SOURCE_GET_ARGS.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\libzip.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\libzip.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_add.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_add.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_add_dir.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_add_dir.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_close.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_close.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_compression_method_supported.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_compression_method_supported.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_delete.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_delete.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_dir_add.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_dir_add.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_discard.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_discard.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_encryption_method_supported.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_encryption_method_supported.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_error_clear.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_error_clear.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_error_code_system.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_error_code_system.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_error_code_zip.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_error_code_zip.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_error_fini.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_error_fini.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_error_get.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_error_get.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_error_get_sys_type.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_error_get_sys_type.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_error_init.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_error_init.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_error_set.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_error_set.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_error_strerror.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_error_strerror.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_error_system_type.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_error_system_type.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_error_to_data.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_error_to_data.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_error_to_str.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_error_to_str.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_errors.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_errors.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_fclose.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_fclose.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_fdopen.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_fdopen.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_file_add.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_file_add.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_file_attributes_init.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_file_attributes_init.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_file_extra_field_delete.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_file_extra_field_delete.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_file_extra_field_get.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_file_extra_field_get.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_file_extra_field_set.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_file_extra_field_set.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_file_extra_fields_count.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_file_extra_fields_count.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_file_get_comment.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_file_get_comment.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_file_get_error.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_file_get_error.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_file_get_external_attributes.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_file_get_external_attributes.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_file_rename.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_file_rename.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_file_set_comment.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_file_set_comment.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_file_set_encryption.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_file_set_encryption.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_file_set_external_attributes.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_file_set_external_attributes.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_file_set_mtime.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_file_set_mtime.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_file_strerror.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_file_strerror.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_fopen.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_fopen.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_fopen_encrypted.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_fopen_encrypted.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_fread.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_fread.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_fseek.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_fseek.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_ftell.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_ftell.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_get_archive_comment.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_get_archive_comment.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_get_archive_flag.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_get_archive_flag.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_get_error.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_get_error.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_get_file_comment.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_get_file_comment.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_get_name.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_get_name.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_get_num_entries.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_get_num_entries.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_get_num_files.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_get_num_files.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_libzip_version.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_libzip_version.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_name_locate.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_name_locate.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_open.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_open.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_register_progress_callback.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_register_progress_callback.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_register_progress_callback_with_state.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_register_progress_callback_with_state.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_rename.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_rename.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_set_archive_comment.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_set_archive_comment.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_set_archive_flag.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_set_archive_flag.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_set_default_password.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_set_default_password.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_set_file_comment.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_set_file_comment.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_set_file_compression.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_set_file_compression.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_source.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_source.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_source_begin_write.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_source_begin_write.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_source_buffer.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_source_buffer.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_source_buffer_fragment.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_source_buffer_fragment.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_source_close.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_source_close.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_source_commit_write.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_source_commit_write.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_source_error.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_source_error.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_source_file.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_source_file.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_source_filep.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_source_filep.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_source_free.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_source_free.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_source_function.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_source_function.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_source_is_deleted.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_source_is_deleted.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_source_keep.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_source_keep.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_source_make_command_bitmap.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_source_make_command_bitmap.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_source_open.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_source_open.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_source_read.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_source_read.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_source_rollback_write.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_source_rollback_write.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_source_seek.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_source_seek.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_source_seek_compute_offset.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_source_seek_compute_offset.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_source_seek_write.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_source_seek_write.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_source_stat.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_source_stat.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_source_tell.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_source_tell.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_source_tell_write.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_source_tell_write.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_source_win32a.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_source_win32a.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_source_win32handle.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_source_win32handle.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_source_win32w.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_source_win32w.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_source_write.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_source_write.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_source_zip.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_source_zip.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_stat.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_stat.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_stat_init.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_stat_init.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_unchange.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_unchange.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_unchange_all.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_unchange_all.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zip_unchange_archive.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zip_unchange_archive.3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zipcmp.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zipcmp.1.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\zipmerge.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\zipmerge.1.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\996fb643cf17334d7a169efbd56080ad\ziptool.html.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\35f73ba7e89e48e03fbc11b9d6c6bab7\ziptool.1.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\206ac3241bda0c725b25fc426d069ebd\man.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\man\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\man\CMakeFiles\man" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{62C26274-0950-3713-9406-A1E201721DD8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

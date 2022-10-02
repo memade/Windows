@@ -1,0 +1,1 @@
+psexec.exe -accepteula -s -i -d cmd.exe

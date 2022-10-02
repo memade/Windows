@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\regress\can_clone_file.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\regress\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{FEDAFC3E-BAC6-3B3B-B376-DBA5211E65C0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

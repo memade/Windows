@@ -1,0 +1,30 @@
+digraph "FIX::SocketAcceptor"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node3 [label="FIX::SocketAcceptor",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node4 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="FIX::Acceptor",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_f_i_x_1_1_acceptor.html",tooltip="Base for classes which act as an acceptor for incoming connections. "];
+  Node5 -> Node4 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_pLog" ,fontname="Helvetica"];
+  Node5 [label="FIX::Log",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_f_i_x_1_1_log.html",tooltip="This interface must be implemented to log messages and events. "];
+  Node6 -> Node4 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_application" ,fontname="Helvetica"];
+  Node6 [label="FIX::Application",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_f_i_x_1_1_application.html",tooltip="This interface must be implemented to define what your FIX application does. "];
+  Node7 -> Node4 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_messageStoreFactory" ,fontname="Helvetica"];
+  Node7 [label="FIX::MessageStoreFactory",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_f_i_x_1_1_message_store_factory.html",tooltip="This interface must be implemented to create a MessageStore. "];
+  Node8 -> Node4 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_pLogFactory" ,fontname="Helvetica"];
+  Node8 [label="FIX::LogFactory",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_f_i_x_1_1_log_factory.html",tooltip="This interface must be implemented to create a Log. "];
+  Node9 -> Node4 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_nullLog" ,fontname="Helvetica"];
+  Node9 [label="FIX::NullLog",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_f_i_x_1_1_null_log.html",tooltip="Null implementation of Log. "];
+  Node5 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 -> Node4 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_settings" ,fontname="Helvetica"];
+  Node10 [label="FIX::SessionSettings",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_f_i_x_1_1_session_settings.html",tooltip="Container for setting dictionaries mapped to sessions. "];
+  Node11 -> Node10 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_defaults" ,fontname="Helvetica"];
+  Node11 [label="FIX::Dictionary",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_f_i_x_1_1_dictionary.html",tooltip="For storage and retrieval of key/value pairs. "];
+  Node12 -> Node3 [dir="back",color="firebrick4",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="FIX::SocketServer::\lStrategy",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_f_i_x_1_1_socket_server_1_1_strategy.html"];
+  Node13 -> Node3 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_pServer" ,fontname="Helvetica"];
+  Node13 [label="FIX::SocketServer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_f_i_x_1_1_socket_server.html",tooltip="Listens for and accepts incoming socket connections on a port. "];
+  Node14 -> Node13 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_monitor" ,fontname="Helvetica"];
+  Node14 [label="FIX::SocketMonitor",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_f_i_x_1_1_socket_monitor.html",tooltip="Monitors events on a collection of sockets. "];
+}

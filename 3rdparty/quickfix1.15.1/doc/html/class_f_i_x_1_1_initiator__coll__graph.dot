@@ -1,0 +1,24 @@
+digraph "FIX::Initiator"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node3 [label="FIX::Initiator",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node4 -> Node3 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_pLog" ,fontname="Helvetica"];
+  Node4 [label="FIX::Log",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_f_i_x_1_1_log.html",tooltip="This interface must be implemented to log messages and events. "];
+  Node5 -> Node3 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_application" ,fontname="Helvetica"];
+  Node5 [label="FIX::Application",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_f_i_x_1_1_application.html",tooltip="This interface must be implemented to define what your FIX application does. "];
+  Node6 -> Node3 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_messageStoreFactory" ,fontname="Helvetica"];
+  Node6 [label="FIX::MessageStoreFactory",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_f_i_x_1_1_message_store_factory.html",tooltip="This interface must be implemented to create a MessageStore. "];
+  Node7 -> Node3 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_pLogFactory" ,fontname="Helvetica"];
+  Node7 [label="FIX::LogFactory",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_f_i_x_1_1_log_factory.html",tooltip="This interface must be implemented to create a Log. "];
+  Node8 -> Node3 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_nullLog" ,fontname="Helvetica"];
+  Node8 [label="FIX::NullLog",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_f_i_x_1_1_null_log.html",tooltip="Null implementation of Log. "];
+  Node4 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 -> Node3 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_mutex" ,fontname="Helvetica"];
+  Node9 [label="FIX::Mutex",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_f_i_x_1_1_mutex.html",tooltip="Portable implementation of a mutex. "];
+  Node10 -> Node3 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_settings" ,fontname="Helvetica"];
+  Node10 [label="FIX::SessionSettings",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_f_i_x_1_1_session_settings.html",tooltip="Container for setting dictionaries mapped to sessions. "];
+  Node11 -> Node10 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_defaults" ,fontname="Helvetica"];
+  Node11 [label="FIX::Dictionary",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_f_i_x_1_1_dictionary.html",tooltip="For storage and retrieval of key/value pairs. "];
+}

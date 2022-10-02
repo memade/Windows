@@ -1,0 +1,80 @@
+
+
+#pragma region CefClient
+#include "cef3client/browser/client_types.h"
+#include "cef3client/browser/osr_renderer_settings.h"
+#include "cef3client/browser/image_cache.h"
+#include "cef3client/browser/root_window.h"
+#include "cef3client/browser/main_context.h"
+#include "cef3client/browser/main_context_impl.h"
+#include "cef3client/browser/main_message_loop_multithreaded_win.h"
+#if defined(OS_WIN)
+#include "cef3client/browser/temp_window_win.h"
+#elif defined(OS_LINUX)
+#include "cef3client/browser/temp_window_x11.h"
+#elif defined(OS_MAC)
+#include "cef3client/browser/temp_window_mac.h"
+#endif
+#include "cef3client/browser/temp_window.h"
+#include "cef3client/browser/root_window_manager.h"
+#include "cef3client/browser/test_runner.h"
+#include "cef3client/browser/binding_test.h"
+#include "cef3client/browser/client_handler.h"
+#include "cef3client/browser/client_handler_osr.h"
+#include "cef3client/browser/client_handler_std.h"
+#include "cef3client/browser/osr_accessibility_node.h"
+#include "cef3client/browser/osr_accessibility_helper.h"
+#include "cef3client/browser/osr_dragdrop_win.h"
+#include "cef3client/browser/osr_render_handler_win.h"
+#include "cef3client/browser/browser_window.h"
+#include "cef3client/browser/osr_window_win.h"
+#include "cef3client/browser/browser_window_osr_win.h"
+#include "cef3client/browser/browser_window_std_win.h"
+#include "cef3client/browser/bytes_write_handler.h"
+#include "cef3client/browser/client_browser.h"
+#include "cef3client/browser/dialog_test.h"
+#include "cef3client/browser/resource.h"
+#include "cef3client/browser/root_window_win.h"
+#include "cef3client/browser/media_router_test.h"
+#include "cef3client/renderer/client_renderer.h"
+#include "cef3client/renderer/performance_test.h"
+#include "cef3client/renderer/performance_test_setup.h"
+#include "cef3client/renderer/ipc_performance_test.h"
+#include "cef3client/common/scheme_test_common.h"
+#include "cef3client/browser/window_test.h"
+#include "cef3client/browser/window_test_runner.h"
+#include "cef3client/browser/window_test_runner_win.h"
+#include "cef3client/browser/window_test_runner_views.h"
+#include "cef3client/browser/views_overlay_controls.h"
+#include "cef3client/browser/views_menu_bar.h"
+#include "cef3client/browser/views_window.h"
+#include "cef3client/browser/main_context.h"
+#include "cef3client/browser/views_style.h"
+#include "cef3client/browser/urlrequest_test.h"
+#include "cef3client/browser/preferences_test.h"
+#include "cef3client/browser/response_filter_test.h"
+#include "cef3client/browser/scheme_test.h"
+#include "cef3client/browser/server_test.h"
+#include "cef3client/browser/osr_ime_handler_win.h"
+#if !defined(OS_WIN)
+#define VK_ESCAPE 0x1B
+#define VK_RETURN 0x0D
+#define VK_MENU 0x12  // ALT key.
+#endif
+#if defined(OS_LINUX)
+#include "tests/cefclient/browser/dialog_handler_gtk.h"
+#include "tests/cefclient/browser/print_handler_gtk.h"
+#endif
+#include "cef3client/browser/osr_d3d11_win.h"
+#if OS_WIN && ARCH_CPU_ARM_FAMILY
+#define __prefetch(x) x
+#endif
+#include <d3dcompiler.h>
+#include <directxmath.h>
+#include <windowsx.h>
+#if defined(CEF_USE_ATL)
+#include <oleacc.h>
+#endif
+#include "cef3client/browser/osr_render_handler_win_d3d11.h"
+#include "cef3client/browser/osr_render_handler_win_gl.h"
+#pragma endregion

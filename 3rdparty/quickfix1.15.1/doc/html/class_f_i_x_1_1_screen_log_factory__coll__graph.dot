@@ -1,0 +1,12 @@
+digraph "FIX::ScreenLogFactory"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node2 [label="FIX::ScreenLogFactory",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node3 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="FIX::LogFactory",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_f_i_x_1_1_log_factory.html",tooltip="This interface must be implemented to create a Log. "];
+  Node4 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_settings" ,fontname="Helvetica"];
+  Node4 [label="FIX::SessionSettings",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_f_i_x_1_1_session_settings.html",tooltip="Container for setting dictionaries mapped to sessions. "];
+  Node5 -> Node4 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_defaults" ,fontname="Helvetica"];
+  Node5 [label="FIX::Dictionary",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_f_i_x_1_1_dictionary.html",tooltip="For storage and retrieval of key/value pairs. "];
+}

@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{5FC33E1F-24C1-3753-93FF-20F2E2FE5AEF}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>ALL_BUILD</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\CMakeLists.txt">
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule E:/www.skstu.com/Project.Gpl/libzip-1.7.3/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule E:/www.skstu.com/Project.Gpl/libzip-1.7.3/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+E:\Tools\cmake-3.20.0-rc4-windows-x86_64\bin\cmake.exe -SE:/www.skstu.com/Project.Gpl/libzip-1.7.3 -BE:/www.skstu.com/Project.Gpl/libzip-1.7.3/build --check-stamp-file E:/www.skstu.com/Project.Gpl/libzip-1.7.3/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+E:\Tools\cmake-3.20.0-rc4-windows-x86_64\bin\cmake.exe -SE:/www.skstu.com/Project.Gpl/libzip-1.7.3 -BE:/www.skstu.com/Project.Gpl/libzip-1.7.3/build --check-stamp-file E:/www.skstu.com/Project.Gpl/libzip-1.7.3/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\BasicConfigVersion-AnyNewerVersion.cmake.in;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakeCInformation.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakeCommonLanguageInclude.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakeGenericSystem.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakeInitializeConfigs.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakeLanguageInformation.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakePackageConfigHelpers.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakeRCInformation.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakeSystemSpecificInformation.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakeSystemSpecificInitialize.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckCSourceCompiles.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckCSourceRuns.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckCXXSourceCompiles.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckFunctionExists.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckIncludeFile.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckIncludeFileCXX.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckIncludeFiles.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckLibraryExists.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckStructHasMember.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckSymbolExists.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckTypeSize.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\Compiler\CMakeCommonCompilerMacros.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\Compiler\MSVC-C.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindBZip2.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindCygwin.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindGnuTLS.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindLibLZMA.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindOpenSSL.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindPackageHandleStandardArgs.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindPackageMessage.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindPerl.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindPkgConfig.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindZLIB.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\GNUInstallDirs.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\Internal\CheckSourceCompiles.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\Internal\CheckSourceRuns.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\Platform\Windows-MSVC-C.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\Platform\Windows-MSVC.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\Platform\Windows.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\Platform\WindowsPaths.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\SelectLibraryConfigurations.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\TestBigEndian.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\WriteBasicConfigVersionFile.cmake;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\3.20.0-rc4\CMakeCCompiler.cmake;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\3.20.0-rc4\CMakeRCCompiler.cmake;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\3.20.0-rc4\CMakeSystem.cmake;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\cmake-config.h.in;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\cmake-zipconf.h.in;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\cmake\Dist.cmake;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\cmake\FindMbedTLS.cmake;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\cmake\FindNettle.cmake;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\libzip-config.cmake.in;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\libzip.pc.in;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\regress\nihtest.conf.in;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\regress\runtest.in;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\BasicConfigVersion-AnyNewerVersion.cmake.in;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakeCInformation.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakeCommonLanguageInclude.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakeGenericSystem.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakeInitializeConfigs.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakeLanguageInformation.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakePackageConfigHelpers.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakeRCInformation.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakeSystemSpecificInformation.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakeSystemSpecificInitialize.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckCSourceCompiles.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckCSourceRuns.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckCXXSourceCompiles.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckFunctionExists.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckIncludeFile.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckIncludeFileCXX.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckIncludeFiles.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckLibraryExists.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckStructHasMember.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckSymbolExists.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckTypeSize.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\Compiler\CMakeCommonCompilerMacros.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\Compiler\MSVC-C.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindBZip2.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindCygwin.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindGnuTLS.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindLibLZMA.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindOpenSSL.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindPackageHandleStandardArgs.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindPackageMessage.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindPerl.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindPkgConfig.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindZLIB.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\GNUInstallDirs.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\Internal\CheckSourceCompiles.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\Internal\CheckSourceRuns.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\Platform\Windows-MSVC-C.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\Platform\Windows-MSVC.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\Platform\Windows.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\Platform\WindowsPaths.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\SelectLibraryConfigurations.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\TestBigEndian.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\WriteBasicConfigVersionFile.cmake;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\3.20.0-rc4\CMakeCCompiler.cmake;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\3.20.0-rc4\CMakeRCCompiler.cmake;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\3.20.0-rc4\CMakeSystem.cmake;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\cmake-config.h.in;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\cmake-zipconf.h.in;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\cmake\Dist.cmake;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\cmake\FindMbedTLS.cmake;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\cmake\FindNettle.cmake;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\libzip-config.cmake.in;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\libzip.pc.in;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\regress\nihtest.conf.in;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\regress\runtest.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule E:/www.skstu.com/Project.Gpl/libzip-1.7.3/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule E:/www.skstu.com/Project.Gpl/libzip-1.7.3/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+E:\Tools\cmake-3.20.0-rc4-windows-x86_64\bin\cmake.exe -SE:/www.skstu.com/Project.Gpl/libzip-1.7.3 -BE:/www.skstu.com/Project.Gpl/libzip-1.7.3/build --check-stamp-file E:/www.skstu.com/Project.Gpl/libzip-1.7.3/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+E:\Tools\cmake-3.20.0-rc4-windows-x86_64\bin\cmake.exe -SE:/www.skstu.com/Project.Gpl/libzip-1.7.3 -BE:/www.skstu.com/Project.Gpl/libzip-1.7.3/build --check-stamp-file E:/www.skstu.com/Project.Gpl/libzip-1.7.3/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\BasicConfigVersion-AnyNewerVersion.cmake.in;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakeCInformation.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakeCommonLanguageInclude.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakeGenericSystem.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakeInitializeConfigs.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakeLanguageInformation.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakePackageConfigHelpers.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakeRCInformation.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakeSystemSpecificInformation.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakeSystemSpecificInitialize.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckCSourceCompiles.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckCSourceRuns.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckCXXSourceCompiles.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckFunctionExists.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckIncludeFile.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckIncludeFileCXX.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckIncludeFiles.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckLibraryExists.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckStructHasMember.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckSymbolExists.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckTypeSize.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\Compiler\CMakeCommonCompilerMacros.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\Compiler\MSVC-C.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindBZip2.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindCygwin.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindGnuTLS.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindLibLZMA.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindOpenSSL.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindPackageHandleStandardArgs.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindPackageMessage.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindPerl.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindPkgConfig.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindZLIB.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\GNUInstallDirs.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\Internal\CheckSourceCompiles.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\Internal\CheckSourceRuns.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\Platform\Windows-MSVC-C.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\Platform\Windows-MSVC.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\Platform\Windows.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\Platform\WindowsPaths.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\SelectLibraryConfigurations.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\TestBigEndian.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\WriteBasicConfigVersionFile.cmake;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\3.20.0-rc4\CMakeCCompiler.cmake;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\3.20.0-rc4\CMakeRCCompiler.cmake;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\3.20.0-rc4\CMakeSystem.cmake;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\cmake-config.h.in;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\cmake-zipconf.h.in;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\cmake\Dist.cmake;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\cmake\FindMbedTLS.cmake;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\cmake\FindNettle.cmake;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\libzip-config.cmake.in;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\libzip.pc.in;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\regress\nihtest.conf.in;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\regress\runtest.in;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\BasicConfigVersion-AnyNewerVersion.cmake.in;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakeCInformation.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakeCommonLanguageInclude.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakeGenericSystem.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakeInitializeConfigs.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakeLanguageInformation.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakePackageConfigHelpers.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakeRCInformation.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakeSystemSpecificInformation.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CMakeSystemSpecificInitialize.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckCSourceCompiles.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckCSourceRuns.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckCXXSourceCompiles.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckFunctionExists.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckIncludeFile.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckIncludeFileCXX.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckIncludeFiles.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckLibraryExists.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckStructHasMember.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckSymbolExists.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\CheckTypeSize.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\Compiler\CMakeCommonCompilerMacros.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\Compiler\MSVC-C.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindBZip2.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindCygwin.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindGnuTLS.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindLibLZMA.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindOpenSSL.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindPackageHandleStandardArgs.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindPackageMessage.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindPerl.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindPkgConfig.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\FindZLIB.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\GNUInstallDirs.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\Internal\CheckSourceCompiles.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\Internal\CheckSourceRuns.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\Platform\Windows-MSVC-C.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\Platform\Windows-MSVC.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\Platform\Windows.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\Platform\WindowsPaths.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\SelectLibraryConfigurations.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\TestBigEndian.cmake;E:\Tools\cmake-3.20.0-rc4-windows-x86_64\share\cmake-3.20\Modules\WriteBasicConfigVersionFile.cmake;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\3.20.0-rc4\CMakeCCompiler.cmake;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\3.20.0-rc4\CMakeRCCompiler.cmake;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\3.20.0-rc4\CMakeSystem.cmake;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\cmake-config.h.in;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\cmake-zipconf.h.in;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\cmake\Dist.cmake;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\cmake\FindMbedTLS.cmake;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\cmake\FindNettle.cmake;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\libzip-config.cmake.in;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\libzip.pc.in;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\regress\nihtest.conf.in;E:\www.skstu.com\Project.Gpl\libzip-1.7.3\regress\runtest.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\ZERO_CHECK.vcxproj">
+      <Project>{686D9DBB-FBCC-3BD7-A213-DF798B2BBA9B}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\regress\add_from_filep.vcxproj">
+      <Project>{9A81322D-D3CE-3071-B4FC-790626BC14DC}</Project>
+      <Name>add_from_filep</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\regress\can_clone_file.vcxproj">
+      <Project>{DCE8EA63-CC4E-3653-B0EB-B1EEC01E0A26}</Project>
+      <Name>can_clone_file</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\regress\fopen_unchanged.vcxproj">
+      <Project>{FE737EB9-4201-3224-B8DD-D93A3B8D308C}</Project>
+      <Name>fopen_unchanged</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\regress\fread.vcxproj">
+      <Project>{AC46F62D-91E6-334D-8E62-800BA3181DF7}</Project>
+      <Name>fread</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\regress\fseek.vcxproj">
+      <Project>{04B9B63A-4545-37BD-832F-783925CF5CDA}</Project>
+      <Name>fseek</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\regress\fuzz_main.vcxproj">
+      <Project>{21390F78-DE8A-3EEE-BED1-83F8CA94659D}</Project>
+      <Name>fuzz_main</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\regress\hole.vcxproj">
+      <Project>{5A88A978-AA14-37BD-93B9-D2143AB3E641}</Project>
+      <Name>hole</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\examples\in-memory.vcxproj">
+      <Project>{EE285A2D-E7DD-3AFE-B19B-47E538F9AED8}</Project>
+      <Name>in-memory</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\man\man.vcxproj">
+      <Project>{4AFF38E4-06B1-3AA0-A312-3AF8CB24EC65}</Project>
+      <Name>man</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\regress\nonrandomopen.vcxproj">
+      <Project>{BBF3F6FC-E679-38E6-B819-2B7083621514}</Project>
+      <Name>nonrandomopen</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\regress\nonrandomopentest.vcxproj">
+      <Project>{09EE67F0-DE44-31BA-93B6-C225B263AF7E}</Project>
+      <Name>nonrandomopentest</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\regress\testinput.vcxproj">
+      <Project>{DCCBEB51-D003-36AE-A009-EB94CBBDF6BD}</Project>
+      <Name>testinput</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\regress\tryopen.vcxproj">
+      <Project>{ADB2CB30-7830-398D-9637-6A4CDA1BE907}</Project>
+      <Name>tryopen</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\lib\zip.vcxproj">
+      <Project>{DA7634E8-2776-31F3-957C-D51B70BB6C67}</Project>
+      <Name>zip</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\src\zipcmp.vcxproj">
+      <Project>{21F6FD5D-2F17-39C2-BC41-310007DDC7B7}</Project>
+      <Name>zipcmp</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\src\zipmerge.vcxproj">
+      <Project>{52884F6C-C85D-3279-85F1-D0ECBB13833B}</Project>
+      <Name>zipmerge</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\src\ziptool.vcxproj">
+      <Project>{CA52EC71-8844-3ED3-9418-8C1C74713130}</Project>
+      <Name>ziptool</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\www.skstu.com\Project.Gpl\libzip-1.7.3\build\regress\ziptool_regress.vcxproj">
+      <Project>{69D9CA44-2EE0-38CD-96DF-73B514FC8F2F}</Project>
+      <Name>ziptool_regress</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

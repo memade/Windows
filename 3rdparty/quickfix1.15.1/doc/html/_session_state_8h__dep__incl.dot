@@ -1,0 +1,41 @@
+digraph "SessionState.h"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node66 [label="SessionState.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node66 -> Node67 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node67 [label="Session.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_session_8h.html"];
+  Node67 -> Node68 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node68 [label="Acceptor.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_acceptor_8cpp.html"];
+  Node67 -> Node69 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node69 [label="HttpConnection.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_http_connection_8cpp.html"];
+  Node67 -> Node70 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node70 [label="Initiator.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_initiator_8h.html"];
+  Node70 -> Node71 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node71 [label="Initiator.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_initiator_8cpp.html"];
+  Node70 -> Node72 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node72 [label="SocketInitiator.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_socket_initiator_8h.html"];
+  Node72 -> Node73 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node73 [label="SocketConnection.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_socket_connection_8cpp.html"];
+  Node72 -> Node74 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node74 [label="SocketInitiator.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_socket_initiator_8cpp.html"];
+  Node70 -> Node75 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node75 [label="ThreadedSocketInitiator.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_threaded_socket_initiator_8h.html"];
+  Node75 -> Node76 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node76 [label="ThreadedSocketConnection.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_threaded_socket_connection_8cpp.html"];
+  Node75 -> Node77 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node77 [label="ThreadedSocketInitiator.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_threaded_socket_initiator_8cpp.html"];
+  Node67 -> Node71 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node67 -> Node78 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node78 [label="MessageCracker.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_message_cracker_8h.html"];
+  Node67 -> Node79 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node79 [label="Session.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_session_8cpp.html"];
+  Node67 -> Node80 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node80 [label="SessionFactory.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_session_factory_8cpp.html"];
+  Node67 -> Node81 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node81 [label="SocketAcceptor.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_socket_acceptor_8cpp.html"];
+  Node67 -> Node73 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node67 -> Node74 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node67 -> Node76 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node67 -> Node77 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

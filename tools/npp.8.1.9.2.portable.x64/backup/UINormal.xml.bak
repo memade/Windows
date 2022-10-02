@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window>
+	<VerticalLayout>
+		<Include source="UISoftinfo.xml"/>
+		<Control/>
+		<HorizontalLayout height="46">
+			<HorizontalLayout>
+				<Control width="20"/>
+				<VerticalLayout>
+					<Control/>
+					
+					<HorizontalLayout height="16">
+						<Option name="DEF_888BFCDAF913FE792F4D0A37254B7F0C"
+						enabled="true" 
+						selected="true" 
+						width="14"
+						textcolor="#FF000000" 
+						normalimage="file='theme/1000/protocol_checkbox.png' source='0,0,14,14' dest='0,2,14,16'"
+						selectedimage="file='theme/1000/protocol_checkbox.png' source='0,14,14,28' dest='0,2,14,16'"/>
+						<Control width="3"/>
+						<Text text="已经同意阅读" font="1200" textcolor="#FF000000" align="left" padding="0,0,0,0"/>
+						<Control width="5"/>
+						<Text padding="0,2,0,0" text="{c #00FF00}{/c}{a http://home.wxyxch.cn/xieyi/index.html}下载协议{/a}" showhtml="true" align="left"/>
+					</HorizontalLayout>
+
+					<Control height="10"/>
+					
+					<HorizontalLayout height="16">
+							<Option name="DEF_FFBFD1C788F32660C8E48389B2389CE9"
+							enabled="true" 
+							selected="true" 
+							width="14"
+							textcolor="#FF000000" 
+							font="1200" 
+							normalimage="file='theme/1000/protocol_checkbox.png' source='0,0,14,14' dest='0,2,14,16'"
+							selectedimage="file='theme/1000/protocol_checkbox.png' source='0,14,14,28' dest='0,2,14,16'"/>
+							<Control width="3"/>
+							<Text name="DEF_074138A89F208774487D55D4F81E5A2B" text="" font="1200" textcolor="#FF000000" align="left" padding="0,0,0,0"/>
+					</HorizontalLayout>
+					
+					<Control height="4"/>
+				</VerticalLayout>
+			</HorizontalLayout>
+			<HorizontalLayout>
+			<Button name="DEF_42183AA2443544CC25A0DDBC57113632" enabled="true" bkimage="file='theme/1000/btn_start_download.png' source='0,46,176,92' dest='0,0,176,46'" disabledimage="file='theme/1000/btn_start_download.png' source='0,0,176,46' dest='0,0,176,46'"/>
+			</HorizontalLayout>
+			<HorizontalLayout>
+				<Control/>
+				<VerticalLayout width="119">
+				<HorizontalLayout height="14">
+				<Button name="DEF_E7D6EDF00E0DDE0ABB375447E017C0AA" width="84" text="自定义安装路径" font="1200" textcolor="#FF000000" align="left" hottextcolor="#FF0000CD" pushedtextcolor="#FF0000FF" padding="0,0,0,0"/>
+				<Control width="10"/>
+				<Button name="DEF_75647BFB4C1D83D1BE6CB28BB3499936" width="10" height="5" padding="0,4,0,0" normalimage="file='theme/1000/select_path.png' source='0,0,10,5' dest='0,0,0,0'"/>
+				</HorizontalLayout>
+				<Control/>
+				</VerticalLayout>
+				<!--<Control width="20"/>				-->
+			</HorizontalLayout>
+		</HorizontalLayout>
+		<Control height="20"/>
+	</VerticalLayout>
+</Window>

@@ -1,0 +1,8 @@
+G:/memade/gpl/zlib-1.2.11/build/CMakeFiles/zlib.dir
+G:/memade/gpl/zlib-1.2.11/build/CMakeFiles/zlibstatic.dir
+G:/memade/gpl/zlib-1.2.11/build/CMakeFiles/example.dir
+G:/memade/gpl/zlib-1.2.11/build/CMakeFiles/minigzip.dir
+G:/memade/gpl/zlib-1.2.11/build/CMakeFiles/INSTALL.dir
+G:/memade/gpl/zlib-1.2.11/build/CMakeFiles/RUN_TESTS.dir
+G:/memade/gpl/zlib-1.2.11/build/CMakeFiles/ALL_BUILD.dir
+G:/memade/gpl/zlib-1.2.11/build/CMakeFiles/ZERO_CHECK.dir
