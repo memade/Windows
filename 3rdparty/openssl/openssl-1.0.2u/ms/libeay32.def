@@ -2257,12 +2257,14 @@ EXPORTS
     RAND_event                              @2258
     RAND_file_name                          @466
     RAND_get_rand_method                    @1137
+    RAND_init_fips                          @4614
     RAND_load_file                          @467
     RAND_poll                               @2423
     RAND_pseudo_bytes                       @2206
     RAND_query_egd_bytes                    @2945
     RAND_screen                             @468
     RAND_seed                               @469
+    RAND_set_fips_drbg_type                 @4661
     RAND_set_rand_engine                    @2730
     RAND_set_rand_method                    @1114
     RAND_status                             @2254
@@ -3644,7 +3646,24 @@ EXPORTS
     pqueue_size                             @4114
     private_AES_set_decrypt_key             @4597
     private_AES_set_encrypt_key             @4606
+    private_BF_set_key                      @3298
+    private_CAST_set_key                    @3290
+    private_Camellia_set_key                @4092
+    private_DES_set_key_unchecked           @4604
+    private_MD2_Init                        @3299
+    private_MD4_Init                        @3297
+    private_MD5_Init                        @3293
+    private_RC2_set_key                     @3296
     private_RC4_set_key                     @3294
+    private_RIPEMD160_Init                  @3291
+    private_SEED_set_key                    @4610
+    private_SHA1_Init                       @4608
+    private_SHA224_Init                     @4596
+    private_SHA256_Init                     @4613
+    private_SHA384_Init                     @4616
+    private_SHA512_Init                     @4600
+    private_SHA_Init                        @3289
+    private_WHIRLPOOL_Init                  @4598
     s2i_ASN1_INTEGER                        @1509
     s2i_ASN1_OCTET_STRING                   @1221
     sk_deep_copy                            @4769

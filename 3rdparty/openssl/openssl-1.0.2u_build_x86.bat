@@ -10,9 +10,9 @@ call ms\do_ms.bat
 nmake -f ms\nt.mak
 
 SET PLATFORM=Win32
-SET INSTALL_INCLUDE=%OPENSSL_SRC%\installed\%PLATFORM%\include\openssl\
-SET INSTALL_LIB=%OPENSSL_SRC%\installed\%PLATFORM%\lib\
-SET INSTALL_BIN=%OPENSSL_SRC%\installed\%PLATFORM%\bin\
+SET INSTALL_INCLUDE=%OPENSSL_SRC%\install\%PLATFORM%\include\openssl\
+SET INSTALL_LIB=%OPENSSL_SRC%\install\%PLATFORM%\lib\
+SET INSTALL_BIN=%OPENSSL_SRC%\install\%PLATFORM%\bin\
 rmdir /S/Q %INSTALL_INCLUDE%
 rmdir /S/Q %INSTALL_LIB%
 rmdir /S/Q %INSTALL_BIN%
