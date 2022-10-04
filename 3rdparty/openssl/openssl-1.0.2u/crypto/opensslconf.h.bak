@@ -38,9 +38,6 @@ extern "C" {
 #ifndef OPENSSL_NO_RFC3779
 # define OPENSSL_NO_RFC3779
 #endif
-#ifndef OPENSSL_NO_RSAX
-# define OPENSSL_NO_RSAX
-#endif
 #ifndef OPENSSL_NO_SCTP
 # define OPENSSL_NO_SCTP
 #endif
@@ -70,9 +67,6 @@ extern "C" {
 #endif
 #ifndef OPENSSL_NO_ASM
 # define OPENSSL_NO_ASM
-#endif
-#ifndef OPENSSL_FIPS
-# define OPENSSL_FIPS
 #endif
 
 /* The OPENSSL_NO_* macros are also defined as NO_* if the application
@@ -107,9 +101,6 @@ extern "C" {
 # if defined(OPENSSL_NO_RFC3779) && !defined(NO_RFC3779)
 #  define NO_RFC3779
 # endif
-# if defined(OPENSSL_NO_RSAX) && !defined(NO_RSAX)
-#  define NO_RSAX
-# endif
 # if defined(OPENSSL_NO_SCTP) && !defined(NO_SCTP)
 #  define NO_SCTP
 # endif
@@ -140,8 +131,8 @@ extern "C" {
 
 #if !(defined(VMS) || defined(__VMS)) /* VMS uses logical names instead */
 #if defined(HEADER_CRYPTLIB_H) && !defined(OPENSSLDIR)
-#define ENGINESDIR "D:\\__Github__\\Windows\\compile\\scripts\\openssl\\..\\..\\..\\3rdparty\\openssl\\openssl-1.0.2u/lib/engines"
-#define OPENSSLDIR "D:\\__Github__\\Windows\\compile\\scripts\\openssl\\..\\..\\..\\3rdparty\\openssl\\openssl-1.0.2u"
+#define ENGINESDIR "D:\\__Github__\\Windows\\compile\\scripts\\openssl\\..\\..\\..\\3rdparty\\openssl\\openssl-1.0.2u\\/lib/engines"
+#define OPENSSLDIR "D:\\__Github__\\Windows\\compile\\scripts\\openssl\\..\\..\\..\\3rdparty\\openssl\\openssl-1.0.2u\\"
 #endif
 #endif
 

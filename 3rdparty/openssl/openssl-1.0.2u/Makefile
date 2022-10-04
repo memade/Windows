@@ -13,8 +13,8 @@ SHLIB_MAJOR=1
 SHLIB_MINOR=0.0
 SHLIB_EXT=
 PLATFORM=VC-WIN32
-OPTIONS=fips --openssldir=D:\__Github__\Windows\compile\scripts\openssl\..\..\..\3rdparty\openssl\openssl-1.0.2u enable-threads enable-md2 enable-rc5 --with-fipsdir=D:\__Github__\Windows\compile\scripts\openssl\..\..\..\3rdparty\openssl\openssl-fips-2.0.16 no-asm no-ec2m no-ec_nistp_64_gcc_128 no-gmp no-idea no-jpake no-krb5 no-libunbound no-mdc2 no-rfc3779 no-rsax no-sctp no-shared no-ssl-trace no-ssl2 no-ssl3 no-store no-unit-test no-weak-ssl-ciphers no-zlib no-zlib-dynamic
-CONFIGURE_ARGS=VC-WIN32 fips --openssldir=D:\__Github__\Windows\compile\scripts\openssl\..\..\..\3rdparty\openssl\openssl-1.0.2u threads no-asm no-ssl2 no-ssl3 no-idea no-mdc2 no-ec2m no-shared enable-md2 enable-rc5 --with-fipsdir=D:\__Github__\Windows\compile\scripts\openssl\..\..\..\3rdparty\openssl\openssl-fips-2.0.16
+OPTIONS=--openssldir=D:\__Github__\Windows\compile\scripts\openssl\..\..\..\3rdparty\openssl\openssl-1.0.2u\ enable-threads enable-md2 enable-rc5 no-asm no-ec2m no-ec_nistp_64_gcc_128 no-gmp no-idea no-jpake no-krb5 no-libunbound no-mdc2 no-rfc3779 no-sctp no-shared no-ssl-trace no-ssl2 no-ssl3 no-store no-unit-test no-weak-ssl-ciphers no-zlib no-zlib-dynamic
+CONFIGURE_ARGS=VC-WIN32 --openssldir=D:\__Github__\Windows\compile\scripts\openssl\..\..\..\3rdparty\openssl\openssl-1.0.2u\ threads no-asm no-ssl2 no-ssl3 no-idea no-mdc2 no-ec2m no-shared enable-md2 enable-rc5
 SHLIB_TARGET=
 
 # HERE indicates where this Makefile lives.  This can be used to indicate
@@ -26,10 +26,10 @@ HERE=.
 # for, say, /usr/ and yet have everything installed to /tmp/somedir/usr/.
 # Normally it is left empty.
 INSTALL_PREFIX=
-INSTALLTOP=D:\__Github__\Windows\compile\scripts\openssl\..\..\..\3rdparty\openssl\openssl-1.0.2u
+INSTALLTOP=D:\__Github__\Windows\compile\scripts\openssl\..\..\..\3rdparty\openssl\openssl-1.0.2u\
 
 # Do not edit this manually. Use Configure --openssldir=DIR do change this!
-OPENSSLDIR=D:\__Github__\Windows\compile\scripts\openssl\..\..\..\3rdparty\openssl\openssl-1.0.2u
+OPENSSLDIR=D:\__Github__\Windows\compile\scripts\openssl\..\..\..\3rdparty\openssl\openssl-1.0.2u\
 
 # NO_IDEA - Define to build without the IDEA algorithm
 # NO_RC4  - Define to build without the RC4 algorithm
@@ -60,8 +60,8 @@ OPENSSLDIR=D:\__Github__\Windows\compile\scripts\openssl\..\..\..\3rdparty\opens
 # PKCS1_CHECK - pkcs1 tests.
 
 CC= cl
-CFLAG= -DOPENSSL_THREADS  -DDSO_WIN32 -W3  -Gs0 -GF -Gy -nologo -DOPENSSL_SYSNAME_WIN32 -DWIN32_LEAN_AND_MEAN -DL_ENDIAN -D_CRT_SECURE_NO_DEPRECATE -D_WINSOCK_DEPRECATED_NO_WARNINGS -I$(FIPSDIR)/include
-DEPFLAG= -DOPENSSL_NO_EC2M -DOPENSSL_NO_EC_NISTP_64_GCC_128 -DOPENSSL_NO_GMP -DOPENSSL_NO_IDEA -DOPENSSL_NO_JPAKE -DOPENSSL_NO_LIBUNBOUND -DOPENSSL_NO_MDC2 -DOPENSSL_NO_RFC3779 -DOPENSSL_NO_RSAX -DOPENSSL_NO_SCTP -DOPENSSL_NO_SSL_TRACE -DOPENSSL_NO_SSL2 -DOPENSSL_NO_SSL3 -DOPENSSL_NO_STORE -DOPENSSL_NO_UNIT_TEST -DOPENSSL_NO_WEAK_SSL_CIPHERS
+CFLAG= -DOPENSSL_THREADS  -DDSO_WIN32 -W3  -Gs0 -GF -Gy -nologo -DOPENSSL_SYSNAME_WIN32 -DWIN32_LEAN_AND_MEAN -DL_ENDIAN -D_CRT_SECURE_NO_DEPRECATE -D_WINSOCK_DEPRECATED_NO_WARNINGS
+DEPFLAG= -DOPENSSL_NO_EC2M -DOPENSSL_NO_EC_NISTP_64_GCC_128 -DOPENSSL_NO_GMP -DOPENSSL_NO_IDEA -DOPENSSL_NO_JPAKE -DOPENSSL_NO_LIBUNBOUND -DOPENSSL_NO_MDC2 -DOPENSSL_NO_RFC3779 -DOPENSSL_NO_SCTP -DOPENSSL_NO_SSL_TRACE -DOPENSSL_NO_SSL2 -DOPENSSL_NO_SSL3 -DOPENSSL_NO_STORE -DOPENSSL_NO_UNIT_TEST -DOPENSSL_NO_WEAK_SSL_CIPHERS
 PEX_LIBS= 
 EX_LIBS= 
 EXE_EXT= 
@@ -116,7 +116,7 @@ ZLIB_INCLUDE=
 LIBZLIB=
 
 # TOP level FIPS install directory.
-FIPSDIR=D:\__Github__\Windows\compile\scripts\openssl\..\..\..\3rdparty\openssl\openssl-fips-2.0.16
+FIPSDIR=/usr/local/ssl/fips-2.0
 
 # This is the location of fipscanister.o and friends.
 # The FIPS module build will place it $(INSTALLTOP)/lib
@@ -125,14 +125,14 @@ FIPSDIR=D:\__Github__\Windows\compile\scripts\openssl\..\..\..\3rdparty\openssl\
 # $(INSTALLTOP) for this build may be different so hard
 # code the path.
 
-FIPSLIBDIR=D:\__Github__\Windows\compile\scripts\openssl\..\..\..\3rdparty\openssl\openssl-fips-2.0.16/lib/
+FIPSLIBDIR=
 
 # The location of the library which contains fipscanister.o
 # normally it will be libcrypto unless fipsdso is set in which
 # case it will be libfips. If not compiling in FIPS mode at all
 # this is empty making it a useful test for a FIPS compile.
 
-FIPSCANLIB=libcrypto
+FIPSCANLIB=
 
 # Shared library base address. Currently only used on Windows.
 #

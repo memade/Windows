@@ -12,13 +12,13 @@
 # The one monster makefile better suits building in non-unix
 # environments.
 
-INSTALLTOP=D:\__Github__\Windows\compile\scripts\openssl\..\..\..\3rdparty\openssl\openssl-1.0.2u
-OPENSSLDIR=D:\__Github__\Windows\compile\scripts\openssl\..\..\..\3rdparty\openssl\openssl-1.0.2u
+INSTALLTOP=D:\__Github__\Windows\compile\scripts\openssl\..\..\..\3rdparty\openssl\openssl-1.0.2u\
+OPENSSLDIR=D:\__Github__\Windows\compile\scripts\openssl\..\..\..\3rdparty\openssl\openssl-1.0.2u\
 
 # Set your compiler options
 PLATFORM=VC-WIN32
 CC=cl
-CFLAG= /MD /Ox /O2 /Ob2 -DOPENSSL_THREADS  -DDSO_WIN32 -W3  -Gs0 -GF -Gy -nologo -DOPENSSL_SYSNAME_WIN32 -DWIN32_LEAN_AND_MEAN -DL_ENDIAN -D_CRT_SECURE_NO_DEPRECATE -D_WINSOCK_DEPRECATED_NO_WARNINGS -I$(FIPSDIR)/include -DOPENSSL_USE_APPLINK -I. -DOPENSSL_NO_IDEA -DOPENSSL_NO_MDC2 -DOPENSSL_NO_SSL2 -DOPENSSL_NO_SSL3 -DOPENSSL_NO_KRB5 -DOPENSSL_FIPS -DOPENSSL_NO_JPAKE -DOPENSSL_NO_EC2M -DOPENSSL_NO_WEAK_SSL_CIPHERS -DOPENSSL_NO_STATIC_ENGINE    
+CFLAG= /MD /Ox /O2 /Ob2 -DOPENSSL_THREADS  -DDSO_WIN32 -W3  -Gs0 -GF -Gy -nologo -DOPENSSL_SYSNAME_WIN32 -DWIN32_LEAN_AND_MEAN -DL_ENDIAN -D_CRT_SECURE_NO_DEPRECATE -D_WINSOCK_DEPRECATED_NO_WARNINGS -DOPENSSL_USE_APPLINK -I. -DOPENSSL_NO_IDEA -DOPENSSL_NO_MDC2 -DOPENSSL_NO_SSL2 -DOPENSSL_NO_SSL3 -DOPENSSL_NO_KRB5 -DOPENSSL_NO_JPAKE -DOPENSSL_NO_EC2M -DOPENSSL_NO_WEAK_SSL_CIPHERS -DOPENSSL_NO_STATIC_ENGINE    
 APP_CFLAG= /Zi /Fd$(TMP_D)/app
 LIB_CFLAG= /Zi /Fd$(TMP_D)/lib -D_WINDLL
 SHLIB_CFLAG=
@@ -50,13 +50,13 @@ RANLIB=
 MKDIR=$(PERL) util/mkdir-p.pl
 MKLIB=lib /nologo
 MLFLAGS= /nologo /subsystem:console /opt:ref /debug /dll
-ASM=nasm -f win32
+ASM=ml /nologo /Cp /coff /c /Cx /Zi
 
 # FIPS validated module and support file locations
 
 E_PREMAIN_DSO=fips_premain_dso
 
-FIPSDIR=D:\__Github__\Windows\compile\scripts\openssl\..\..\..\3rdparty\openssl\openssl-fips-2.0.16
+FIPSDIR=\usr\local\ssl\fips-2.0
 BASEADDR=0xFB00000
 FIPSLIB_D=$(FIPSDIR)\lib
 FIPS_PREMAIN_SRC=$(FIPSLIB_D)\fips_premain.c
@@ -1253,15 +1253,6 @@ $(OBJ_D)\srp.obj: $(SRC_D)\apps\srp.c
 
 $(OBJ_D)\openssl.obj: $(SRC_D)\apps\openssl.c
 	$(CC) /Fo$(OBJ_D)\openssl.obj -DMONOLITH $(APP_CFLAGS) -c $(SRC_D)\apps\openssl.c
-
-$(OBJ_D)\$(E_PREMAIN_DSO).obj: $(FIPS_PREMAIN_SRC)
-	$(CC) /Fo$(OBJ_D)\$(E_PREMAIN_DSO).obj -DFINGERPRINT_PREMAIN_DSO_LOAD $(APP_CFLAGS) -c $(FIPS_PREMAIN_SRC)
-
-$(PREMAIN_DSO_EXE): $(OBJ_D)\$(E_PREMAIN_DSO).obj $(CRYPTOOBJ) $(O_FIPSCANISTER)  $(OBJ_D)\applink.obj
-  $(LINK_CMD) $(LFLAGS) /out:$(PREMAIN_DSO_EXE) @<<
-	$(EX_LIBS) $(OBJ_D)\applink.obj $(OBJ_D)\$(E_PREMAIN_DSO).obj $(CRYPTOOBJ) $(O_FIPSCANISTER) $(EX_LIBS)
-<<
-	IF EXIST $@.manifest mt -nologo -manifest $@.manifest -outputresource:$@;1
 
 $(OBJ_D)\s2_meth.obj: $(SRC_D)\ssl\s2_meth.c
 	$(CC) /Fo$(OBJ_D)\s2_meth.obj  $(SHLIB_CFLAGS) -DOPENSSL_BUILD_SHLIBSSL -c $(SRC_D)\ssl\s2_meth.c
@@ -3588,16 +3579,9 @@ $(O_SSL): $(SSLOBJ)
 	IF EXIST $@.manifest mt -nologo -manifest $@.manifest -outputresource:$@;2
 
 
-$(O_CRYPTO): $(CRYPTOOBJ) $(O_FIPSCANISTER) $(PREMAIN_DSO_EXE)
-	SET FIPS_LINK=$(LINK_CMD)
-	SET FIPS_CC=$(CC)
-	SET FIPS_CC_ARGS=/Fo$(OBJ_D)\fips_premain.obj $(SHLIB_CFLAGS) -c
-	SET PREMAIN_DSO_EXE=$(PREMAIN_DSO_EXE)
-	SET FIPS_SHA1_EXE=$(FIPS_SHA1_EXE)
-	SET FIPS_TARGET=$(O_CRYPTO)
-	SET FIPSLIB_D=$(FIPSLIB_D)
-	$(FIPSLINK) $(MLFLAGS) /fixed /map  /base:$(BASEADDR) /out:$(O_CRYPTO) /def:ms/LIBEAY32.def @<<
-  $(SHLIB_EX_OBJ) $(CRYPTOOBJ) $(O_FIPSCANISTER) $(EX_LIBS) $(OBJ_D)\fips_premain.obj 
+$(O_CRYPTO): $(CRYPTOOBJ)
+	$(LINK_CMD) $(MLFLAGS) /out:$(O_CRYPTO) /def:ms/LIBEAY32.def @<<
+  $(SHLIB_EX_OBJ) $(CRYPTOOBJ)  $(EX_LIBS)
 <<
 	IF EXIST $@.manifest mt -nologo -manifest $@.manifest -outputresource:$@;2
 
