@@ -24,11 +24,11 @@
 *.lai
 *.la
 *.a
-*.lib
+#*.lib
 
 # Executables
 *.exe
 *.out
 *.app
 
-!librarys/
+#!librarys/
