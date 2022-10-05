@@ -17,38 +17,38 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-/*
- * JOHAB Hangul
- *
- * Ken Lunde writes in his "CJKV Information Processing" book, p. 114:
- * "Hangul can be composed of two or three jamo (some jamo are considered
- *  compound). Johab uses 19 initial jamo (consonants), 21 medial jamo (vowels)
- *  and 27 final jamo (consonants; 28 when you include the "fill" character
- *  for Hangul containing only two jamo). Multiplying these numbers results in
- *  11172."
- *
- * Structure of the Johab encoding (see p. 181-184):
- *   bit 15 = 1
- *   bit 14..10 = initial jamo, only 19+1 out of 32 possible values are used
- *   bit 9..5 = medial jamo, only 21+1 out of 32 possible values are used
- *   bit 4..0 = final jamo, only 27+1 out of 32 possible values are used
- * 
- * Structure of the Unicode encoding:
- * grep '^0x\([8-C]...\|D[0-7]..\)' unicode.org-mappings/EASTASIA/KSC/JOHAB.TXT
- * You see that all characters there are marked "HANGUL LETTER" or "HANGUL
- * SYLLABLE". If you eliminate the "HANGUL LETTER"s, the table is sorted
- * in ascending order according to Johab encoding and according to the Unicode
- * encoding. Now look a little more carefully, and you see that the following
- * formula holds:
- *     unicode == 0xAC00
- *                + 21 * 28 * (jamo_initial_index[(johab >> 10) & 31] - 1)
- *                + 28 * (jamo_medial_index[(johab >> 5) & 31] - 1)
- *                + jamo_final_index[johab & 31]
- * where the index tables are defined as below.
- */
+ /*
+  * JOHAB Hangul
+  *
+  * Ken Lunde writes in his "CJKV Information Processing" book, p. 114:
+  * "Hangul can be composed of two or three jamo (some jamo are considered
+  *  compound). Johab uses 19 initial jamo (consonants), 21 medial jamo (vowels)
+  *  and 27 final jamo (consonants; 28 when you include the "fill" character
+  *  for Hangul containing only two jamo). Multiplying these numbers results in
+  *  11172."
+  *
+  * Structure of the Johab encoding (see p. 181-184):
+  *   bit 15 = 1
+  *   bit 14..10 = initial jamo, only 19+1 out of 32 possible values are used
+  *   bit 9..5 = medial jamo, only 21+1 out of 32 possible values are used
+  *   bit 4..0 = final jamo, only 27+1 out of 32 possible values are used
+  *
+  * Structure of the Unicode encoding:
+  * grep '^0x\([8-C]...\|D[0-7]..\)' unicode.org-mappings/EASTASIA/KSC/JOHAB.TXT
+  * You see that all characters there are marked "HANGUL LETTER" or "HANGUL
+  * SYLLABLE". If you eliminate the "HANGUL LETTER"s, the table is sorted
+  * in ascending order according to Johab encoding and according to the Unicode
+  * encoding. Now look a little more carefully, and you see that the following
+  * formula holds:
+  *     unicode == 0xAC00
+  *                + 21 * 28 * (jamo_initial_index[(johab >> 10) & 31] - 1)
+  *                + 28 * (jamo_medial_index[(johab >> 5) & 31] - 1)
+  *                + jamo_final_index[johab & 31]
+  * where the index tables are defined as below.
+  */
 
-/* Tables mapping 5-bit groups to jamo letters. */
-/* Note that Jamo XX = UHC 0xA4A0+XX = Unicode 0x3130+XX */
+  /* Tables mapping 5-bit groups to jamo letters. */
+  /* Note that Jamo XX = UHC 0xA4A0+XX = Unicode 0x3130+XX */
 #define NONE 0xfd
 #define FILL 0xff
 static const unsigned char jamo_initial[32] = {
@@ -101,60 +101,63 @@ static const signed char jamo_final_index[32] = {
 };
 
 static int
-johab_hangul_mbtowc (conv_t conv, ucs4_t *pwc, const unsigned char *s, size_t n)
+johab_hangul_mbtowc(conv_t conv, ucs4_t* pwc, const unsigned char* s, size_t n)
 {
-  unsigned char c1 = s[0];
-  if ((c1 >= 0x84 && c1 <= 0xd3)) {
-    if (n >= 2) {
-      unsigned char c2 = s[1];
-      if ((c2 >= 0x41 && c2 < 0x7f) || (c2 >= 0x81 && c2 < 0xff)) {
-        unsigned int johab = (c1 << 8) | c2;
-        unsigned int bitspart1 = (johab >> 10) & 31;
-        unsigned int bitspart2 = (johab >> 5) & 31;
-        unsigned int bitspart3 = johab & 31;
-        int index1 = jamo_initial_index[bitspart1];
-        int index2 = jamo_medial_index[bitspart2];
-        int index3 = jamo_final_index[bitspart3];
-        /* Exclude "none" values. */
-        if (index1 >= 0 && index2 >= 0 && index3 >= 0) {
-          /* Deal with "fill" values in initial or medial position. */
-          if (index1 == fill) {
-            if (index2 == fill) {
-              unsigned char jamo3 = jamo_final_notinitial[bitspart3];
-              if (jamo3 != NONE) {
-                *pwc = (ucs4_t) 0x3130 + jamo3;
-                return 2;
-              }
-            } else if (index3 == fill) {
-              unsigned char jamo2 = jamo_medial[bitspart2];
-              if (jamo2 != NONE && jamo2 != FILL) {
-                *pwc = (ucs4_t) 0x3130 + jamo2;
-                return 2;
-              }
-            }
-            /* Syllables composed only of medial and final don't exist. */
-          } else if (index2 == fill) {
-            if (index3 == fill) {
-              unsigned char jamo1 = jamo_initial[bitspart1];
-              if (jamo1 != NONE && jamo1 != FILL) {
-                *pwc = (ucs4_t) 0x3130 + jamo1;
-                return 2;
-              }
-            }
-            /* Syllables composed only of initial and final don't exist. */
-          } else {
-             /* index1 and index2 are not fill, but index3 may be fill. */
-             /* Nothing more to exclude. All 11172 code points are valid. */
-             *pwc = 0xac00 + ((index1 - 1) * 21 + (index2 - 1)) * 28 + index3;
-             return 2;
-          }
-        }
+ unsigned char c1 = s[0];
+ if ((c1 >= 0x84 && c1 <= 0xd3)) {
+  if (n >= 2) {
+   unsigned char c2 = s[1];
+   if ((c2 >= 0x41 && c2 < 0x7f) || (c2 >= 0x81 && c2 < 0xff)) {
+    unsigned int johab = (c1 << 8) | c2;
+    unsigned int bitspart1 = (johab >> 10) & 31;
+    unsigned int bitspart2 = (johab >> 5) & 31;
+    unsigned int bitspart3 = johab & 31;
+    int index1 = jamo_initial_index[bitspart1];
+    int index2 = jamo_medial_index[bitspart2];
+    int index3 = jamo_final_index[bitspart3];
+    /* Exclude "none" values. */
+    if (index1 >= 0 && index2 >= 0 && index3 >= 0) {
+     /* Deal with "fill" values in initial or medial position. */
+     if (index1 == fill) {
+      if (index2 == fill) {
+       unsigned char jamo3 = jamo_final_notinitial[bitspart3];
+       if (jamo3 != NONE) {
+        *pwc = (ucs4_t)0x3130 + jamo3;
+        return 2;
+       }
       }
-      return RET_ILSEQ;
+      else if (index3 == fill) {
+       unsigned char jamo2 = jamo_medial[bitspart2];
+       if (jamo2 != NONE && jamo2 != FILL) {
+        *pwc = (ucs4_t)0x3130 + jamo2;
+        return 2;
+       }
+      }
+      /* Syllables composed only of medial and final don't exist. */
+     }
+     else if (index2 == fill) {
+      if (index3 == fill) {
+       unsigned char jamo1 = jamo_initial[bitspart1];
+       if (jamo1 != NONE && jamo1 != FILL) {
+        *pwc = (ucs4_t)0x3130 + jamo1;
+        return 2;
+       }
+      }
+      /* Syllables composed only of initial and final don't exist. */
+     }
+     else {
+      /* index1 and index2 are not fill, but index3 may be fill. */
+      /* Nothing more to exclude. All 11172 code points are valid. */
+      *pwc = 0xac00 + ((index1 - 1) * 21 + (index2 - 1)) * 28 + index3;
+      return 2;
+     }
     }
-    return RET_TOOFEW(0);
+   }
+   return RET_ILSEQ;
   }
-  return RET_ILSEQ;
+  return RET_TOOFEW(0);
+ }
+ return RET_ILSEQ;
 }
 
 /* 51 Jamo: 19 initial, 21 medial, 11 final not initial. */
@@ -194,65 +197,66 @@ static const char jamo_final_index_inverse[28] = {
 };
 
 static int
-johab_hangul_wctomb (conv_t conv, unsigned char *r, ucs4_t wc, size_t n)
+johab_hangul_wctomb(conv_t conv, unsigned char* r, ucs4_t wc, size_t n)
 {
-  if (n >= 2) {
-    if (wc >= 0x3131 && wc < 0x3164) {
-      unsigned short c = johab_hangul_page31[wc-0x3131];
-      r[0] = (c >> 8); r[1] = (c & 0xff);
-      return 2;
-    } else if (wc >= 0xac00 && wc < 0xd7a4) {
-      unsigned int index1;
-      unsigned int index2;
-      unsigned int index3;
-      unsigned short c;
-      unsigned int tmp = wc - 0xac00;
-      index3 = tmp % 28; tmp = tmp / 28;
-      index2 = tmp % 21; tmp = tmp / 21;
-      index1 = tmp;
-      c = (((((1 << 5)
-              | jamo_initial_index_inverse[index1]) << 5)
-            | jamo_medial_index_inverse[index2]) << 5)
-          | jamo_final_index_inverse[index3];
-      r[0] = (c >> 8); r[1] = (c & 0xff);
-      return 2;
-    }
-    return RET_ILUNI;
+ if (n >= 2) {
+  if (wc >= 0x3131 && wc < 0x3164) {
+   unsigned short c = johab_hangul_page31[wc - 0x3131];
+   r[0] = (c >> 8); r[1] = (c & 0xff);
+   return 2;
   }
-  return RET_TOOSMALL;
+  else if (wc >= 0xac00 && wc < 0xd7a4) {
+   unsigned int index1;
+   unsigned int index2;
+   unsigned int index3;
+   unsigned short c;
+   unsigned int tmp = wc - 0xac00;
+   index3 = tmp % 28; tmp = tmp / 28;
+   index2 = tmp % 21; tmp = tmp / 21;
+   index1 = tmp;
+   c = (((((1 << 5)
+    | jamo_initial_index_inverse[index1]) << 5)
+    | jamo_medial_index_inverse[index2]) << 5)
+    | jamo_final_index_inverse[index3];
+   r[0] = (c >> 8); r[1] = (c & 0xff);
+   return 2;
+  }
+  return RET_ILUNI;
+ }
+ return RET_TOOSMALL;
 }
 
 /*
  * Decomposition of JOHAB Hangul in one to three Johab Jamo elements.
  */
 
-/* Decompose wc into r[0..2], and return the number of resulting Jamo elements.
-   Return RET_ILUNI if decomposition is not possible. */
+ /* Decompose wc into r[0..2], and return the number of resulting Jamo elements.
+    Return RET_ILUNI if decomposition is not possible. */
 
-static int johab_hangul_decompose (conv_t conv, ucs4_t* r, ucs4_t wc)
+static int johab_hangul_decompose(conv_t conv, ucs4_t* r, ucs4_t wc)
 {
-  unsigned char buf[2];
-  int ret = johab_hangul_wctomb(conv,buf,wc,2);
-  if (ret != RET_ILUNI) {
-    unsigned int hangul = (buf[0] << 8) | buf[1];
-    unsigned char jamo1 = jamo_initial[(hangul >> 10) & 31];
-    unsigned char jamo2 = jamo_medial[(hangul >> 5) & 31];
-    unsigned char jamo3 = jamo_final[hangul & 31];
-    if ((hangul >> 15) != 1) abort();
-    if (jamo1 != NONE && jamo2 != NONE && jamo3 != NONE) {
-      /* They are not all three == FILL because that would correspond to
-         johab = 0x8441, which doesn't exist. */
-      ucs4_t* p = r;
-      if (jamo1 != FILL)
-        *p++ = 0x3130 + jamo1;
-      if (jamo2 != FILL)
-        *p++ = 0x3130 + jamo2;
-      if (jamo3 != FILL)
-        *p++ = 0x3130 + jamo3;
-      return p-r;
-    }
+ unsigned char buf[2];
+ int ret = johab_hangul_wctomb(conv, buf, wc, 2);
+ if (ret != RET_ILUNI) {
+  unsigned int hangul = (buf[0] << 8) | buf[1];
+  unsigned char jamo1 = jamo_initial[(hangul >> 10) & 31];
+  unsigned char jamo2 = jamo_medial[(hangul >> 5) & 31];
+  unsigned char jamo3 = jamo_final[hangul & 31];
+  if ((hangul >> 15) != 1) abort();
+  if (jamo1 != NONE && jamo2 != NONE && jamo3 != NONE) {
+   /* They are not all three == FILL because that would correspond to
+      johab = 0x8441, which doesn't exist. */
+   ucs4_t* p = r;
+   if (jamo1 != FILL)
+    *p++ = 0x3130 + jamo1;
+   if (jamo2 != FILL)
+    *p++ = 0x3130 + jamo2;
+   if (jamo3 != FILL)
+    *p++ = 0x3130 + jamo3;
+   return p - r;
   }
-  return RET_ILUNI;
+ }
+ return RET_ILUNI;
 }
 
 #undef fill

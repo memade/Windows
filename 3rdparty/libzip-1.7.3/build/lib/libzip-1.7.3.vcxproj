@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{DA7634E8-2776-31F3-957C-D51B70BB6C67}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>libzip-1.7.3</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>NotSet</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>NotSet</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>NotSet</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>NotSet</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)..\..\librarys\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)..\..\objs\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)..\..\librarys\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)..\..\objs\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectName)</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectName)</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.lib</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)..\..\librarys\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\..\objs\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)..\..\librarys\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\..\objs\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib;$(SolutionDir)..\..\3rdparty\libzip-1.7.3\build;$(SolutionDir)..\..\3rdparty\zlib-1.2.11;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib;$(SolutionDir)..\..\3rdparty\libzip-1.7.3\build;$(SolutionDir)..\..\3rdparty\zlib-1.2.11;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib;$(SolutionDir)..\..\3rdparty\libzip-1.7.3\build;$(SolutionDir)..\..\3rdparty\zlib-1.2.11;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib;$(SolutionDir)..\..\3rdparty\libzip-1.7.3\build;$(SolutionDir)..\..\3rdparty\zlib-1.2.11;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib;$(SolutionDir)..\..\3rdparty\libzip-1.7.3\build;$(SolutionDir)..\..\3rdparty\zlib-1.2.11;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib;$(SolutionDir)..\..\3rdparty\libzip-1.7.3\build;$(SolutionDir)..\..\3rdparty\zlib-1.2.11;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x86</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib;$(SolutionDir)..\..\3rdparty\libzip-1.7.3\build;$(SolutionDir)..\..\3rdparty\zlib-1.2.11;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib;$(SolutionDir)..\..\3rdparty\libzip-1.7.3\build;$(SolutionDir)..\..\3rdparty\zlib-1.2.11;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib;$(SolutionDir)..\..\3rdparty\libzip-1.7.3\build;$(SolutionDir)..\..\3rdparty\zlib-1.2.11;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib;$(SolutionDir)..\..\3rdparty\libzip-1.7.3\build;$(SolutionDir)..\..\3rdparty\zlib-1.2.11;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib;$(SolutionDir)..\..\3rdparty\libzip-1.7.3\build;$(SolutionDir)..\..\3rdparty\zlib-1.2.11;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib;$(SolutionDir)..\..\3rdparty\libzip-1.7.3\build;$(SolutionDir)..\..\3rdparty\zlib-1.2.11;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x86</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_add.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_add_dir.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_add_entry.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_algorithm_deflate.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_buffer.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_close.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_delete.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_dir_add.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_dirent.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_discard.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_entry.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_error.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_error_clear.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_error_get.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_error_get_sys_type.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_error_strerror.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_error_to_str.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_extra_field.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_extra_field_api.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_fclose.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_fdopen.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_file_add.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_file_error_clear.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_file_error_get.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_file_get_comment.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_file_get_external_attributes.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_file_get_offset.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_file_rename.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_file_replace.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_file_set_comment.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_file_set_encryption.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_file_set_external_attributes.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_file_set_mtime.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_file_strerror.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_fopen.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_fopen_encrypted.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_fopen_index.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_fopen_index_encrypted.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_fread.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_fseek.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_ftell.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_get_archive_comment.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_get_archive_flag.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_get_encryption_implementation.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_get_file_comment.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_get_name.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_get_num_entries.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_get_num_files.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_hash.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_io_util.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_libzip_version.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_memdup.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_name_locate.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_new.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_open.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_pkware.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_progress.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_rename.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_replace.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_set_archive_comment.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_set_archive_flag.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_set_default_password.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_set_file_comment.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_set_file_compression.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_set_name.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_accept_empty.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_begin_write.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_begin_write_cloning.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_buffer.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_call.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_close.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_commit_write.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_compress.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_crc.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_error.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_file_common.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_file_stdio.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_free.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_function.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_get_file_attributes.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_is_deleted.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_layered.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_open.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_pkware_decode.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_pkware_encode.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_read.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_remove.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_rollback_write.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_seek.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_seek_write.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_stat.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_supports.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_tell.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_tell_write.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_window.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_write.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_zip.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_zip_new.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_stat.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_stat_index.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_stat_init.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_strerror.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_string.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_unchange.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_unchange_all.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_unchange_archive.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_unchange_data.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_utf-8.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\build\zip_err_str.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_file_win32.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_file_win32_named.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_file_win32_utf16.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_file_win32_utf8.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_file_win32_ansi.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_random_win32.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_crypto_win.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_winzip_aes.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_winzip_aes_decode.c" />
+    <ClCompile Include="$(SolutionDir)..\..\3rdparty\libzip-1.7.3\lib\zip_source_winzip_aes_encode.c" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -19,9 +19,6 @@ our %config = (
         "/nologo"
     ],
     "AS" => "nasm",
-    "ASFLAGS" => [
-        "-g"
-    ],
     "CC" => "cl",
     "CFLAGS" => [
         "/W3 /wd4090 /nologo /O2"
@@ -48,10 +45,10 @@ our %config = (
     "RCFLAGS" => [],
     "afalgeng" => "",
     "api" => "30000",
-    "b32" => "0",
-    "b64" => "1",
+    "b32" => "1",
+    "b64" => "0",
     "b64l" => "0",
-    "bn_ll" => "0",
+    "bn_ll" => "1",
     "build_file" => "makefile",
     "build_file_templates" => [
         "Configurations\\common0.tmpl",
@@ -217,7 +214,7 @@ our %config = (
         "OPENSSL_NO_KTLS"
     ],
     "openssl_sys_defines" => [
-        "OPENSSL_SYS_WIN64A"
+        "OPENSSL_SYS_WIN32"
     ],
     "openssldir" => "",
     "options" => "enable-threads enable-md2 enable-rc5 --prefix=D:\\__Github__\\Windows\\compile\\scripts\\openssl\\..\\..\\..\\3rdparty\\openssl\\openssl-3.0.5\\\\install\\ no-acvp-tests no-afalgeng no-asan no-asm no-buildtest-c++ no-crypto-mdebug no-crypto-mdebug-backtrace no-devcryptoeng no-dynamic-engine no-ec2m no-ec_nistp_64_gcc_128 no-egd no-external-tests no-fips no-fips-securitychecks no-fuzz-afl no-fuzz-libfuzzer no-idea no-ktls no-loadereng no-mdc2 no-msan no-sctp no-shared no-ssl3 no-ssl3-method no-trace no-ubsan no-unit-test no-uplink no-weak-ssl-ciphers no-zlib no-zlib-dynamic",
@@ -226,7 +223,7 @@ our %config = (
     "perl_cmd" => "C:\\Strawberry\\perl\\bin\\perl.exe",
     "perl_version" => "5.32.1",
     "perlargv" => [
-        "VC-WIN64A",
+        "VC-WIN32",
         "threads",
         "no-asm",
         "no-ssl2",
@@ -282,14 +279,14 @@ our %config = (
     "release_date" => "5 Jul 2022",
     "shlib_version" => "3",
     "sourcedir" => ".",
-    "target" => "VC-WIN64A",
+    "target" => "VC-WIN32",
     "version" => "3.0.5"
 );
 our %target = (
     "AR" => "lib",
     "ARFLAGS" => "/nologo",
     "AS" => "nasm",
-    "ASFLAGS" => "-g",
+    "ASFLAGS" => "",
     "CC" => "cl",
     "CFLAGS" => "/W3 /wd4090 /nologo /O2",
     "CPP" => "\"\$(CC)\" /EP /C",
@@ -298,12 +295,11 @@ our %target = (
     "LDFLAGS" => "/nologo /debug",
     "MT" => "mt",
     "MTFLAGS" => "-nologo",
-    "RANLIB" => "CODE(0x26fcf18)",
+    "RANLIB" => "CODE(0x25dce08)",
     "RC" => "rc",
     "_conf_fname_int" => [
         "Configurations\\00-base-templates.conf",
         "Configurations\\00-base-templates.conf",
-        "Configurations\\10-main.conf",
         "Configurations\\10-main.conf",
         "Configurations\\10-main.conf",
         "Configurations\\10-main.conf",
@@ -312,17 +308,18 @@ our %target = (
     "ar_resp_delim" => "
 ",
     "aroutflag" => "/out:",
-    "asflags" => "-Ox -f win64 -DNEAR",
-    "asm_arch" => "x86_64",
+    "asflags" => "-f win32",
+    "asm_arch" => "x86",
     "asoutflag" => "-o ",
     "bin_cflags" => "/Zi /Fdapp.pdb /MT",
     "bin_lflags" => "setargv.obj /subsystem:console /opt:ref",
-    "bn_ops" => "SIXTY_FOUR_BIT",
+    "bn_ops" => "BN_LLONG",
     "build_file" => "makefile",
     "build_scheme" => [
         "unified",
         "windows",
-        "VC-common"
+        "VC-common",
+        "VC-WOW"
     ],
     "cflags" => "/Gs0 /GF /Gy",
     "coutflag" => "/Fo",
@@ -362,9 +359,8 @@ our %target = (
     "module_ldflags" => "/dll",
     "mtinflag" => "-manifest ",
     "mtoutflag" => "-outputresource:",
-    "multilib" => "-x64",
     "perl_platform" => "Windows::MSVC",
-    "perlasm_scheme" => "auto",
+    "perlasm_scheme" => "win32n",
     "rcoutflag" => "/fo",
     "shared_cflag" => "",
     "shared_defflag" => "",
@@ -372,12 +368,12 @@ our %target = (
     "shared_ldflag" => "/dll",
     "shared_rcflag" => "",
     "shared_target" => "win-shared",
-    "sys_id" => "WIN64A",
+    "sys_id" => "WIN32",
     "template" => "1",
     "thread_defines" => [],
     "thread_scheme" => "winthreads",
     "unistd" => "<unistd.h>",
-    "uplink_arch" => "x86_64"
+    "uplink_arch" => "common"
 );
 our @disablables = (
     "acvp-tests",

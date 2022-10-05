@@ -16,7 +16,7 @@ perl Configure VC-WIN64A threads no-asm no-ssl2 no-ssl3 no-idea no-mdc2 no-ec2m 
 nmake
 nmake install
 
-set INSTALL_INCLUDE=%ROOT%include\openssl\3.0.5\
+set INSTALL_INCLUDE=%ROOT%include\openssl\3.0.5\openssl\
 set INSTALL_LIB=%ROOT%librarys\openssl\3.0.5\%PLATFORM%\
 rmdir /S/Q %INSTALL_INCLUDE%
 rmdir /S/Q %INSTALL_LIB%

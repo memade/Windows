@@ -25,7 +25,7 @@ perl -pi".bak" -e "s/-WX//g" Makefile
 call %COMPILE_CALL%
 nmake -f %COMPILE_NMAKE%
 
-set INSTALL_INCLUDE=%ROOT%include\openssl\1.0.2u\
+set INSTALL_INCLUDE=%ROOT%include\openssl\1.0.2u\openssl\
 set INSTALL_LIB=%ROOT%librarys\openssl\1.0.2u\%PLATFORM%\
 rmdir /S/Q %INSTALL_INCLUDE%
 rmdir /S/Q %INSTALL_LIB%

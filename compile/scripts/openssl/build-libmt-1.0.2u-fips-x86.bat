@@ -38,7 +38,7 @@ call %COMPILE_OPENSSL_CALL%
 nmake -f %OPENSSL_SRC%\ms\nt.mak
 
 
-set INSTALL_INCLUDE=%ROOT%\..\include\openssl\1.0.2u-fips\
+set INSTALL_INCLUDE=%ROOT%\..\include\openssl\1.0.2u-fips\openssl\
 set INSTALL_LIB=%ROOT%\..\librarys\openssl\1.0.2u-fips\%PLATFORM%\
 
 xcopy %FIPSINSTALLDIR%\include\openssl\* %INSTALL_INCLUDE%* /O /X /E /H /K /Y /R /C /S

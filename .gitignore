@@ -12,9 +12,9 @@
 *.pch
 
 # Compiled Dynamic libraries
-*.so
+#*.so
 *.dylib
-*.dll
+#*.dll
 
 # Fortran module files
 *.mod
@@ -31,4 +31,8 @@
 *.out
 *.app
 
+*.pdb
+*.vcxproj.user
+objs/
+.vs/
 #!librarys/
