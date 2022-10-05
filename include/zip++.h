@@ -55,10 +55,10 @@ namespace shared {
 }///namespace shared
 
 
-#pragma comment(lib,"libzip")
-#pragma comment(lib,"libzippp")
-#pragma comment(lib,"zlibstatic")
-#pragma comment(lib,"zip++")
+#pragma comment(lib,"libzip-1.7.3.lib")
+#pragma comment(lib,"libzippp.lib")
+#pragma comment(lib,"zlib-1.2.11.lib")
+#pragma comment(lib,"zip++.lib")
 /// /*新生®（上海）**/
 /// /*2022_08_14T22:52:15.7271653Z**/
 /// /*_ _ _ _ _ _ _ www.skstu.com _ _ _ _ _ _ _**/
