@@ -36,3 +36,10 @@
 objs/
 .vs/
 #!librarys/
+
+#cef
+libcef_dll_wrapper.lib
+3rdparty/cef/cef_binary-107.0.3_chromium-107.0.5304.18_x64_beta/Debug
+3rdparty/cef/cef_binary-107.0.3_chromium-107.0.5304.18_x64_beta/Release
+3rdparty/cef/cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta/Debug
+3rdparty/cef/cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta/Release

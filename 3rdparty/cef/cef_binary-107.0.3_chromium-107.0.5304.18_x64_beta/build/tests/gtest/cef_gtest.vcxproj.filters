@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x64_beta\tests\gtest\src\gtest-all.cc">
+      <Filter>cef_gtest</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x64_beta\tests\gtest\teamcity\src\teamcity_gtest.cpp">
+      <Filter>cef_gtest</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x64_beta\tests\gtest\teamcity\src\teamcity_messages.cpp">
+      <Filter>cef_gtest</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x64_beta\tests\gtest\teamcity\include\teamcity_gtest.h">
+      <Filter>cef_gtest</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x64_beta\tests\gtest\teamcity\src\teamcity_messages.h">
+      <Filter>cef_gtest</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x64_beta\tests\gtest\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="cef_gtest">
+      <UniqueIdentifier>{4AB45CA2-8A89-3D27-85CD-213E486189DE}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ResolveNugetPackages>false</ResolveNugetPackages>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{FC69DE39-F69D-3853-AAEA-A9F6D5AF2944}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
+    <Platform>Win32</Platform>
+    <ProjectName>ZERO_CHECK</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\build\CMakeFiles\27df8c651f35bfb3b3f9cb31576d378d\generate.stamp.rule">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Checking Build System</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\bin\cmake.exe -SD:/__Github__/Windows/3rdparty/cef/cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta -BD:/__Github__/Windows/3rdparty/cef/cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/__Github__/Windows/3rdparty/cef/cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta/build/cef.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\CMakeLists.txt;D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\build\CMakeFiles\3.24.1\CMakeCCompiler.cmake;D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\build\CMakeFiles\3.24.1\CMakeCXXCompiler.cmake;D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\build\CMakeFiles\3.24.1\CMakeRCCompiler.cmake;D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\build\CMakeFiles\3.24.1\CMakeSystem.cmake;D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\cmake\FindCEF.cmake;D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\cmake\cef_macros.cmake;D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\cmake\cef_variables.cmake;D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\libcef_dll\CMakeLists.txt;D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\tests\cefclient\CMakeLists.txt;D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\tests\cefsimple\CMakeLists.txt;D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\tests\ceftests\CMakeLists.txt;D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\tests\gtest\CMakeLists.txt;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\CMakeCInformation.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\CMakeCXXInformation.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\CMakeCommonLanguageInclude.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\CMakeGenericSystem.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\CMakeInitializeConfigs.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\CMakeLanguageInformation.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\CMakeRCInformation.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\CMakeSystemSpecificInformation.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\CMakeSystemSpecificInitialize.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\Compiler\CMakeCommonCompilerMacros.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\Compiler\MSVC-C.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\Compiler\MSVC-CXX.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\Compiler\MSVC.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\FindDoxygen.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\FindPackageHandleStandardArgs.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\FindPackageMessage.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\Platform\Windows-MSVC-C.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\Platform\Windows-MSVC-CXX.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\Platform\Windows-MSVC.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\Platform\Windows.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\Platform\WindowsPaths.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\build\CMakeFiles\generate.stamp;D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\build\libcef_dll_wrapper\CMakeFiles\generate.stamp;D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\build\tests\cefsimple\CMakeFiles\generate.stamp;D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\build\tests\gtest\CMakeFiles\generate.stamp;D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\build\tests\ceftests\CMakeFiles\generate.stamp;D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\build\tests\cefclient\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Checking Build System</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\bin\cmake.exe -SD:/__Github__/Windows/3rdparty/cef/cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta -BD:/__Github__/Windows/3rdparty/cef/cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/__Github__/Windows/3rdparty/cef/cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta/build/cef.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\CMakeLists.txt;D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\build\CMakeFiles\3.24.1\CMakeCCompiler.cmake;D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\build\CMakeFiles\3.24.1\CMakeCXXCompiler.cmake;D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\build\CMakeFiles\3.24.1\CMakeRCCompiler.cmake;D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\build\CMakeFiles\3.24.1\CMakeSystem.cmake;D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\cmake\FindCEF.cmake;D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\cmake\cef_macros.cmake;D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\cmake\cef_variables.cmake;D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\libcef_dll\CMakeLists.txt;D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\tests\cefclient\CMakeLists.txt;D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\tests\cefsimple\CMakeLists.txt;D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\tests\ceftests\CMakeLists.txt;D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\tests\gtest\CMakeLists.txt;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\CMakeCInformation.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\CMakeCXXInformation.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\CMakeCommonLanguageInclude.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\CMakeGenericSystem.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\CMakeInitializeConfigs.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\CMakeLanguageInformation.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\CMakeRCInformation.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\CMakeSystemSpecificInformation.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\CMakeSystemSpecificInitialize.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\Compiler\CMakeCommonCompilerMacros.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\Compiler\MSVC-C.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\Compiler\MSVC-CXX.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\Compiler\MSVC.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\FindDoxygen.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\FindPackageHandleStandardArgs.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\FindPackageMessage.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\Platform\Windows-MSVC-C.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\Platform\Windows-MSVC-CXX.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\Platform\Windows-MSVC.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\Platform\Windows.cmake;D:\__SVN__\Memade\tools\cmake-3.24.1-windows-x86_64\share\cmake-3.24\Modules\Platform\WindowsPaths.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\build\CMakeFiles\generate.stamp;D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\build\libcef_dll_wrapper\CMakeFiles\generate.stamp;D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\build\tests\cefsimple\CMakeFiles\generate.stamp;D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\build\tests\gtest\CMakeFiles\generate.stamp;D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\build\tests\ceftests\CMakeFiles\generate.stamp;D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\build\tests\cefclient\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

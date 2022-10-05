@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\__Github__\Windows\3rdparty\cef\cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta\build\CMakeFiles\27df8c651f35bfb3b3f9cb31576d378d\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{50F32B5B-4282-36DD-85EA-FEAB46481978}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
