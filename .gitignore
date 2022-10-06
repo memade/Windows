@@ -36,8 +36,9 @@
 *.vcxproj.user
 objs/
 .vs/
+*.idb
 #!librarys/
-
+/bin/
 #cef
 libcef_dll_wrapper.lib
 3rdparty/cef/cef_binary-107.0.3_chromium-107.0.5304.18_x64_beta/Debug
