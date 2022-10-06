@@ -1,1 +1,0 @@
-%~dp0\UPX\upx-3.96-win32\upx.exe %~dp0\..\Project.Release\Project.DownTool\Release\downloader3_11_242.exe
