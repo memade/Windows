@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\win\encryption.cpp" />
     <ClCompile Include="..\..\..\src\win\file.cpp" />
     <ClCompile Include="..\..\..\src\win\GroupPolicy.cpp" />
     <ClCompile Include="..\..\..\src\win\hdd.cpp" />

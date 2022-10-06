@@ -109,9 +109,7 @@
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\librarys\$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
-      <Command>del /F /S /Q $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\help.txt.res.h
-call $(SolutionDir)..\..\bin\tools\x64\Release\encryption.exe 9 $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\help.txt $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\help.txt.res
-del /F /S /Q $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\help.txt.res</Command>
+      <Command>call $(SolutionDir)..\..\compile\scripts\tools\PreBuildEvent_developer_tool.bat</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -134,9 +132,7 @@ del /F /S /Q $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\help.txt.res
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\librarys\$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
-      <Command>del /F /S /Q $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\help.txt.res.h
-call $(SolutionDir)..\..\bin\tools\x64\Release\encryption.exe 9 $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\help.txt $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\help.txt.res
-del /F /S /Q $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\help.txt.res</Command>
+      <Command>call $(SolutionDir)..\..\compile\scripts\tools\PreBuildEvent_developer_tool.bat</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -155,9 +151,7 @@ del /F /S /Q $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\help.txt.res
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\librarys\$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
-      <Command>del /F /S /Q $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\help.txt.res.h
-call $(SolutionDir)..\..\bin\tools\x64\Release\encryption.exe 9 $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\help.txt $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\help.txt.res
-del /F /S /Q $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\help.txt.res</Command>
+      <Command>call $(SolutionDir)..\..\compile\scripts\tools\PreBuildEvent_developer_tool.bat</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -180,9 +174,7 @@ del /F /S /Q $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\help.txt.res
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\librarys\$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
-      <Command>del /F /S /Q $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\help.txt.res.h
-call $(SolutionDir)..\..\bin\tools\x64\Release\encryption.exe 9 $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\help.txt $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\help.txt.res
-del /F /S /Q $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\help.txt.res</Command>
+      <Command>call $(SolutionDir)..\..\compile\scripts\tools\PreBuildEvent_developer_tool.bat</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

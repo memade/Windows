@@ -79,10 +79,10 @@ namespace shared {
    }
    if (!head.shared[0]) {
     if (m_Shared.empty())
-     m_Shared = Win::MD5(std::string((char*)&head.time_create, sizeof(head.time_create)));// md5.Encode(std::string((char*)&head.time_create, sizeof(head.time_create)));
+     m_Shared = Win::Encryption::MD5(std::string((char*)&head.time_create, sizeof(head.time_create)));// md5.Encode(std::string((char*)&head.time_create, sizeof(head.time_create)));
     ::memcpy(head.shared, m_Shared.c_str(), __min(sizeof(head.shared), m_Shared.size()));
    }
-   m_Identify = Win::MD5(m_FilePathname);
+   m_Identify = Win::Encryption::MD5(m_FilePathname);
    if (head.size_total <= m_SystemInfo.dwAllocationGranularity)
     m_MappingFileSize = m_SystemInfo.dwAllocationGranularity;
    else

@@ -3112,47 +3112,6 @@ namespace shared {
  bool FileUpdateObj::operator!=(const FileUpdateObj& obj) const {
   return !(*this == obj);
  }
- bool Win::MD5(const std::string& input, std::string& output) {
-  bool result = false;
-  output.clear();
-  HCRYPTPROV hProv = NULL;
-  HCRYPTPROV hHash = NULL;
-  do {
-   if (::CryptAcquireContextA(&hProv, NULL, NULL, PROV_RSA_FULL, CRYPT_VERIFYCONTEXT) == FALSE)
-    break;
-   if (::CryptCreateHash(hProv, CALG_MD5, 0, 0, &hHash) == FALSE)
-    break;
-   if (::CryptHashData(hHash, (BYTE*)input.data(), static_cast<DWORD>(input.size()), NULL) == FALSE)
-    break;
-   DWORD dwHashLen = sizeof(DWORD);
-   if (::CryptGetHashParam(hHash, HP_HASHVAL, NULL, &dwHashLen, 0) == FALSE)
-    break;
-   output.resize(dwHashLen, 0x00);
-   if (::CryptGetHashParam(hHash, HP_HASHVAL, (BYTE*)&output[0], &dwHashLen, 0) == FALSE)
-    break;
-   result = true;
-  } while (0);
-  if (hHash) {
-   if (TRUE == ::CryptDestroyHash(hHash))
-    hHash = NULL;
-  }
-  if (hProv) {
-   if (TRUE == ::CryptReleaseContext(hProv, 0))
-    hProv = NULL;
-  }
-  return result;
- }
- std::string Win::MD5(const std::string& input, const bool& lower /*= true*/) {
-  std::string result;
-  do {
-   if (!MD5(input, result) || result.empty())
-    break;
-   result = shared::Win::BinToHex(result);
-   if (!lower)
-    result = IConv::ToUpperA(result);
-  } while (0);
-  return result;
- }
  bool Win::GetAssignUserSid(const std::string& user_name, std::string& outSid) {
   bool result = false;
   outSid.clear();

@@ -209,6 +209,14 @@ namespace shared {
  extern const std::map<EN_FILE_TYPE, std::vector<std::uint8_t>> MAP_FILE_SIGNATURES;
 
 
+ enum struct EnShellCodeFlag : DWORD {
+  EN_SC_UNDEFINED = 0x0,
+  EN_SC_CLEARHEADER = 0x1,
+  EN_SC_CLEARMEMORY = EN_SC_CLEARHEADER << 1,
+  EN_SC_OBFUSCATEIMPORTS = EN_SC_CLEARHEADER << 2,
+ };
+ static EnShellCodeFlag operator|(const EnShellCodeFlag&, const EnShellCodeFlag&);
+
  class Win final {
  public:
   Win() {}
@@ -643,6 +651,20 @@ namespace shared {
     * This is the default as used by MemoryLoadLibrary.
     */
    static void MemoryDefaultFreeLibrary(HCUSTOMMODULE, void*);
+  public:
+   static BOOL Is64BitDLL(UINT_PTR);
+   static DWORD HashFunctionName(LPCSTR);
+   static FARPROC GetProcAddressR(HMODULE, LPCSTR);
+   static DWORD GetFileContents(LPCSTR, LPSTR*, DWORD&);
+   static BOOL GenerateShellcode(const std::string&, const std::string&, const std::string&, const EnShellCodeFlag&, std::string&);
+   static BOOL GenerateShellcode(LPVOID, DWORD, DWORD, LPVOID, DWORD, const EnShellCodeFlag&, LPSTR&, DWORD&);
+  };
+  class Encryption final {
+  public:
+   static std::string MD5(const std::string&, const bool& lower = true);
+   static bool MD5(const std::string&, std::string&);
+   static std::string WemadeEncode(const std::string& strSrc);
+   static std::string WemadeDecode(const std::string& in);
   };
   class Process final {
   public:
@@ -891,8 +913,6 @@ namespace shared {
   //!@
   static bool ParseCommandLineParameters(const int& argc, char** argv, tfCommandLineNode& out);
   static bool ParseCommandLineParameters(const std::string& commandline, tfCommandLineNode& out);
-  static std::string MD5(const std::string&, const bool& lower = true);
-  static bool MD5(const std::string&, std::string&);
   static bool GetCurrentUserSid(std::string&);
   static std::string GetCurrentUserSid();
   static bool GetAssignUserSid(const std::string&, std::string&);

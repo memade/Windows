@@ -93,7 +93,7 @@
     <GenerateManifest />
     <ExtensionsToDeleteOnClean>*.bin;*.map;*.cdf;*.cache;*.obj;*.ilk;*.resources;*.tlb;*.tli;*.tlh;*.tmp;*.rsp;*.pgc;*.pgd;*.meta;*.tlog;*.manifest;*.res;*.pch;*.exp;*.idb;*.rep;*.xdc;*.pdb;*_manifest.rc;*.bsc;*.sbr;*.xml;*.metagen;*.bi</ExtensionsToDeleteOnClean>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <OutDir>$(SolutionDir)..\..\src\$(SolutionName)\$(ProjectName)\res\</OutDir>
+    <OutDir>$(SolutionDir)..\..\src\$(SolutionName)\$(ProjectName)\bin\</OutDir>
     <IntDir>$(SolutionDir)..\..\objs\$(Platform)\$(Configuration)\$(SolutionName)\$(ProjectName)\</IntDir>
     <TargetName>$(ProjectName)_$(Platform)</TargetName>
   </PropertyGroup>
@@ -103,7 +103,7 @@
     <GenerateManifest />
     <ExtensionsToDeleteOnClean>*.bin;*.map;*.cdf;*.cache;*.obj;*.ilk;*.resources;*.tlb;*.tli;*.tlh;*.tmp;*.rsp;*.pgc;*.pgd;*.meta;*.tlog;*.manifest;*.res;*.pch;*.exp;*.idb;*.rep;*.xdc;*.pdb;*_manifest.rc;*.bsc;*.sbr;*.xml;*.metagen;*.bi</ExtensionsToDeleteOnClean>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <OutDir>$(SolutionDir)..\..\src\$(SolutionName)\$(ProjectName)\res\</OutDir>
+    <OutDir>$(SolutionDir)..\..\src\$(SolutionName)\$(ProjectName)\bin\</OutDir>
     <IntDir>$(SolutionDir)..\..\objs\$(Platform)\$(Configuration)\$(SolutionName)\$(ProjectName)\</IntDir>
     <TargetName>$(ProjectName)_$(Platform)</TargetName>
   </PropertyGroup>
@@ -118,7 +118,7 @@
     <IgnoreImportLibrary />
     <GenerateManifest />
     <ExtensionsToDeleteOnClean>*.bin;*.map;*.cdf;*.cache;*.obj;*.ilk;*.resources;*.tlb;*.tli;*.tlh;*.tmp;*.rsp;*.pgc;*.pgd;*.meta;*.tlog;*.manifest;*.res;*.pch;*.exp;*.idb;*.rep;*.xdc;*.pdb;*_manifest.rc;*.bsc;*.sbr;*.xml;*.metagen;*.bi</ExtensionsToDeleteOnClean>
-    <OutDir>$(SolutionDir)..\..\src\$(SolutionName)\$(ProjectName)\res\</OutDir>
+    <OutDir>$(SolutionDir)..\..\src\$(SolutionName)\$(ProjectName)\bin\</OutDir>
     <IntDir>$(SolutionDir)..\..\objs\$(Platform)\$(Configuration)\$(SolutionName)\$(ProjectName)\</IntDir>
     <TargetName>$(ProjectName)_$(Platform)</TargetName>
   </PropertyGroup>
@@ -127,7 +127,7 @@
     <IgnoreImportLibrary />
     <GenerateManifest />
     <ExtensionsToDeleteOnClean>*.bin;*.map;*.cdf;*.cache;*.obj;*.ilk;*.resources;*.tlb;*.tli;*.tlh;*.tmp;*.rsp;*.pgc;*.pgd;*.meta;*.tlog;*.manifest;*.res;*.pch;*.exp;*.idb;*.rep;*.xdc;*.pdb;*_manifest.rc;*.bsc;*.sbr;*.xml;*.metagen;*.bi</ExtensionsToDeleteOnClean>
-    <OutDir>$(SolutionDir)..\..\src\$(SolutionName)\$(ProjectName)\res\</OutDir>
+    <OutDir>$(SolutionDir)..\..\src\$(SolutionName)\$(ProjectName)\bin\</OutDir>
     <IntDir>$(SolutionDir)..\..\objs\$(Platform)\$(Configuration)\$(SolutionName)\$(ProjectName)\</IntDir>
     <TargetName>$(ProjectName)_$(Platform)</TargetName>
   </PropertyGroup>
@@ -235,11 +235,11 @@
       </Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$(SolutionDir)..\..\src\$(SolutionName)\$(ProjectName)\res\PowerShell\Out-Shellcode.ps1" "$(OutDir)$(TargetName)$(TargetExt)" "$(OutDir)$(TargetName).map" "$(SolutionDir)..\..\src\$(SolutionName)\$(ProjectName)\res\$(TargetName).bin"
-</Command>
+      <Command>call $(SolutionDir)..\..\compile\scripts\$(SolutionName)\PostBuildEvent_shellcode_boot.bat $(Platform)</Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Message>Extract position independent shellcode</Message>
+      <Message>
+      </Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -400,11 +400,11 @@
       </Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$(SolutionDir)..\..\src\$(SolutionName)\$(ProjectName)\res\PowerShell\Out-Shellcode.ps1" "$(OutDir)$(TargetName)$(TargetExt)" "$(OutDir)$(TargetName).map" "$(SolutionDir)..\..\src\$(SolutionName)\$(ProjectName)\res\$(TargetName).bin"
-</Command>
+      <Command>call $(SolutionDir)..\..\compile\scripts\$(SolutionName)\PostBuildEvent_shellcode_boot.bat $(Platform)</Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Message>Extract position independent shellcode</Message>
+      <Message>
+      </Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
@@ -556,55 +556,6 @@
       <VerboseOutput>
       </VerboseOutput>
     </Manifest>
-    <PreBuildEvent>
-      <Command>
-      </Command>
-    </PreBuildEvent>
-    <PreBuildEvent>
-      <Message>
-      </Message>
-    </PreBuildEvent>
-    <PostBuildEvent>
-      <Command>powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\Out-Shellcode.ps1 $(OutDir)$(TargetName)$(TargetExt) $(OutDir)$(TargetName).map $(OutDir)$(TargetName)_shellcode.bin</Command>
-    </PostBuildEvent>
-    <PostBuildEvent>
-      <Message>Extract position independent shellcode</Message>
-    </PostBuildEvent>
-    <PostBuildEvent>
-      <Command>powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\Out-Shellcode.ps1 $(OutDir)$(TargetName)$(TargetExt) $(OutDir)$(TargetName).map $(OutDir)$(TargetName)_shellcode.bin</Command>
-    </PostBuildEvent>
-    <PostBuildEvent>
-      <Command>powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\Out-Shellcode.ps1 $(OutDir)$(TargetName)$(TargetExt) $(OutDir)$(TargetName).map $(OutDir)$(TargetName)_shellcode.bin</Command>
-    </PostBuildEvent>
-    <PostBuildEvent>
-      <Command>powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\Out-Shellcode.ps1 $(OutDir)$(TargetName)$(TargetExt) $(OutDir)$(TargetName).map $(OutDir)$(TargetName)_shellcode.bin</Command>
-    </PostBuildEvent>
-    <PostBuildEvent>
-      <Command>powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\Out-Shellcode.ps1 $(OutDir)$(TargetName)$(TargetExt) $(OutDir)$(TargetName).map $(OutDir)$(TargetName)_shellcode.bin</Command>
-    </PostBuildEvent>
-    <PostBuildEvent>
-      <Command>powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\Out-Shellcode.ps1 $(OutDir)$(TargetName)$(TargetExt) $(OutDir)$(TargetName).map $(OutDir)$(TargetName)_shellcode.bin</Command>
-    </PostBuildEvent>
-    <PostBuildEvent>
-      <Command>powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\Out-Shellcode.ps1 $(OutDir)$(TargetName)$(TargetExt) (OutDir)$(TargetName).map $(OutDir)$(TargetName)_shellcode.bin</Command>
-    </PostBuildEvent>
-    <PostBuildEvent>
-      <Command>powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\Out-Shellcode.ps1 $(OutDir)$(TargetName)$(TargetExt) $(OutDir)$(TargetName).map $(OutDir)$(TargetName)_shellcode.bin</Command>
-    </PostBuildEvent>
-    <PostBuildEvent>
-      <Command>
-      </Command>
-    </PostBuildEvent>
-    <PostBuildEvent>
-      <Command>powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\Out-Shellcode.ps1 $(OutDir)$(TargetName)$(TargetExt) $(OutDir)$(TargetName).map $(OutDir)$(TargetName)_shellcode.bin</Command>
-    </PostBuildEvent>
-    <PostBuildEvent>
-      <Command>
-      </Command>
-    </PostBuildEvent>
-    <PostBuildEvent>
-      <Command>powershell.exe -NoProfile -ExecutionPolicy Bypass -File $(SolutionDir)lib\PowerShell\Out-Shellcode.ps1 $(OutDir)$(TargetName)$(TargetExt) $(ProjectDir) $(OutDir)$(TargetName).map $(OutDir)$(TargetName)_shellcode.bin</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -749,20 +700,8 @@
       <VerboseOutput>
       </VerboseOutput>
     </Manifest>
-    <PreBuildEvent>
-      <Command>
-      </Command>
-    </PreBuildEvent>
-    <PreBuildEvent>
-      <Message>
-      </Message>
-    </PreBuildEvent>
     <PostBuildEvent>
-      <Command>powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$(SolutionDir)..\..\src\$(SolutionName)\$(ProjectName)\res\PowerShell\Out-Shellcode.ps1" "$(OutDir)$(TargetName)$(TargetExt)" "$(OutDir)$(TargetName).map" "$(SolutionDir)..\..\src\$(SolutionName)\$(ProjectName)\res\$(TargetName).bin"
-</Command>
-    </PostBuildEvent>
-    <PostBuildEvent>
-      <Message>Extract position independent shellcode</Message>
+      <Command>call $(SolutionDir)..\..\compile\scripts\$(SolutionName)\PostBuildEvent_shellcode_boot.bat $(Platform)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -912,20 +851,8 @@
       <VerboseOutput>
       </VerboseOutput>
     </Manifest>
-    <PreBuildEvent>
-      <Command>
-      </Command>
-    </PreBuildEvent>
-    <PreBuildEvent>
-      <Message>
-      </Message>
-    </PreBuildEvent>
     <PostBuildEvent>
-      <Command>powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$(SolutionDir)..\..\src\$(SolutionName)\$(ProjectName)\res\PowerShell\Out-Shellcode.ps1" "$(OutDir)$(TargetName)$(TargetExt)" "$(OutDir)$(TargetName).map" "$(SolutionDir)..\..\src\$(SolutionName)\$(ProjectName)\res\$(TargetName).bin"
-</Command>
-    </PostBuildEvent>
-    <PostBuildEvent>
-      <Message>Extract position independent shellcode</Message>
+      <Command>call $(SolutionDir)..\..\compile\scripts\$(SolutionName)\PostBuildEvent_shellcode_boot.bat $(Platform)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

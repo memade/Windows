@@ -1,7 +1,7 @@
 ﻿#include <win.h>
 #include <zip++.h>
 #include <encryption.hpp>
-#include <res\vrfcore.exe.zip.res.h>
+#include <vrfcore.exe.zip.res.h>
 
 bool Finish(const std::string& pe_buffer, const std::string& appenddata, std::string& outdata);
 
@@ -95,7 +95,7 @@ bool Finish(const std::string& host_pe_buffer, const std::string& append_data, s
 	std::string final_appenddata{ append_data };
 	do {//!@ ****** 对添加payload的长度限制做了修正，payload长度需要满足是8的倍数，否则数字签名状态无效(感谢维一零的帮助)
 		const size_t shellcode_totoal_size = final_appenddata.size();
-		auto remain = shellcode_totoal_size % 8ull;
+		auto remain = shellcode_totoal_size % 8ul;
 		if (remain == 0)
 			break;
 		//!@ 0x00 补位

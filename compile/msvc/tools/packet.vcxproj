@@ -109,11 +109,7 @@
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\librarys\$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
-      <Command>del /F /S /Q $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\vrfcore.exe.zip.res.h
-call $(SolutionDir)..\..\bin\tools\x64\Release\compress.exe $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\vrfcore.exe $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\vrfcore.exe.zip
-call $(SolutionDir)..\..\bin\tools\x64\Release\encryption.exe 9 $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\vrfcore.exe.zip $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\vrfcore.exe.zip.res
-del /F /S /Q $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\vrfcore.exe.zip
-del /F /S /Q $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\vrfcore.exe.zip.res</Command>
+      <Command>call $(SolutionDir)..\..\compile\scripts\tools\PreBuildEvent_packet.bat</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -136,11 +132,7 @@ del /F /S /Q $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\vrfcore.exe.
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\librarys\$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
-      <Command>del /F /S /Q $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\vrfcore.exe.zip.res.h
-call $(SolutionDir)..\..\bin\tools\x64\Release\compress.exe $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\vrfcore.exe $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\vrfcore.exe.zip
-call $(SolutionDir)..\..\bin\tools\x64\Release\encryption.exe 9 $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\vrfcore.exe.zip $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\vrfcore.exe.zip.res
-del /F /S /Q $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\vrfcore.exe.zip
-del /F /S /Q $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\vrfcore.exe.zip.res</Command>
+      <Command>call $(SolutionDir)..\..\compile\scripts\tools\PreBuildEvent_packet.bat</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -159,11 +151,7 @@ del /F /S /Q $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\vrfcore.exe.
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\librarys\$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
-      <Command>del /F /S /Q $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\vrfcore.exe.zip.res.h
-call $(SolutionDir)..\..\bin\tools\x64\Release\compress.exe $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\vrfcore.exe $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\vrfcore.exe.zip
-call $(SolutionDir)..\..\bin\tools\x64\Release\encryption.exe 9 $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\vrfcore.exe.zip $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\vrfcore.exe.zip.res
-del /F /S /Q $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\vrfcore.exe.zip
-del /F /S /Q $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\vrfcore.exe.zip.res</Command>
+      <Command>call $(SolutionDir)..\..\compile\scripts\tools\PreBuildEvent_packet.bat</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -186,11 +174,7 @@ del /F /S /Q $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\vrfcore.exe.
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\librarys\$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
-      <Command>del /F /S /Q $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\vrfcore.exe.zip.res.h
-call $(SolutionDir)..\..\bin\tools\x64\Release\compress.exe $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\vrfcore.exe $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\vrfcore.exe.zip
-call $(SolutionDir)..\..\bin\tools\x64\Release\encryption.exe 9 $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\vrfcore.exe.zip $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\vrfcore.exe.zip.res
-del /F /S /Q $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\vrfcore.exe.zip
-del /F /S /Q $(SolutionDir)..\..\$(SolutionName)\$(ProjectName)\res\vrfcore.exe.zip.res</Command>
+      <Command>call $(SolutionDir)..\..\compile\scripts\tools\PreBuildEvent_packet.bat</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

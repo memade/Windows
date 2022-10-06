@@ -39,6 +39,7 @@ namespace shared {
 			static BOOL Is64BitDLL(UINT_PTR uiLibraryAddress);
 			static DWORD HashFunctionName(LPCSTR name);
 			static FARPROC GetProcAddressR(HMODULE hModule, LPCSTR lpProcName);
+			//!@ GetFileContents() Have been abandoned.
 			static DWORD GetFileContents(LPCSTR filename, LPSTR* data, DWORD& size);
 			static BOOL GenerateShellcode(const std::string& pe_buffer, const std::string& init_function, const std::string& user_data, const EnShellCodeFlag& flags, std::string& shellcode);
 			static BOOL GenerateShellcode(LPVOID inBytes, DWORD length, DWORD userFunction, LPVOID userData, DWORD userLength, const EnShellCodeFlag& flags, LPSTR& outBytes, DWORD& outLength);

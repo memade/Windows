@@ -10,6 +10,10 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cppshellcode", "tools\cppshellcode.vcxproj", "{50D8EDD9-DEE5-4A2B-90C2-473630E702DE}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "packet", "tools\packet.vcxproj", "{C73FA9AD-C84F-48E8-86CC-33CDF1AC3B27}"
+	ProjectSection(ProjectDependencies) = postProject
+		{22450052-31A1-4BCD-8469-A1D0391DAF14} = {22450052-31A1-4BCD-8469-A1D0391DAF14}
+		{AAD29BF0-4426-4D2F-9B33-474273811945} = {AAD29BF0-4426-4D2F-9B33-474273811945}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "update", "tools\update.vcxproj", "{435EB69D-A5E6-446C-932D-84FF382F9803}"
 EndProject
@@ -18,8 +22,16 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "encode", "tools\encode.vcxproj", "{A2DFD9E5-927F-4858-85CF-CEC76B6EFA66}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "developer_tool", "tools\developer_tool.vcxproj", "{76389990-C714-4D54-AD84-B11D64E655EE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{22450052-31A1-4BCD-8469-A1D0391DAF14} = {22450052-31A1-4BCD-8469-A1D0391DAF14}
+		{AAD29BF0-4426-4D2F-9B33-474273811945} = {AAD29BF0-4426-4D2F-9B33-474273811945}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "shellcode_boot", "tools\shellcode_boot.vcxproj", "{6FC09BDB-365F-4691-BBD9-CB7F69C9527A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{22450052-31A1-4BCD-8469-A1D0391DAF14} = {22450052-31A1-4BCD-8469-A1D0391DAF14}
+		{AAD29BF0-4426-4D2F-9B33-474273811945} = {AAD29BF0-4426-4D2F-9B33-474273811945}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -94,9 +106,7 @@ Global
 		{76389990-C714-4D54-AD84-B11D64E655EE}.Release|x86.ActiveCfg = Release|Win32
 		{76389990-C714-4D54-AD84-B11D64E655EE}.Release|x86.Build.0 = Release|Win32
 		{6FC09BDB-365F-4691-BBD9-CB7F69C9527A}.Debug|x64.ActiveCfg = Debug|x64
-		{6FC09BDB-365F-4691-BBD9-CB7F69C9527A}.Debug|x64.Build.0 = Debug|x64
 		{6FC09BDB-365F-4691-BBD9-CB7F69C9527A}.Debug|x86.ActiveCfg = Debug|Win32
-		{6FC09BDB-365F-4691-BBD9-CB7F69C9527A}.Debug|x86.Build.0 = Debug|Win32
 		{6FC09BDB-365F-4691-BBD9-CB7F69C9527A}.Release|x64.ActiveCfg = Release|x64
 		{6FC09BDB-365F-4691-BBD9-CB7F69C9527A}.Release|x64.Build.0 = Release|x64
 		{6FC09BDB-365F-4691-BBD9-CB7F69C9527A}.Release|x86.ActiveCfg = Release|Win32

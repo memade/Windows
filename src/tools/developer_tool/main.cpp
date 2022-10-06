@@ -1,5 +1,4 @@
 ﻿#include <win.h>
-#include <spdlog.h>
 #include <encryption.hpp>
 #include <res\help.txt.res.h>
 
