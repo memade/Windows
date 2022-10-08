@@ -156,7 +156,11 @@
    could be already defined by configure but it must be included after defining
    the compiler macros above as msvc/wx/setup.h relies on them under Windows.
  */
+#if defined(__WINDOWS__)
+#include "msvc/wx/setup.h"
+#elif defined(__UNIX__) || defined(__UNIX_LIKE__)
 #include "wx/setup.h"
+#endif
 
 /*
    Convenience for any optional classes that use the wxAnyButton base class.

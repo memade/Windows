@@ -28,11 +28,11 @@
 #include "wx/button.h"
 
 #ifndef __WINDOWS__
-    #error "This sample is Windows-only"
+#error "This sample is Windows-only"
 #endif
 
 #ifdef WXUSINGDLL
-    #error "This sample doesn't work with DLL build of wxWidgets"
+#error "This sample doesn't work with DLL build of wxWidgets"
 #endif
 
 // ----------------------------------------------------------------------------
@@ -69,42 +69,42 @@ public:
 // ----------------------------------------------------------------------------
 
 wxBEGIN_EVENT_TABLE(MainFrame, wxFrame)
-    EVT_BUTTON(ID_RUN_DLL, MainFrame::OnRunDLL)
+EVT_BUTTON(ID_RUN_DLL, MainFrame::OnRunDLL)
 wxEND_EVENT_TABLE()
 
 MainFrame::MainFrame()
     : wxFrame(NULL, wxID_ANY, "Main wx app",
-              wxDefaultPosition, wxSize(400, 300))
+        wxDefaultPosition, wxSize(400, 300))
 {
-    wxPanel *p = new wxPanel(this, wxID_ANY);
-    wxSizer *sizer = new wxBoxSizer(wxVERTICAL);
+    wxPanel* p = new wxPanel(this, wxID_ANY);
+    wxSizer* sizer = new wxBoxSizer(wxVERTICAL);
 
     sizer->Add
-           (
-               new wxStaticText
-                   (
-                       p, wxID_ANY,
-                       wxString::Format
-                       (
-                           "Main wxApp instance is %p (%s),\n"
-                           "thread ID %ld.\n",
-                           wxApp::GetInstance(),
-                           wxVERSION_STRING,
-                           wxThread::GetCurrentId()
-                       )
-                   ),
-               wxSizerFlags(1).Expand().Border(wxALL, 10)
-           );
+    (
+        new wxStaticText
+        (
+            p, wxID_ANY,
+            wxString::Format
+            (
+                "Main wxApp instance is %p (%s),\n"
+                "thread ID %ld.\n",
+                wxApp::GetInstance(),
+                wxVERSION_STRING,
+                wxThread::GetCurrentId()
+            )
+        ),
+        wxSizerFlags(1).Expand().Border(wxALL, 10)
+    );
 
     sizer->Add
-           (
-               new wxButton(p, ID_RUN_DLL, "Run GUI from DLL"),
-               wxSizerFlags(0).Right().Border(wxALL, 10)
-           );
+    (
+        new wxButton(p, ID_RUN_DLL, "Run GUI from DLL"),
+        wxSizerFlags(0).Right().Border(wxALL, 10)
+    );
 
     p->SetSizerAndFit(sizer);
 
-    wxSizer *fsizer = new wxBoxSizer(wxVERTICAL);
+    wxSizer* fsizer = new wxBoxSizer(wxVERTICAL);
     fsizer->Add(p, wxSizerFlags(1).Expand());
     SetSizerAndFit(fsizer);
 }
@@ -121,10 +121,10 @@ void MainFrame::OnRunDLL(wxCommandEvent& WXUNUSED(event))
 
 bool MainApp::OnInit()
 {
-    if ( !wxApp::OnInit() )
+    if (!wxApp::OnInit())
         return false;
 
-    wxFrame *f = new MainFrame();
+    wxFrame* f = new MainFrame();
     f->Show(true);
 
     return true;
