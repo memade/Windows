@@ -173,6 +173,12 @@ namespace shared {
     const wxPoint& pos = wxDefaultPosition,
     const wxSize& size = wxSize(1024, 768),
     long style = wxDEFAULT_FRAME_STYLE | wxSUNKEN_BORDER);
+   IwxMDIParentFrame(wxWindow* parent = nullptr,
+    const wxWindowID& id = wxID_ANY,
+    const wxString& title = L"",
+    const wxPoint& pos = wxDefaultPosition,
+    const wxSize& size = wxSize(1024, 768),
+    long style = wxDEFAULT_FRAME_STYLE | wxSUNKEN_BORDER);
    virtual ~IwxMDIParentFrame();
   protected:
    bool Parse() override final;
@@ -185,8 +191,9 @@ namespace shared {
    static IwxApp* Create(const std::string& buffer, const SkinDataType& dataType, const EncodingType& encodingType);
    bool Ready() const;
    void Destory();
-  private:
+  protected:
    IwxApp(const std::string& config_buffer, const SkinDataType& dataType = SkinDataType::XML, const EncodingType& encodingType = EncodingType::UTF8);
+   IwxApp();
    virtual ~IwxApp();
   private:
    bool Parse();
@@ -211,7 +218,7 @@ namespace shared {
 
 
 
-#pragma comment(lib,"wxskin")
+#pragma comment(lib,"wxskin.lib")
 /// /*新生®（上海）**/
 /// /*2022_08_17T12:26:46.8845292Z**/
 /// /*_ _ _ _ _ _ _ www.skstu.com _ _ _ _ _ _ _**/
