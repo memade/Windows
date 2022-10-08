@@ -19,8 +19,8 @@ int main(int argc, char** argv) {
  pReqObj->RequestUrl(R"(https://cn.bing.com/)");
  pReqObj->FinishCb(
   [&](const libcurlpp::IResponse* resObj) {
-  
-  
+
+
    auto sk = 0;
   });
 
