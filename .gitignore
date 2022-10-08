@@ -32,11 +32,11 @@
 *.out
 *.app
 
+*.idb
 *.pdb
 *.vcxproj.user
 objs/
 .vs/
-*.idb
 #!librarys/
 /bin/
 #cef
