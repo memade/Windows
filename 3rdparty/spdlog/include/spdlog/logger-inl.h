@@ -4,7 +4,7 @@
 #pragma once
 
 #ifndef SPDLOG_HEADER_ONLY
-#    include <spdlog/logger.h>
+#include <spdlog/logger.h>
 #endif
 
 #include <spdlog/sinks/sink.h>
@@ -185,7 +185,7 @@ SPDLOG_INLINE void logger::sink_it_(const details::log_msg &msg)
             {
                 sink->log(msg);
             }
-            SPDLOG_LOGGER_CATCH(msg.source)
+            SPDLOG_LOGGER_CATCH()
         }
     }
 
@@ -203,7 +203,7 @@ SPDLOG_INLINE void logger::flush_()
         {
             sink->flush();
         }
-        SPDLOG_LOGGER_CATCH(source_loc())
+        SPDLOG_LOGGER_CATCH()
     }
 }
 
@@ -220,6 +220,16 @@ SPDLOG_INLINE void logger::dump_backtrace_()
 
 SPDLOG_INLINE bool logger::should_flush_(const details::log_msg &msg)
 {
+#if SPDLOG_ENABLE_EXTEND
+    if (m_output_cb)
+    {
+        LogRouteData route;
+        route.level = msg.level;
+        route.time = msg.time;
+        route.text.append(msg.payload.data(),msg.payload.size());
+        m_output_cb(route);
+    }
+#endif
     auto flush_level = flush_level_.load(std::memory_order_relaxed);
     return (msg.level >= flush_level) && (msg.level != level::off);
 }

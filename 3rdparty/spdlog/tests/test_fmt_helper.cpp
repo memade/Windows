@@ -1,39 +1,35 @@
 
 #include "includes.h"
+#include "spdlog/details/fmt_helper.h"
 
 using spdlog::memory_buf_t;
-using spdlog::details::fmt_helper::to_string_view;
 
 void test_pad2(int n, const char *expected)
 {
     memory_buf_t buf;
     spdlog::details::fmt_helper::pad2(n, buf);
-
-    REQUIRE(to_string_view(buf) == expected);
+    REQUIRE(fmt::to_string(buf) == expected);
 }
 
 void test_pad3(uint32_t n, const char *expected)
 {
     memory_buf_t buf;
     spdlog::details::fmt_helper::pad3(n, buf);
-
-    REQUIRE(to_string_view(buf) == expected);
+    REQUIRE(fmt::to_string(buf) == expected);
 }
 
 void test_pad6(std::size_t n, const char *expected)
 {
     memory_buf_t buf;
     spdlog::details::fmt_helper::pad6(n, buf);
-
-    REQUIRE(to_string_view(buf) == expected);
+    REQUIRE(fmt::to_string(buf) == expected);
 }
 
 void test_pad9(std::size_t n, const char *expected)
 {
     memory_buf_t buf;
     spdlog::details::fmt_helper::pad9(n, buf);
-
-    REQUIRE(to_string_view(buf) == expected);
+    REQUIRE(fmt::to_string(buf) == expected);
 }
 
 TEST_CASE("pad2", "[fmt_helper]")

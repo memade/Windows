@@ -9,7 +9,6 @@
 // This class is thread safe
 
 #include <spdlog/common.h>
-#include <spdlog/details/periodic_worker.h>
 
 #include <chrono>
 #include <functional>
@@ -23,6 +22,7 @@ class logger;
 
 namespace details {
 class thread_pool;
+class periodic_worker;
 
 class SPDLOG_API registry
 {
@@ -61,15 +61,9 @@ public:
 
     void flush_on(level::level_enum log_level);
 
-    template<typename Rep, typename Period>
-    void flush_every(std::chrono::duration<Rep, Period> interval)
-    {
-        std::lock_guard<std::mutex> lock(flusher_mutex_);
-        auto clbk = [this]() { this->flush_all(); };
-        periodic_flusher_ = details::make_unique<periodic_worker>(clbk, interval);
-    }
+    void flush_every(std::chrono::seconds interval);
 
-    void set_error_handler(err_handler handler);
+    void set_error_handler(void (*handler)(const std::string &msg));
 
     void apply_all(const std::function<void(const std::shared_ptr<logger>)> &fun);
 
@@ -105,7 +99,7 @@ private:
     std::unique_ptr<formatter> formatter_;
     spdlog::level::level_enum global_log_level_ = level::info;
     level::level_enum flush_level_ = level::off;
-    err_handler err_handler_;
+    void (*err_handler_)(const std::string &msg) = nullptr;
     std::shared_ptr<thread_pool> tp_;
     std::unique_ptr<periodic_worker> periodic_flusher_;
     std::shared_ptr<logger> default_logger_;
@@ -117,5 +111,5 @@ private:
 } // namespace spdlog
 
 #ifdef SPDLOG_HEADER_ONLY
-#    include "registry-inl.h"
+#include "registry-inl.h"
 #endif

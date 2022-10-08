@@ -1,12 +1,12 @@
 # spdlog
 
-Very fast, header-only/compiled, C++ logging library. [![Build Status](https://app.travis-ci.com/gabime/spdlog.svg?branch=v1.x)](https://app.travis-ci.com/gabime/spdlog)&nbsp; [![Build status](https://ci.appveyor.com/api/projects/status/d2jnxclg20vd0o50?svg=true&branch=v1.x)](https://ci.appveyor.com/project/gabime/spdlog) [![Release](https://img.shields.io/github/release/gabime/spdlog.svg)](https://github.com/gabime/spdlog/releases/latest)
+Very fast, header-only/compiled, C++ logging library. [![Build Status](https://travis-ci.org/gabime/spdlog.svg?branch=v1.x)](https://travis-ci.org/gabime/spdlog)&nbsp; [![Build status](https://ci.appveyor.com/api/projects/status/d2jnxclg20vd0o50?svg=true)](https://ci.appveyor.com/project/gabime/spdlog) [![Release](https://img.shields.io/github/release/gabime/spdlog.svg)](https://github.com/gabime/spdlog/releases/latest)
 
 ## Install 
 #### Header only version
-Copy the include [folder](https://github.com/gabime/spdlog/tree/v1.x/include/spdlog) to your build tree and use a C++11 compiler.
+Copy the source [folder](https://github.com/gabime/spdlog/tree/v1.x/include/spdlog) to your build tree and use a C++11 compiler.
 
-#### Compiled version (recommended - much faster compile times)
+#### Static lib version (recommended - much faster compile times)
 ```console
 $ git clone https://github.com/gabime/spdlog.git
 $ cd spdlog && mkdir build && cd build
@@ -22,18 +22,17 @@ $ cmake .. && make -j
  * Android
 
 ## Package managers:
-* Debian: `sudo apt install libspdlog-dev`
 * Homebrew: `brew install spdlog`
 * MacPorts: `sudo port install spdlog`
-* FreeBSD:  `pkg install spdlog`
+* FreeBSD:  `cd /usr/ports/devel/spdlog/ && make install clean`
 * Fedora: `dnf install spdlog`
 * Gentoo: `emerge dev-libs/spdlog`
 * Arch Linux: `pacman -S spdlog`
-* openSUSE: `sudo zypper in spdlog-devel`
 * vcpkg: `vcpkg install spdlog`
 * conan: `spdlog/[>=1.4.1]`
 * conda: `conda install -c conda-forge spdlog`
 * build2: ```depends: spdlog ^1.8.2```
+
 
 
 ## Features
@@ -144,9 +143,8 @@ void daily_example()
 ---
 #### Backtrace support
 ```c++
-// Debug messages can be stored in a ring buffer instead of being logged immediately.
-// This is useful in order to display debug logs only when really needed (e.g. when error happens).
-// When needed, call dump_backtrace() to see them.
+// Loggers can store in a ring buffer all messages (including debug/trace) and display later on demand.
+// When needed, call dump_backtrace() to see them
 
 spdlog::enable_backtrace(32); // Store the latest 32 messages in a buffer. Older messages will be dropped.
 // or my_logger->enable_backtrace(32)..
@@ -372,35 +370,6 @@ So then you can:
 ```console
 $ export SPDLOG_LEVEL=info,mylogger=trace
 $ ./example
-```
-
-
----
-#### Log file open/close event handlers
-```c++
-// You can get callbacks from spdlog before/after log file has been opened or closed. 
-// This is useful for cleanup procedures or for adding someting the start/end of the log files.
-void file_events_example()
-{
-    // pass the spdlog::file_event_handlers to file sinks for open/close log file notifications
-    spdlog::file_event_handlers handlers;
-    handlers.before_open = [](spdlog::filename_t filename) { spdlog::info("Before opening {}", filename); };
-    handlers.after_open = [](spdlog::filename_t filename, std::FILE *fstream) { fputs("After opening\n", fstream); };
-    handlers.before_close = [](spdlog::filename_t filename, std::FILE *fstream) { fputs("Before closing\n", fstream); };
-    handlers.after_close = [](spdlog::filename_t filename) { spdlog::info("After closing {}", filename); };
-    auto my_logger = spdlog::basic_logger_st("some_logger", "logs/events-sample.txt", true, handlers);        
-}
-```
-
----
-#### Replace the Default Logger
-```c++
-void replace_default_logger_example()
-{
-    auto new_logger = spdlog::basic_logger_mt("new_default_logger", "logs/new-default-log.txt", true);
-    spdlog::set_default_logger(new_logger);
-    spdlog::info("new logger log message");
-}
 ```
 
 ---

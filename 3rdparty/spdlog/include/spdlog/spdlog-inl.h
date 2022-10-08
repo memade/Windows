@@ -4,7 +4,7 @@
 #pragma once
 
 #ifndef SPDLOG_HEADER_ONLY
-#    include <spdlog/spdlog.h>
+#include <spdlog/spdlog.h>
 #endif
 
 #include <spdlog/common.h>
@@ -65,6 +65,11 @@ SPDLOG_INLINE void set_level(level::level_enum log_level)
 SPDLOG_INLINE void flush_on(level::level_enum log_level)
 {
     details::registry::instance().flush_on(log_level);
+}
+
+SPDLOG_INLINE void flush_every(std::chrono::seconds interval)
+{
+    details::registry::instance().flush_every(interval);
 }
 
 SPDLOG_INLINE void set_error_handler(void (*handler)(const std::string &msg))
