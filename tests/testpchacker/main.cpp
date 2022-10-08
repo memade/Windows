@@ -6,6 +6,11 @@ int main(int argc, char** argv) {
  //::_CrtSetBreakAlloc(3869);
 #endif
 
+ auto pLogger = shared::ISpdlog::CreateInterface(
+  shared::Win::GetModuleNameA(),
+  shared::Win::GetModulePathA() + "\\logs\\");
+ pLogger->LOG(L"begin.", shared::EnLogType::EN_LOG_TYPE_SYSTEM);
+
  pchacker::IPCHacker* pPCHackerObj = \
   pchacker::IPCHacker::CreateInterface(\
    (shared::Win::GetModulePathA() + "pchacker.dll").c_str());
@@ -42,6 +47,8 @@ int main(int argc, char** argv) {
      continue;
     if (cmds[0] == "q") {
      pchacker::IPCHacker::DestoryInterface(pPCHackerObj);
+
+     shared::ISpdlog::DestoryInterface(pLogger);
      break;
     }
     else if (cmds[0] == "test") {

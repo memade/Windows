@@ -2,6 +2,7 @@
 #define INC_H___7ECE0210_53E1_4385_AC3F_F06667341152__HEAD__
 
 #include <win.h>
+#include <spdlog.hpp>
 #include <bit7z.h>
 #include <projects/libcurlpp/libcurlpp.hpp>
 #include <projects/pchacker/pchacker.hpp>

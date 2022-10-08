@@ -60,7 +60,7 @@ struct daily_filename_calculator
             std::reverse(logname.begin(), logname.end());
         }
         char path[_MAX_PATH] = {0};
-        sprintf_s(path, "%s%04d-%02d-%02d/%s%s", filefullpath.c_str(), now_tm.tm_year + 1900, now_tm.tm_mon + 1, now_tm.tm_mday,
+        sprintf_s(path, "%s/%04d-%02d-%02d/%s%s", filefullpath.c_str(), now_tm.tm_year + 1900, now_tm.tm_mon + 1, now_tm.tm_mday,
             logname.c_str(), ext.c_str());
         return path;
     }

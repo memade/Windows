@@ -14,6 +14,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pchacker", "..\..\projects\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testpchacker", "..\..\tests\testpchacker\testpchacker.vcxproj", "{720F002C-D354-468A-8832-67673DCD370E}"
 	ProjectSection(ProjectDependencies) = postProject
+		{14DE33CC-4204-4565-9069-CC92445ACA34} = {14DE33CC-4204-4565-9069-CC92445ACA34}
 		{C18CAFC6-03BE-4855-9C92-4CD92BED75B9} = {C18CAFC6-03BE-4855-9C92-4CD92BED75B9}
 	EndProjectSection
 EndProject
@@ -26,6 +27,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3rdparty", "3rdparty", "{418A6839-6B14-4789-93F5-93977723E2E1}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libdui", "..\..\3rdparty\duilib\duilib.vcxproj", "{604863C3-EE26-416E-8DCE-6869133D5C07}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "spdlog", "shared\spdlog.vcxproj", "{14DE33CC-4204-4565-9069-CC92445ACA34}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,6 +86,14 @@ Global
 		{604863C3-EE26-416E-8DCE-6869133D5C07}.Release|x64.Build.0 = Release|x64
 		{604863C3-EE26-416E-8DCE-6869133D5C07}.Release|x86.ActiveCfg = Release|Win32
 		{604863C3-EE26-416E-8DCE-6869133D5C07}.Release|x86.Build.0 = Release|Win32
+		{14DE33CC-4204-4565-9069-CC92445ACA34}.Debug|x64.ActiveCfg = Debug|x64
+		{14DE33CC-4204-4565-9069-CC92445ACA34}.Debug|x64.Build.0 = Debug|x64
+		{14DE33CC-4204-4565-9069-CC92445ACA34}.Debug|x86.ActiveCfg = Debug|Win32
+		{14DE33CC-4204-4565-9069-CC92445ACA34}.Debug|x86.Build.0 = Debug|Win32
+		{14DE33CC-4204-4565-9069-CC92445ACA34}.Release|x64.ActiveCfg = Release|x64
+		{14DE33CC-4204-4565-9069-CC92445ACA34}.Release|x64.Build.0 = Release|x64
+		{14DE33CC-4204-4565-9069-CC92445ACA34}.Release|x86.ActiveCfg = Release|Win32
+		{14DE33CC-4204-4565-9069-CC92445ACA34}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -91,6 +102,7 @@ Global
 		{14CB4F04-0C16-45AD-BCB2-9FF49AA880D0} = {458DFE1A-92E0-4CDC-A0D1-722161531299}
 		{F7F7F777-140F-41B2-8CB9-9C0A09F6B56B} = {458DFE1A-92E0-4CDC-A0D1-722161531299}
 		{604863C3-EE26-416E-8DCE-6869133D5C07} = {418A6839-6B14-4789-93F5-93977723E2E1}
+		{14DE33CC-4204-4565-9069-CC92445ACA34} = {458DFE1A-92E0-4CDC-A0D1-722161531299}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A19FFB18-4358-49C9-8481-B254AF170A10}
