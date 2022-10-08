@@ -26,10 +26,7 @@ int main(int argc, char** argv) {
 
  pHttpObj->PerformM({ pReqObj });
 
-
-
  pPCHackerObj->UICreate(pchacker::UIType::WXUI_MAIN, true);
-
 
  std::thread maint(
   [&]() {
