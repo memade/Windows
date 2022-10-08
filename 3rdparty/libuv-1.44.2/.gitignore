@@ -37,7 +37,7 @@ vgcore.*
 Makefile
 Makefile.in
 
-/build/
+#/build/
 
 /test/.libs/
 /test/run-tests
@@ -48,12 +48,12 @@ Makefile.in
 /test/run-benchmarks.dSYM
 test_file_*
 
-*.sln
+#*.sln
 *.sln.cache
 *.ncb
-*.vcproj
+#*.vcproj
 *.vcproj*.user
-*.vcxproj
+#*.vcxproj
 *.vcxproj.filters
 *.vcxproj.user
 _UpgradeReport_Files/
