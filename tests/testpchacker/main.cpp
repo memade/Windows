@@ -6,6 +6,23 @@ int main(int argc, char** argv) {
  //::_CrtSetBreakAlloc(3869);
 #endif
 
+
+ uv::EventLoop* loop = uv::EventLoop::DefaultLoop();
+
+ uv::TcpServer server(loop);
+ server.setMessageCallback([](uv::TcpConnectionPtr ptr, const char* data, ssize_t size)
+  {
+   ptr->write(data, size, nullptr);
+  });
+ //server.setTimeout(60); //heartbeat timeout.
+
+ uv::SocketAddr addr("0.0.0.0", 10005, uv::SocketAddr::Ipv4);
+ server.bindAndListen(addr);
+ loop->run();
+
+
+
+
  auto pLogger = shared::ISpdlog::CreateInterface(
   shared::Win::GetModuleNameA(),
   shared::Win::GetModulePathA() + "\\logs\\");

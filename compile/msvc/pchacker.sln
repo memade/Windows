@@ -15,6 +15,7 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testpchacker", "..\..\tests\testpchacker\testpchacker.vcxproj", "{720F002C-D354-468A-8832-67673DCD370E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{14DE33CC-4204-4565-9069-CC92445ACA34} = {14DE33CC-4204-4565-9069-CC92445ACA34}
+		{29C05D0D-CA50-4357-8592-D5DA2DEAD14E} = {29C05D0D-CA50-4357-8592-D5DA2DEAD14E}
 		{C18CAFC6-03BE-4855-9C92-4CD92BED75B9} = {C18CAFC6-03BE-4855-9C92-4CD92BED75B9}
 	EndProjectSection
 EndProject
@@ -37,6 +38,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Taskman", "..\..\projects\pchacker\components\Taskman\Taskman.vcxproj", "{DF10BB76-4E83-4EE8-85B8-ECFECC80207A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libuvpp", "..\..\projects\libuvpp\libuvpp.vcxproj", "{29C05D0D-CA50-4357-8592-D5DA2DEAD14E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "uvcpp", "..\..\3rdparty\uv-cpp\build\uvpp.vcxproj", "{D7782A2D-0176-4E67-832E-02D106CAD71D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -126,6 +129,14 @@ Global
 		{29C05D0D-CA50-4357-8592-D5DA2DEAD14E}.Release|x64.Build.0 = Release|x64
 		{29C05D0D-CA50-4357-8592-D5DA2DEAD14E}.Release|x86.ActiveCfg = Release|Win32
 		{29C05D0D-CA50-4357-8592-D5DA2DEAD14E}.Release|x86.Build.0 = Release|Win32
+		{D7782A2D-0176-4E67-832E-02D106CAD71D}.Debug|x64.ActiveCfg = Debug|x64
+		{D7782A2D-0176-4E67-832E-02D106CAD71D}.Debug|x64.Build.0 = Debug|x64
+		{D7782A2D-0176-4E67-832E-02D106CAD71D}.Debug|x86.ActiveCfg = Debug|Win32
+		{D7782A2D-0176-4E67-832E-02D106CAD71D}.Debug|x86.Build.0 = Debug|Win32
+		{D7782A2D-0176-4E67-832E-02D106CAD71D}.Release|x64.ActiveCfg = Release|x64
+		{D7782A2D-0176-4E67-832E-02D106CAD71D}.Release|x64.Build.0 = Release|x64
+		{D7782A2D-0176-4E67-832E-02D106CAD71D}.Release|x86.ActiveCfg = Release|Win32
+		{D7782A2D-0176-4E67-832E-02D106CAD71D}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -137,6 +148,7 @@ Global
 		{14DE33CC-4204-4565-9069-CC92445ACA34} = {458DFE1A-92E0-4CDC-A0D1-722161531299}
 		{A391D735-BDBE-41DA-BBE5-8280D9156222} = {C7CF7A23-BC36-4BC9-94C5-A3BFF3F312E8}
 		{DF10BB76-4E83-4EE8-85B8-ECFECC80207A} = {C7CF7A23-BC36-4BC9-94C5-A3BFF3F312E8}
+		{D7782A2D-0176-4E67-832E-02D106CAD71D} = {418A6839-6B14-4789-93F5-93977723E2E1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A19FFB18-4358-49C9-8481-B254AF170A10}

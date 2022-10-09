@@ -112,7 +112,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\;$(SolutionDir)..\..\include\;$(SolutionDir)..\..\3rdparty\;$(SolutionDir)..\..\3rdparty\spdlog\include\;$(SolutionDir)..\..\3rdparty\bit7z\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\;$(SolutionDir)..\..\include\;$(SolutionDir)..\..\3rdparty\;$(SolutionDir)..\..\3rdparty\spdlog\include\;$(SolutionDir)..\..\3rdparty\bit7z\include\;$(SolutionDir)..\..\3rdparty\uv-cpp\uv\include\;$(SolutionDir)..\..\3rdparty\libuv-1.44.2\include\</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -142,7 +142,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\;$(SolutionDir)..\..\include\;$(SolutionDir)..\..\3rdparty\;$(SolutionDir)..\..\3rdparty\spdlog\include\;$(SolutionDir)..\..\3rdparty\bit7z\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\;$(SolutionDir)..\..\include\;$(SolutionDir)..\..\3rdparty\;$(SolutionDir)..\..\3rdparty\spdlog\include\;$(SolutionDir)..\..\3rdparty\bit7z\include\;$(SolutionDir)..\..\3rdparty\uv-cpp\uv\include\;$(SolutionDir)..\..\3rdparty\libuv-1.44.2\include\</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <Optimization>Full</Optimization>
@@ -174,7 +174,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\;$(SolutionDir)..\..\include\;$(SolutionDir)..\..\3rdparty\;$(SolutionDir)..\..\3rdparty\spdlog\include\;$(SolutionDir)..\..\3rdparty\bit7z\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\;$(SolutionDir)..\..\include\;$(SolutionDir)..\..\3rdparty\;$(SolutionDir)..\..\3rdparty\spdlog\include\;$(SolutionDir)..\..\3rdparty\bit7z\include\;$(SolutionDir)..\..\3rdparty\uv-cpp\uv\include\;$(SolutionDir)..\..\3rdparty\libuv-1.44.2\include\</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <Optimization>Disabled</Optimization>
@@ -202,7 +202,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\;$(SolutionDir)..\..\include\;$(SolutionDir)..\..\3rdparty\;$(SolutionDir)..\..\3rdparty\spdlog\include\;$(SolutionDir)..\..\3rdparty\bit7z\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\;$(SolutionDir)..\..\include\;$(SolutionDir)..\..\3rdparty\;$(SolutionDir)..\..\3rdparty\spdlog\include\;$(SolutionDir)..\..\3rdparty\bit7z\include\;$(SolutionDir)..\..\3rdparty\uv-cpp\uv\include\;$(SolutionDir)..\..\3rdparty\libuv-1.44.2\include\</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <Optimization>Full</Optimization>
