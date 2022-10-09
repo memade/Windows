@@ -1,4 +1,0 @@
-D:/__Github__/Windows/3rdparty/libuv-1.44.2/build/CMakeFiles/uv_a.dir
-D:/__Github__/Windows/3rdparty/libuv-1.44.2/build/CMakeFiles/INSTALL.dir
-D:/__Github__/Windows/3rdparty/libuv-1.44.2/build/CMakeFiles/ALL_BUILD.dir
-D:/__Github__/Windows/3rdparty/libuv-1.44.2/build/CMakeFiles/ZERO_CHECK.dir
