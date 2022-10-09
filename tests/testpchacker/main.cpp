@@ -9,7 +9,7 @@ int main(int argc, char** argv) {
  auto pLogger = shared::ISpdlog::CreateInterface(
   shared::Win::GetModuleNameA(),
   shared::Win::GetModulePathA() + "\\logs\\");
- pLogger->LOG(shared::ISpdlog::FORMAT("{}//{}//{}//{:.2f}//","哈哈哈",666,999ul,0.3456), shared::EnLogType::EN_LOG_TYPE_SYSTEM);
+ pLogger->LOG(shared::ISpdlog::FORMAT("{}//{}//{}//{:.2f}//", "哈哈哈", 666, 999ul, 0.3456), shared::EnLogType::EN_LOG_TYPE_SYSTEM);
 
  pchacker::IPCHacker* pPCHackerObj = \
   pchacker::IPCHacker::CreateInterface(\

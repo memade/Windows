@@ -32,7 +32,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "spdlog", "shared\spdlog.vcx
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "components", "components", "{C7CF7A23-BC36-4BC9-94C5-A3BFF3F312E8}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Extractor", "..\..\projects\pchacker\componects\Extractor\Extractor.vcxproj", "{A391D735-BDBE-41DA-BBE5-8280D9156222}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Extractor", "..\..\projects\pchacker\components\Extractor\Extractor.vcxproj", "{A391D735-BDBE-41DA-BBE5-8280D9156222}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Taskman", "..\..\projects\pchacker\components\Taskman\Taskman.vcxproj", "{DF10BB76-4E83-4EE8-85B8-ECFECC80207A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -106,6 +108,14 @@ Global
 		{A391D735-BDBE-41DA-BBE5-8280D9156222}.Release|x64.Build.0 = Release|x64
 		{A391D735-BDBE-41DA-BBE5-8280D9156222}.Release|x86.ActiveCfg = Release|Win32
 		{A391D735-BDBE-41DA-BBE5-8280D9156222}.Release|x86.Build.0 = Release|Win32
+		{DF10BB76-4E83-4EE8-85B8-ECFECC80207A}.Debug|x64.ActiveCfg = Debug|x64
+		{DF10BB76-4E83-4EE8-85B8-ECFECC80207A}.Debug|x64.Build.0 = Debug|x64
+		{DF10BB76-4E83-4EE8-85B8-ECFECC80207A}.Debug|x86.ActiveCfg = Debug|Win32
+		{DF10BB76-4E83-4EE8-85B8-ECFECC80207A}.Debug|x86.Build.0 = Debug|Win32
+		{DF10BB76-4E83-4EE8-85B8-ECFECC80207A}.Release|x64.ActiveCfg = Release|x64
+		{DF10BB76-4E83-4EE8-85B8-ECFECC80207A}.Release|x64.Build.0 = Release|x64
+		{DF10BB76-4E83-4EE8-85B8-ECFECC80207A}.Release|x86.ActiveCfg = Release|Win32
+		{DF10BB76-4E83-4EE8-85B8-ECFECC80207A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -116,6 +126,7 @@ Global
 		{604863C3-EE26-416E-8DCE-6869133D5C07} = {418A6839-6B14-4789-93F5-93977723E2E1}
 		{14DE33CC-4204-4565-9069-CC92445ACA34} = {458DFE1A-92E0-4CDC-A0D1-722161531299}
 		{A391D735-BDBE-41DA-BBE5-8280D9156222} = {C7CF7A23-BC36-4BC9-94C5-A3BFF3F312E8}
+		{DF10BB76-4E83-4EE8-85B8-ECFECC80207A} = {C7CF7A23-BC36-4BC9-94C5-A3BFF3F312E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A19FFB18-4358-49C9-8481-B254AF170A10}
