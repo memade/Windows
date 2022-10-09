@@ -4,6 +4,3 @@
 [submodule "projects/pchacker"]
 	path = projects/pchacker
 	url = git@github.com:memade/pchacker.git
-[submodule "libuvpp"]
-	path = libuvpp
-	url = git@github.com:memade/libuvpp.git
