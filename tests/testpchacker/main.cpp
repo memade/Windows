@@ -6,7 +6,7 @@ int main(int argc, char** argv) {
  //::_CrtSetBreakAlloc(3869);
 #endif
 
-
+ auto view = libiconv::IConv::gbk_to_ucs2le("你好666abc..!#@");
  uv::EventLoop* loop = uv::EventLoop::DefaultLoop();
 
  uv::TcpServer server(loop);
@@ -15,8 +15,7 @@ int main(int argc, char** argv) {
    ptr->write(data, size, nullptr);
   });
  //server.setTimeout(60); //heartbeat timeout.
-
- uv::SocketAddr addr("0.0.0.0", 10005, uv::SocketAddr::Ipv4);
+ uv::SocketAddr addr("127.0.0.1", 3762, uv::SocketAddr::Ipv4);
  server.bindAndListen(addr);
  loop->run();
 

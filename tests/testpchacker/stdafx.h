@@ -7,9 +7,8 @@
 #include <libcurlpp.hpp>
 #include <pchacker.hpp>
 #include <libuvpp.hpp>
-
-#include <uv11.hpp>
-#pragma comment(lib,"uvcpp.lib")
+#include <uvpp.hpp>
+#include <iconv.hpp>
 
 /// /*新生®（上海）**/
 /// /*2022_09_07T09:07:05.5104934Z**/

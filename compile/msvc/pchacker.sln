@@ -41,6 +41,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libuvpp", "..\..\projects\l
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "uvcpp", "..\..\3rdparty\uv-cpp\build\uvpp.vcxproj", "{D7782A2D-0176-4E67-832E-02D106CAD71D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "iconv", "shared\iconv.vcxproj", "{115B0629-EA6F-4A45-988A-D8925B952FB7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -137,6 +139,14 @@ Global
 		{D7782A2D-0176-4E67-832E-02D106CAD71D}.Release|x64.Build.0 = Release|x64
 		{D7782A2D-0176-4E67-832E-02D106CAD71D}.Release|x86.ActiveCfg = Release|Win32
 		{D7782A2D-0176-4E67-832E-02D106CAD71D}.Release|x86.Build.0 = Release|Win32
+		{115B0629-EA6F-4A45-988A-D8925B952FB7}.Debug|x64.ActiveCfg = Debug|x64
+		{115B0629-EA6F-4A45-988A-D8925B952FB7}.Debug|x64.Build.0 = Debug|x64
+		{115B0629-EA6F-4A45-988A-D8925B952FB7}.Debug|x86.ActiveCfg = Debug|Win32
+		{115B0629-EA6F-4A45-988A-D8925B952FB7}.Debug|x86.Build.0 = Debug|Win32
+		{115B0629-EA6F-4A45-988A-D8925B952FB7}.Release|x64.ActiveCfg = Release|x64
+		{115B0629-EA6F-4A45-988A-D8925B952FB7}.Release|x64.Build.0 = Release|x64
+		{115B0629-EA6F-4A45-988A-D8925B952FB7}.Release|x86.ActiveCfg = Release|Win32
+		{115B0629-EA6F-4A45-988A-D8925B952FB7}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -149,6 +159,7 @@ Global
 		{A391D735-BDBE-41DA-BBE5-8280D9156222} = {C7CF7A23-BC36-4BC9-94C5-A3BFF3F312E8}
 		{DF10BB76-4E83-4EE8-85B8-ECFECC80207A} = {C7CF7A23-BC36-4BC9-94C5-A3BFF3F312E8}
 		{D7782A2D-0176-4E67-832E-02D106CAD71D} = {418A6839-6B14-4789-93F5-93977723E2E1}
+		{115B0629-EA6F-4A45-988A-D8925B952FB7} = {458DFE1A-92E0-4CDC-A0D1-722161531299}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A19FFB18-4358-49C9-8481-B254AF170A10}
