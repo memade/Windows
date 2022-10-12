@@ -15,7 +15,9 @@
 #include <chrono>
 #include <tuple>
 #include <random>
+#if _MSVC_LANG>201703L
 #include <format>
+#endif
 #include <future>
 
 #include <array>

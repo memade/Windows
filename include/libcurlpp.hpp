@@ -103,7 +103,19 @@ namespace libcurlpp {
 
  class IResponse {
  public:
+  virtual const TypeIdentify& Identify() const = 0;
+  virtual void* RoutePtr() const = 0;
+  virtual const std::string& WhatRequest() const = 0;
+  virtual const std::string& WhatResponse() const = 0;
+  virtual const std::string& CachePathname() const = 0;
+  virtual const unsigned int& CurlCode() const = 0;
+  virtual const unsigned int& CurlMsg() const = 0;
+  virtual const std::string& ExceptionReason() const = 0;
+  virtual const long& HttpCode() const = 0;
   virtual const std::string& OriginalRequestUrl() const = 0;
+  virtual const std::string& Body() const = 0;
+  virtual const TypeHeaders& ResponseHeaders() const = 0;
+  virtual const size_t& ContentLength() const = 0;
  protected:
   IResponse() {}
   ~IResponse() {}
@@ -113,7 +125,7 @@ namespace libcurlpp {
  using tfProgressCb = std::function<ProgressActionType(const IProgressInfo*, const IProgressInfo*)>;
  class IRequest {
  public:
-  virtual TypeIdentify Identify() const = 0;
+  virtual const TypeIdentify& Identify() const = 0;
   virtual void Default() = 0;
   virtual void Verbose(const bool&) = 0;
   virtual void Header(const bool&) = 0;

@@ -1,5 +1,6 @@
 ﻿#include "stdafx.h"
-#define SPDLOG_FMT_T spdlog::Log::Format
+
+shared::ISpdlog* __gpSpdlog = nullptr;
 
 namespace local {
  Spdlog::Spdlog(const std::string& module_name, const std::string& logs_path, const EnLogType& logTypes, const std::string& logFileFormat, const spdlog::tf_spdlog_output_cb& logmsgcb /*= nullptr*/) :
@@ -211,7 +212,6 @@ namespace shared {
   const EnLogType& logTypes /*= EnLogType::EN_LOG_TYPE_SYSTEM*/,
   const std::string& logFileFormat /*= R"(.log)"*/,
   const spdlog::tf_spdlog_output_cb& spdlog_output_cb /*= nullptr*/) {
-  ISpdlog* result = nullptr;
   do {
    if (module_name.empty())
     break;
@@ -227,9 +227,9 @@ namespace shared {
      break;
    if (EnLogType::EN_LOG_TYPE_UNDEFINED == ParseLogTypes(logTypes))
     break;
-   result = dynamic_cast<ISpdlog*>(new local::Spdlog(final_module_name, logs_path, logTypes, logFileFormat, spdlog_output_cb));
+   __gpSpdlog = dynamic_cast<ISpdlog*>(new local::Spdlog(final_module_name, logs_path, logTypes, logFileFormat, spdlog_output_cb));
   } while (0);
-  return result;
+  return __gpSpdlog;
  }
  void ISpdlog::DestoryInterface(ISpdlog*& spdlogObj) {
   do {
@@ -237,6 +237,14 @@ namespace shared {
     break;
    spdlogObj->Release();
    spdlogObj = nullptr;
+  } while (0);
+ }
+ void ISpdlog::DestoryInterface() {
+  do {
+   if (!__gpSpdlog)
+    break;
+   __gpSpdlog->Release();
+   __gpSpdlog = nullptr;
   } while (0);
  }
 }///namespace shared

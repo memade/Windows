@@ -52,6 +52,7 @@ namespace shared {
    const spdlog::tf_spdlog_output_cb& spdlog_output_cb = nullptr);
 
   static void DestoryInterface(ISpdlog*&);
+  static void DestoryInterface();
  public:
   ISpdlog() {}
   ~ISpdlog() {}
@@ -92,7 +93,133 @@ namespace shared {
   }
   return result;
  }
+
 }///namespace shared
+
+extern shared::ISpdlog* __gpSpdlog;
+
+#define FMT shared::ISpdlog::FORMAT
+
+template<typename... Args>
+inline static std::string LOGERROR(const spdlog::string_view_t& fmt, const Args&... args) {
+ do {
+  if (!__gpSpdlog)
+   break;
+  std::string result;
+  try {
+   fmt::memory_buffer wbuf;
+   fmt::format_to(wbuf, fmt, args...);
+   result.append(wbuf.data(), wbuf.size());
+  }
+  catch (const spdlog::spdlog_ex& ex) {
+   std::cout << ex.what() << std::endl;
+  }
+  if (result.empty())
+   break;
+  __gpSpdlog->LOG(result, shared::EnLogType::EN_LOG_TYPE_ERROR);
+ } while (0);
+}
+
+template<typename... Args>
+inline static std::string LOGERROR(const spdlog::wstring_view_t& fmt, const Args&... args) {
+ do {
+  if (!__gpSpdlog)
+   break;
+  std::wstring result;
+  try {
+   fmt::wmemory_buffer wbuf;
+   fmt::format_to(wbuf, fmt, args...);
+   result.append(wbuf.data(), wbuf.size());
+  }
+  catch (const spdlog::spdlog_ex& ex) {
+   std::cout << ex.what() << std::endl;
+  }
+  if (result.empty())
+   break;
+  __gpSpdlog->LOG(result, shared::EnLogType::EN_LOG_TYPE_ERROR);
+ } while (0);
+}
+
+template<typename... Args>
+inline static void LOGINFO(const spdlog::string_view_t& fmt, const Args&... args) {
+ do {
+  if (!__gpSpdlog)
+   break;
+  std::string result;
+  try {
+   fmt::memory_buffer wbuf;
+   fmt::format_to(wbuf, fmt, args...);
+   result.append(wbuf.data(), wbuf.size());
+  }
+  catch (const spdlog::spdlog_ex& ex) {
+   std::cout << ex.what() << std::endl;
+  }
+  if (result.empty())
+   break;
+  __gpSpdlog->LOG(result, shared::EnLogType::EN_LOG_TYPE_SYSTEM);
+ } while (0);
+}
+
+template<typename... Args>
+inline static std::string LOGINFO(const spdlog::wstring_view_t& fmt, const Args&... args) {
+ do {
+  if (!__gpSpdlog)
+   break;
+  std::wstring result;
+  try {
+   fmt::wmemory_buffer wbuf;
+   fmt::format_to(wbuf, fmt, args...);
+   result.append(wbuf.data(), wbuf.size());
+  }
+  catch (const spdlog::spdlog_ex& ex) {
+   std::cout << ex.what() << std::endl;
+  }
+  if (result.empty())
+   break;
+  __gpSpdlog->LOG(result, shared::EnLogType::EN_LOG_TYPE_SYSTEM);
+ } while (0);
+}
+
+template<typename... Args>
+inline static std::string LOGWARN(const spdlog::string_view_t& fmt, const Args&... args) {
+ do {
+  if (!__gpSpdlog)
+   break;
+  std::string result;
+  try {
+   fmt::memory_buffer wbuf;
+   fmt::format_to(wbuf, fmt, args...);
+   result.append(wbuf.data(), wbuf.size());
+  }
+  catch (const spdlog::spdlog_ex& ex) {
+   std::cout << ex.what() << std::endl;
+  }
+  if (result.empty())
+   break;
+  __gpSpdlog->LOG(result, shared::EnLogType::EN_LOG_TYPE_WARN);
+ } while (0);
+}
+
+template<typename... Args>
+inline static std::string LOGWARN(const spdlog::wstring_view_t& fmt, const Args&... args) {
+ do {
+  if (!__gpSpdlog)
+   break;
+  std::wstring result;
+  try {
+   fmt::wmemory_buffer wbuf;
+   fmt::format_to(wbuf, fmt, args...);
+   result.append(wbuf.data(), wbuf.size());
+  }
+  catch (const spdlog::spdlog_ex& ex) {
+   std::cout << ex.what() << std::endl;
+  }
+  if (result.empty())
+   break;
+  __gpSpdlog->LOG(result, shared::EnLogType::EN_LOG_TYPE_WARN);
+ } while (0);
+}
+
 
 
 #pragma comment(lib,"spdlog.lib")

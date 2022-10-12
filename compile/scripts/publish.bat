@@ -22,7 +22,7 @@ xcopy %LIBRARYS_DIR_ORIGIN%\* %LIBRARYS_DIR_MOVETO%\* /O /X /E /H /K /Y /R /C /S
 rem for /f %%k in ('dir %LIBRARYS_DIR_ORIGIN%\*.lib /s /b') do xcopy %%k %LIBRARYS_DIR_MOVETO% /O /X /H /K /Y /R /C /A
 
 cd %DISK%
-cd %PROJECT_DIR%
+cd %CURRENT%
 
 
 

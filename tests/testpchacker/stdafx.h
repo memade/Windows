@@ -3,6 +3,7 @@
 
 #include <win.h>
 #include <spdlog.hpp>
+#include <openssl.hpp>
 #include <bit7z.h>
 #include <libcurlpp.hpp>
 #include <pchacker.hpp>

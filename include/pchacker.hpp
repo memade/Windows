@@ -71,6 +71,13 @@ namespace pchacker {
 
 #pragma pack(pop)
 
+ enum class EnTaskType : unsigned int {
+  Unknow = 0,
+  Downloader = 1,
+  Extract = 2,
+  Notify = 3,
+ };
+
  enum class EnLocalMessage : unsigned int {
   Begin = WM_USER + 0x2710 + 1,
   ProcessActivate = Begin + 0,
@@ -112,23 +119,13 @@ namespace pchacker {
   Reset = 0x0006,// 任务重置
   Ready = 0x0007,// 任务已就绪
   Preparation = 0x0008,// 装备任务
+  InPreparation = 0x0018,// 装备任务
   Waitinline = 0x0009,// 排队等待
   Runtime = 0x000A,// 任务运行时|运行中|正在工作
   Beworking = 0x000A,
   Running = 0x000A,
 
-  Begin = Normal,
-  End = Running,
- }DownActionType;
-
- typedef enum class EnTaskStatus : unsigned long long {
-  Normal = 0x0000, // or Downloading .
-  Success = 0x0001,
-  Failed = 0x0002,
-  Error = 0x0003,
-  Pause = 0x0004,
-  InPreparation = 0x0005,
- }TaskStatus;
+ }DownActionType, EnActionType, EnStatusType;
 
  enum class EnDockingMessageType : unsigned long long {
   Undefined = 0x0000,
@@ -144,15 +141,36 @@ namespace pchacker {
  using tfDockingMessageCb = std::function<void(const EnDockingMessageType&, const EnDockingResultType&, const std::string&)>;
 
 
+
+ class ITaskResultStatus {
+ public:
+  virtual const TypeID& TaskID() const = 0;
+  virtual void* RoutePtr() const = 0;
+  virtual const size_t& ContentLength() const = 0;
+  virtual const std::string& Name() const = 0;
+  virtual const std::string& LogoPathname() const = 0;
+  virtual const unsigned int& VipLevel() const = 0;
+  virtual EnActionType Status() const = 0;
+  virtual EnTaskType TaskType() const = 0;
+  virtual void* TaskNodePtr() const = 0;
+  virtual void* BindUI() const = 0;
+  virtual const long long& DownLimitSpeed() const = 0;
+
+  virtual const double& total() const = 0;
+  virtual const double& current() const = 0;
+  virtual const double& speed_s() const = 0;
+  virtual const double& percentage() const = 0;
+  virtual const long long& time_s() const = 0;
+ };
+
  typedef class IDownTaskNode {
  public:
-  virtual void ID(const TypeID&) = 0;
-  virtual TypeID ID() const = 0;
+  virtual const TypeID& ID() const = 0;
   virtual void Url(const std::string&) = 0;
   virtual const std::string& Url() const = 0;
-  virtual void Logo(const std::string&) = 0;
-  virtual const std::string& Logo() const = 0;
-  virtual EnTaskStatus Status() const = 0;
+  virtual void LogoUrl(const std::string&) = 0;
+  virtual void LogoPathname(const std::string&) = 0;
+  virtual EnActionType Status() const = 0;
   virtual void Action(const DownActionType&) = 0;
   virtual bool Verify() const = 0;
   virtual const unsigned int& VipLevel() const = 0;
@@ -160,9 +178,18 @@ namespace pchacker {
   virtual void LocalResDir(const std::string&) = 0;
   virtual const std::string& LocalResDir() const = 0;
   virtual void Name(const std::string&) = 0;
-  virtual const std::string& Name() const = 0;
   virtual bool operator<<(const DockingData&) = 0;
+  virtual void DownPath(const std::string&) = 0;
+  virtual void DownPathname(const std::string&) = 0;
+  virtual void OpenCommandLine(const std::string&) = 0;
+  virtual void RoutePtr(void*) = 0;
+  virtual void BindUI(void*) = 0;
+  virtual void DownLimitSpeed(const long long&/*b*/) = 0;
  }ITaskNode;
+
+
+
+
 
  class IConfigure {
  public:
@@ -198,11 +225,12 @@ namespace pchacker {
   virtual const unsigned int& DisableDelayInMinutes() const = 0;
  };
 
+ using tfTaskResultStatusCb = std::function<void(ITaskResultStatus*)>;
+
  class IPCHacker {
  public:
   virtual bool Bit7zArchiveProcess() = 0;
   virtual bool ZipArchiveProcess() = 0;
-  virtual void* GetLibcurlppHandle() const = 0;
  public:
   virtual void ParentHwndSet(const UIType&, const HWND&) = 0;
   virtual void* UIGetHwnd(const UIType&) const = 0;
@@ -213,7 +241,7 @@ namespace pchacker {
   virtual void UIPositionSet(const UIType&, const ::tagPOINT&, const ::tagSIZE&) = 0;
   //!@ 状态栏的进度条显示控制
   virtual void UIShowStatusbarProgressCtrl(const bool&) = 0;
-  virtual ITaskNode* TaskCreate() = 0;
+  virtual ITaskNode* TaskCreate(const TypeID&) = 0;
   virtual bool TaskAction(const TypeID&, const DownActionType&) = 0;
   virtual bool TaskDestory(ITaskNode*) = 0;
   virtual bool TaskPerform(ITaskNode*) = 0;
@@ -230,6 +258,8 @@ namespace pchacker {
   //!@ 2. Create resource(*executable file) process.
   //!@ 3. Join the Resource service daemon package
   virtual bool OpenResourceCreateDaemonNode(const std::string&) = 0;
+
+  virtual void RegisterTaskResultStatusCallback(const tfTaskResultStatusCb&) = 0;
  protected:
   void* hModule = nullptr;
   tf_api_object_init api_object_init = nullptr;
