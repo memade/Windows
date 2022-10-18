@@ -162,6 +162,23 @@ namespace shared {
   bool Verify() const;
  }PEAdditionalDataHead;
 
+ typedef struct tagPacketHead final {
+ private:
+  unsigned long long identify_head;
+  unsigned long size_head_std;//!@ Contains data[1] size.(+sizeof(char))
+ public:
+  unsigned long size_head_real;
+  unsigned long long command;
+  unsigned long size_data;
+  unsigned long size_total;
+ private:
+  unsigned long long identify_tail;
+ public:
+  char data[1];
+
+  tagPacketHead();
+  bool Verify() const;
+ }PACKETHEAD, * PPACKETHEAD;
 #pragma pack(pop)
 
  class FileUpdateObj {
@@ -241,6 +258,12 @@ namespace shared {
    //!@ Return -> SERVICE_RUNNING
    static std::uint64_t Status(const std::string&);
    static bool Restart(const std::string&);
+  };
+ public:
+  class Packet final {
+  public:
+   static bool Made(const unsigned long long&, const std::string&, std::string&);
+   static size_t UnMade(std::string&, std::vector<std::string>&, const bool& fixed_buffer = true);
   };
  public:
   class File final {
@@ -824,6 +847,17 @@ namespace shared {
    const char* FileFilter = "*.*",
    bool bSleepDirect = false,
    const std::function<void(const std::string&, const std::string&, const _finddata_t&)>& enumcb = nullptr);
+
+  static void FindFileAssignPath(
+   const std::string& path,
+   const std::vector<std::string>& ffname_s,
+   tfEnumFolderNode& found_s);
+
+  static void FindFileAssignPathOnce(
+   const std::string& path,
+   const std::vector<std::string>& ffname_s,
+   tfEnumFolderNode& found_s);
+
   static void EnumFolder(const std::string& Path,
    tfEnumFolderNode& Folders,
    tfEnumFolderNode& Files,

@@ -2,33 +2,147 @@
 
 pchacker::IPCHacker* pPCHackerObj = nullptr;
 
-
-static void __stdcall pchacker_taskstatus_cb(const pchacker::ITaskResultStatus* result) {
+static void __stdcall pchacker_taskstatus_cb(pchacker::ITaskNode* pTask) {
  do {
-  if (!result)
+  if (!pTask)
    break;
 
-  auto pTaskNode = reinterpret_cast<pchacker::ITaskNode*>(result->TaskNodePtr());
-  if (!pTaskNode)
+  auto pResult = pTask->Result();
+
+  const auto task_status = pTask->Status();
+  switch (task_status) {
+  case pchacker::EnActionType::DownAppend: {
+   pTask->Preparation();
+  }break;
+  case pchacker::EnActionType::DownReady: {
+   pTask->Perform();
+   auto sk = 0;
+  }break;
+  case pchacker::EnActionType::DownBeworking: {
+   std::cout << std::format("speed({}),total({}),{:.3f}%",
+    shared::Win::RealtimeSpeed(static_cast<long long>(pResult->down_speed_s())),
+    shared::Win::Time::TimePeriodUnMade(pResult->down_time_s()),
+    pResult->down_percentage()) << std::endl;
+  }break;
+  case pchacker::EnActionType::DownRemove: {
+
+   auto sk = 0;
+  }break;
+  case pchacker::EnActionType::DownFailed: {
+
+   pTask->Action(pchacker::EnActionType::DownRemove);
+   auto sk = 0;
+  }break;
+  case pchacker::EnActionType::DownFinished: {
+   pTask->Action(pchacker::EnActionType::InstallStart);
+   //pTask->Action(pchacker::EnActionType::DownRemove);
+  }break;
+
+  case pchacker::EnActionType::InstallStart: {
+
+   pTask->Install();
+   auto sk = 0;
+   //pTask->Action(pchacker::EnActionType::InstallStart);
+   //pTask->Action(pchacker::EnActionType::DownRemove);
+  }break;
+  case pchacker::EnActionType::InstallBeworking: {
+
+   std::cout << std::format("install progress(total({}),current({}),progress({}))",pResult->extract_total(),pResult->extract_current(),pResult->extract_percentage()) << std::endl;
+   auto sk = 0;
+  }break;
+  default:
    break;
-  if (pTaskNode->Status() == pchacker::EnActionType::Ready) {
-   pTaskNode->Action(pchacker::EnActionType::Start);
-   pTaskNode->DownLimitSpeed(100 * 1024);
   }
 
 
-  std::cout << std::format("speed({}),total({}),{:.3f}%", 
+  auto skx = 0;
+
+#if 0
+  auto pTaskNode = reinterpret_cast<pchacker::ITaskNode*>(result->TaskNodePtr());
+  if (!pTaskNode)
+   break;
+  if (pTaskNode->Status() == pchacker::EnActionType::DownReady) {
+   pTaskNode->Action(pchacker::EnActionType::DownStart);
+   //pTaskNode->DownLimitSpeed(100 * 1024);
+   //pTaskNode->DownLimitSpeed(1024 * 1024 * 5);
+  }
+
+  if (pTaskNode->Status() == pchacker::EnActionType::DownFinish) {
+   pTaskNode->Action(pchacker::EnActionType::InstallAppend);
+   break;
+  }
+
+  if (pTaskNode->Status() == pchacker::EnActionType::DownStop) {
+
+   break;
+  }
+
+  if (pTaskNode->Status() == pchacker::EnActionType::DownRemove) {
+
+
+
+
+
+   break;
+  }
+
+  std::cout << std::format("speed({}),total({}),{:.3f}%",
    shared::Win::RealtimeSpeed(static_cast<long long>(result->speed_s())),
    shared::Win::Time::TimePeriodUnMade(result->time_s()),
    result->percentage()) << std::endl;
+#endif
   auto sk = 0;
  } while (0);
 }
+
+
+
 int main(int argc, char** argv) {
 #if defined(_DEBUG)
  ::_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
  //::_CrtSetBreakAlloc(3869);
 #endif
+
+#if 0
+
+ tfEnumFolderNode founds;
+ shared::Win::FindFileAssignPath(R"(D:\__Github__\Windows\bin\Win32\Debug\pchacker\finishs\4027)", { "#YoUXun#" ,"gameyxdown.dat","双击安装游戏.bat"}, founds);
+
+ std::string ini_cache = shared::Win::File::Read(R"(D:\__Github__\Windows\bin\Win32\Debug\pchacker\finishs\4027\CS16_chs_setup\CS16_chs\gameyxdown.dat\gameyxdown.dat)");
+
+#if 0
+ DWORD GetPrivateProfileStringA(
+  LPCTSTR lpAppName,            // 同1(1)
+  LPCTSTR lpKeyName,            // 同1(1)
+  LPCTSTR lpDefault,            // 同1(1)
+  LPTSTR lpReturnedString,      // 同1(1)
+  DWORD nSize,                  // 同1(1)
+  LPCTSTR lpFileName            // 读取信息的文件名。若该ini文件与程序在同一个目录下，也可使用相      
+  //对路径,否则需要给出绝度路径。
+ )
+#endif
+
+
+
+ auto skkk = 0;
+ return 0;
+#endif
+
+#if 0
+ std::string route_data_s;
+ for (int i = 0; i < 5; ++i) {
+  std::string temp;
+  shared::Win::Packet::Made("asdlfkahglkadsfg@#$%#$%^2o3451i3y425i你好啊。嗨", temp);
+  route_data_s.append(temp);
+ }
+ route_data_s.insert(0, "asdflkahgklasdgl@%@^@&&askldfgklhasdgk");
+ route_data_s.append("asdflkahgklasdgl@%@^@&&askldfgklhasdgk");
+ std::vector<std::string> unpacket_s;
+ shared::Win::Packet::UnMade(route_data_s, unpacket_s);
+ return 0;
+
+#endif
+
 
  const std::vector<std::string> js_data_a{
  R"(eyJtb2R1bGUiOiJydW5HYW1lIiwidmlwIjoxLCJnYW1lSWQiOjMsImdhbWVOYW1lIjoi5oiY5ZywMTk0Mi5yYXIiLCJnYW1lVGltZSI6MTIwLCJ0eXBlIjowLCJpY28iOiJodHRwOi8vdGVzdC54aXRpZWJhLmNvbS8vYWRtaW4vaW1hZ2VzL+acquagh+mimC0xLmpwZyIsInVybCI6Imh0dHBzOi8vc3MuYnNjc3RvcmFnZS5jb20vZ29vZGdhbWUtbWlmYW5nOWt1L3l4ZG93bi5jb21fQkYxOTQyX2VuLnJhciIsImNtZCI6IiJ9)",
@@ -44,7 +158,7 @@ int main(int argc, char** argv) {
  auto seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
  std::mt19937 rand_generator(static_cast<unsigned int>(seed));
  std::uniform_int_distribution<int> dist(6, 20);
- for (int cnt = 0; cnt < 10; ++cnt) 
+ for (int cnt = 0; cnt < 10; ++cnt)
   std::cout << dist(rand_generator) << std::endl;
 
 #if 0
@@ -101,6 +215,7 @@ int main(int argc, char** argv) {
  for (const auto& id : taskids) {
   pchacker::ITaskNode* task = nullptr;
   switch (id) {
+#if 0
   case 3: {
    task = pPCHackerObj->TaskCreate(id);
    if (!task)
@@ -121,12 +236,34 @@ int main(int argc, char** argv) {
 
    auto sk = 0;
   }break;
-  default:
-   break;
+#endif
+#if 0
+  case 7: {
+   task = pPCHackerObj->TaskCreate(id);
+   if (!task)
+    break;
+   task->LogoUrl(R"(http://test.xitieba.com//admin/images/github.jpg)");
+   task->Url(R"(https://ss.bscstorage.com/goodgame-mifang9ku/yxdown.com_AAJiuGuoShiGuoChaoJiJiaQiangBan_chs.rar)");
+   task->Name(R"(不是地下城（Dungeon No Dungeon）.rar)");
+
+   auto sk = 0;
+  }break;
+#endif
+  case 0: {
+
+  }break;
+  default: {
+   task = pPCHackerObj->TaskCreate(4027);
+   if (!task)
+    break;
+   task->LogoUrl(R"(http://img4.yxdimg.com/2018/1/26/e41d13ea-a79d-4fdf-9bc7-b64f293f04e5.jpg)");
+   task->Url(R"(https://ss.bscstorage.com/goodgame-mifang9ku/yxdown.com_CS16_chs.rar)");
+   task->Name(R"(反恐精英CS1.6)");
+  }break;
   };
   if (task) {
    /*task->RoutePtr(this);*/
-   task->Action(pchacker::EnActionType::Append);
+   task->Action(pchacker::EnActionType::DownAppend);
   }
  }
 
@@ -153,6 +290,7 @@ int main(int argc, char** argv) {
      break;
     }
     else if (cmds[0] == "test") {
+     pPCHackerObj->TaskAction(4027, pchacker::EnActionType::DownStop);
     }
     else {
     }

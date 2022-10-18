@@ -92,7 +92,7 @@ namespace libcurlpp {
  }ProgressActionType;
 
 
- class IProgressInfo {
+ class IProgressInfo {//!@ 下载进度
  public:
   virtual const double& total() const = 0;
   virtual const double& current() const = 0;

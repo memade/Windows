@@ -101,7 +101,7 @@ extern shared::ISpdlog* __gpSpdlog;
 #define FMT shared::ISpdlog::FORMAT
 
 template<typename... Args>
-inline static std::string LOGERROR(const spdlog::string_view_t& fmt, const Args&... args) {
+inline static void LOGERROR(const spdlog::string_view_t& fmt, const Args&... args) {
  do {
   if (!__gpSpdlog)
    break;
@@ -121,7 +121,7 @@ inline static std::string LOGERROR(const spdlog::string_view_t& fmt, const Args&
 }
 
 template<typename... Args>
-inline static std::string LOGERROR(const spdlog::wstring_view_t& fmt, const Args&... args) {
+inline static void LOGERROR(const spdlog::wstring_view_t& fmt, const Args&... args) {
  do {
   if (!__gpSpdlog)
    break;
@@ -161,7 +161,7 @@ inline static void LOGINFO(const spdlog::string_view_t& fmt, const Args&... args
 }
 
 template<typename... Args>
-inline static std::string LOGINFO(const spdlog::wstring_view_t& fmt, const Args&... args) {
+inline static void LOGINFO(const spdlog::wstring_view_t& fmt, const Args&... args) {
  do {
   if (!__gpSpdlog)
    break;
@@ -181,7 +181,7 @@ inline static std::string LOGINFO(const spdlog::wstring_view_t& fmt, const Args&
 }
 
 template<typename... Args>
-inline static std::string LOGWARN(const spdlog::string_view_t& fmt, const Args&... args) {
+inline static void LOGWARN(const spdlog::string_view_t& fmt, const Args&... args) {
  do {
   if (!__gpSpdlog)
    break;
@@ -201,7 +201,7 @@ inline static std::string LOGWARN(const spdlog::string_view_t& fmt, const Args&.
 }
 
 template<typename... Args>
-inline static std::string LOGWARN(const spdlog::wstring_view_t& fmt, const Args&... args) {
+inline static void LOGWARN(const spdlog::wstring_view_t& fmt, const Args&... args) {
  do {
   if (!__gpSpdlog)
    break;

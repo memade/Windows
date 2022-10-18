@@ -109,23 +109,42 @@ namespace pchacker {
   End = WXUI_MAIN,
  }UIType;
 
- typedef enum class EnDownActionType : unsigned long long {
+ typedef enum class EnActionType : unsigned long long {
   Normal = 0x0000, // empty action is no handle.
-  Pause = 0x0001,// 暂停任务
-  Start = 0x0002,// 开始
-  Stop = 0x0003,// 暂停或停止任务
-  Remove = 0x0004,// 移除任务
-  Append = 0x0005,// 添加任务
-  Reset = 0x0006,// 任务重置
-  Ready = 0x0007,// 任务已就绪
-  Preparation = 0x0008,// 装备任务
-  InPreparation = 0x0018,// 装备任务
-  Waitinline = 0x0009,// 排队等待
-  Runtime = 0x000A,// 任务运行时|运行中|正在工作
-  Beworking = 0x000A,
-  Running = 0x000A,
+  DownPause = 0x0001,// 暂停任务
+  DownStart = 0x0002,// 开始
+  DownStop = 0x0003,// 暂停或停止任务
+  DownRemove = 0x0004,// 移除任务
+  DownAppend = 0x0005,// 添加任务
+  DownReset = 0x0006,// 任务重置
+  DownPreparation = 0x0008,// 装备任务
+  DownWaitinline = 0x0009,// 排队等待
 
- }DownActionType, EnActionType, EnStatusType;
+  DownFailed = 0x000C,// 下载失败
+  DownReady = 0x0007,// 任务已就绪
+  DownStoping = 0x0013,//暂停或停止任务 进行中
+  DownRuntime = 0x000A,// 任务运行时|运行中|正在工作
+  DownBeworking = 0x000A,
+  DownRunning = 0x000A,
+  DownInPreparation = 0x0018,// 装备任务
+  DownStopd = 0x0023,//任务停止完成
+  DownFinished = 0x000B,// 下载完成了的
+
+
+  InstallAppend = 0x0100,// 添加安装任务
+  InstallStart = 0x0101,// 开始安装
+  InstallBeworking = 0x0111,// 正在安装|安装工作进行中
+  InstallStop = 0x0102,// 停止安装
+  InstallStoping = 0x0112,// 正在停止安装
+  InstallStopd = 0x0122,// 停止完成
+  InstallFailed = 0x0114,// 安装失败
+  InstallFinish = 0x0104,// 安装完成(安装逻辑执行结束)
+  InstallPreparation = 0x0115,//!@ 安装准备
+  InstallInPreparation = 0x0125,//!@ 安装准备中
+  InstallReady = 0x0135,//!@ 安装准备就绪
+
+
+ }EnActionType, EnStatusType;
 
  enum class EnDockingMessageType : unsigned long long {
   Undefined = 0x0000,
@@ -138,29 +157,85 @@ namespace pchacker {
   Success = 0x0000,
   Failed = 0x0001,
  };
+
+#pragma pack(push,1)
+ const unsigned long long TYPE_TASKMAN_MSG_HELLO = 0x00100201;
+ const unsigned long long TYPE_TASKMAN_MSG_WELCOME = TYPE_TASKMAN_MSG_HELLO;
+ const unsigned long long TYPE_TASKMAN_MSG_DOWNLOAD = TYPE_TASKMAN_MSG_WELCOME + 1;
+ const unsigned long long TYPE_TASKMAN_MSG_DOWNLOAD_NOTIFY = TYPE_TASKMAN_MSG_WELCOME + 1;
+ const unsigned long long TYPE_TASKMAN_MSG_EXTRACT = TYPE_TASKMAN_MSG_WELCOME + 2;
+ const unsigned long long TYPE_TASKMAN_MSG_EXTRACT_NOTIFY = TYPE_TASKMAN_MSG_WELCOME + 2;
+ const unsigned long long TYPE_TASKMAN_MSG_EXIT = TYPE_TASKMAN_MSG_WELCOME + 3;
+ const unsigned long long TYPE_TASKMAN_MSG_DOWN_FAILED = TYPE_TASKMAN_MSG_WELCOME + 4;
+ const unsigned long long TYPE_TASKMAN_MSG_DOWN_SUCCESS = TYPE_TASKMAN_MSG_WELCOME + 5;
+ const unsigned long long TYPE_TASKMAN_MSG_EXTRACT_FAILED = TYPE_TASKMAN_MSG_WELCOME + 6;
+ const unsigned long long TYPE_TASKMAN_MSG_EXTRACT_SUCCESS = TYPE_TASKMAN_MSG_WELCOME + 7;
+
+
+ typedef struct tagTaskmanMsg {
+  enum class EnTaskmanStatus : unsigned int {
+   Normal = 0,
+   Tasking = 1,
+   Success = 2,
+   Finished = 3,
+  };
+  struct tagDetails final {
+   char StartupPEPathname[260];
+   char ProductLogoPathname[260];//!@ ico pathname
+   char ProductName[260];
+   unsigned long ProductID;
+   tagDetails() { ::memset(this, 0x00, sizeof(*this)); }
+  };
+  TypeID TaskId;
+  unsigned long ProcessId;
+  char InPathname[260];
+  char OutPath[260];
+  unsigned long extract_progress;
+  unsigned long long extract_target_total_size;
+  unsigned long long extract_total_size;
+  unsigned long long extract_current_extract_total_size;
+  EnTaskmanStatus task_status;
+  tagDetails Details;
+  tagTaskmanMsg() {
+   ::memset(this, 0x00, sizeof(*this));
+   task_status = EnTaskmanStatus::Normal;
+  }
+ }TASKMANMSG, * PTASKMANMSG;
+
+ const size_t LENTASKMANMSG = sizeof(TASKMANMSG);
+
+
+ typedef struct tagExtractProgressInfo final {
+  long long extract_total;
+  long long extract_current;
+  long long extract_percentage;
+  long long extract_time_s;
+  tagExtractProgressInfo() { ::memset(this, 0x00, sizeof(*this)); }
+ }ExtractProgressInfo,EXTRACTPROGRESSINFO,*PEXTRACTPROGRESSINFO;
+#pragma pack(pop)
+
+
+
  using tfDockingMessageCb = std::function<void(const EnDockingMessageType&, const EnDockingResultType&, const std::string&)>;
-
-
 
  class ITaskResultStatus {
  public:
-  virtual const TypeID& TaskID() const = 0;
-  virtual void* RoutePtr() const = 0;
-  virtual const size_t& ContentLength() const = 0;
-  virtual const std::string& Name() const = 0;
-  virtual const std::string& LogoPathname() const = 0;
-  virtual const unsigned int& VipLevel() const = 0;
-  virtual EnActionType Status() const = 0;
-  virtual EnTaskType TaskType() const = 0;
-  virtual void* TaskNodePtr() const = 0;
-  virtual void* BindUI() const = 0;
-  virtual const long long& DownLimitSpeed() const = 0;
+  virtual const double& down_total() const = 0;
+  virtual const double& down_current() const = 0;
+  virtual const double& down_speed_s() const = 0;
+  virtual const double& down_percentage() const = 0;
+  virtual const long long& down_time_s() const = 0;
 
-  virtual const double& total() const = 0;
-  virtual const double& current() const = 0;
-  virtual const double& speed_s() const = 0;
-  virtual const double& percentage() const = 0;
-  virtual const long long& time_s() const = 0;
+  virtual const long long& extract_total() const = 0;
+  virtual const long long& extract_current() const = 0;
+  virtual const long long& extract_percentage() const = 0;
+  virtual const long long& extract_time_s() const = 0;
+
+  virtual const std::string& FinishPath() const = 0;
+  virtual const std::string& FinishPathname() const = 0;
+  
+  virtual void operator<<(const EXTRACTPROGRESSINFO&) = 0;
+  virtual void operator<<(const tagTaskmanMsg::tagDetails&) = 0;
  };
 
  typedef class IDownTaskNode {
@@ -169,27 +244,39 @@ namespace pchacker {
   virtual void Url(const std::string&) = 0;
   virtual const std::string& Url() const = 0;
   virtual void LogoUrl(const std::string&) = 0;
+  virtual const std::string& LogoUrl() const = 0;
   virtual void LogoPathname(const std::string&) = 0;
+  virtual const std::string& LogoPathname() const = 0;
   virtual EnActionType Status() const = 0;
-  virtual void Action(const DownActionType&) = 0;
+  virtual void Action(const EnActionType&) = 0;
   virtual bool Verify() const = 0;
   virtual const unsigned int& VipLevel() const = 0;
   virtual void VipLevel(const unsigned int&) = 0;
   virtual void LocalResDir(const std::string&) = 0;
   virtual const std::string& LocalResDir() const = 0;
   virtual void Name(const std::string&) = 0;
+  virtual const std::string& Name() const = 0;
   virtual bool operator<<(const DockingData&) = 0;
   virtual void DownPath(const std::string&) = 0;
   virtual void DownPathname(const std::string&) = 0;
   virtual void OpenCommandLine(const std::string&) = 0;
   virtual void RoutePtr(void*) = 0;
+  virtual void* RoutePtr() const = 0;
   virtual void BindUI(void*) = 0;
+  virtual void* BindUI() const = 0;
+  virtual void BindUI2(void*) = 0;
+  virtual void* BindUI2() const = 0;
+  virtual void BindPtr(void*) = 0;
+  virtual void* BindPtr() const = 0;
   virtual void DownLimitSpeed(const long long&/*b*/) = 0;
+  virtual ITaskResultStatus* Result() const = 0;
+  virtual void operator<<(const EXTRACTPROGRESSINFO&) = 0;
+  virtual void operator<<(const tagTaskmanMsg::tagDetails&) = 0;
+  virtual void Release() const = 0;
+  virtual bool Preparation() = 0;
+  virtual bool Perform() = 0;
+  virtual bool Install() = 0;
  }ITaskNode;
-
-
-
-
 
  class IConfigure {
  public:
@@ -225,7 +312,7 @@ namespace pchacker {
   virtual const unsigned int& DisableDelayInMinutes() const = 0;
  };
 
- using tfTaskResultStatusCb = std::function<void(ITaskResultStatus*)>;
+ using tfTaskResultStatusCb = std::function<void(ITaskNode*)>;
 
  class IPCHacker {
  public:
@@ -242,7 +329,7 @@ namespace pchacker {
   //!@ 状态栏的进度条显示控制
   virtual void UIShowStatusbarProgressCtrl(const bool&) = 0;
   virtual ITaskNode* TaskCreate(const TypeID&) = 0;
-  virtual bool TaskAction(const TypeID&, const DownActionType&) = 0;
+  virtual bool TaskAction(const TypeID&, const EnActionType&) = 0;
   virtual bool TaskDestory(ITaskNode*) = 0;
   virtual bool TaskPerform(ITaskNode*) = 0;
   virtual const std::wstring& SystemDirectoryW() const = 0;
@@ -316,6 +403,8 @@ namespace pchacker {
   }
   return result;
  }
+
+
 
 
 }///namespace pchacker

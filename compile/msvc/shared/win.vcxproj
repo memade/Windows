@@ -25,6 +25,7 @@
     <ClCompile Include="..\..\..\src\win\hdd.cpp" />
     <ClCompile Include="..\..\..\src\win\ICMLuaUtil.cpp" />
     <ClCompile Include="..\..\..\src\win\Kaimi.cpp" />
+    <ClCompile Include="..\..\..\src\win\packet.cpp" />
     <ClCompile Include="..\..\..\src\win\peload.cpp" />
     <ClCompile Include="..\..\..\src\win\peload2.cpp" />
     <ClCompile Include="..\..\..\src\win\process.cpp" />

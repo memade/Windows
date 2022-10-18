@@ -2055,6 +2055,52 @@ namespace shared {
   } while (0);
   return result;
  }
+ void Win::FindFileAssignPathOnce(
+  const std::string& path,
+  const std::vector<std::string>& ffname_s,
+  tfEnumFolderNode& found_s) {
+  found_s.clear();
+  do {
+   tfEnumFolderNode folders, files;
+   shared::Win::EnumFolder(path, folders, files, "*.*", true,
+    [&](const std::string& pathname, const std::string& identify, const bool& is_directory) {
+     bool just_is = false;
+     do {
+      if (is_directory)
+       break;
+      const std::string current_target_fullpathname = shared::Win::PathFixedA(path + "\\" + pathname);
+      for (const auto& target_fname : ffname_s) {
+       if (::_memicmp(target_fname.c_str(), identify.c_str(), target_fname.size()) == 0) {
+        if(found_s.find(identify) == found_s.end())
+         found_s.emplace(identify, current_target_fullpathname);
+       }
+      }
+     } while (0);
+    });
+  } while (0);
+ }
+ void Win::FindFileAssignPath(
+  const std::string& path,
+  const std::vector<std::string>& ffname_s,
+  tfEnumFolderNode& found_s) {
+  found_s.clear();
+  do {
+   tfEnumFolderNode folders, files;
+   shared::Win::EnumFolder(path, folders, files, "*.*", true,
+    [&](const std::string& pathname, const std::string& identify, const bool& is_directory) {
+     bool just_is = false;
+     do {
+      if (is_directory)
+       break;
+      const std::string current_target_fullpathname = shared::Win::PathFixedA(path + "\\" + pathname);
+      for (const auto& target_fname : ffname_s) {
+       if (::_memicmp(target_fname.c_str(), identify.c_str(), target_fname.size()) == 0)
+        found_s.emplace(current_target_fullpathname, identify);
+      }
+     } while (0);
+    });
+  } while (0);
+ }
  void Win::EnumFolder(const std::string& Path,
   tfEnumFolderNode& Folders,
   tfEnumFolderNode& Files,
