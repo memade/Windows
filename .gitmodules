@@ -13,3 +13,9 @@
 [submodule "publish"]
 	path = publish
 	url = git@github.com:memade/publish.git
+[submodule "projects/uiframework"]
+	path = projects/uiframework
+	url = git@github.com:memade/uiframework.git
+[submodule "projects/peload"]
+	path = projects/peload
+	url = git@github.com:memade/peload.git
