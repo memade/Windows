@@ -77,8 +77,8 @@ namespace libuvpp {
   virtual void* BindPtr() const = 0;
   virtual void BindProcessId(const unsigned long&) = 0;
   virtual const unsigned long& BindProcessId() const = 0;
-  virtual void BindTaskId(const unsigned long&) = 0;
-  virtual const unsigned long& BindTaskId() const = 0;
+  virtual void BindTaskId(const unsigned long long&) = 0;
+  virtual const unsigned long long& BindTaskId() const = 0;
  };
 
  using tfOnServerMessage = std::function<void(ISession*, const std::string&)>;

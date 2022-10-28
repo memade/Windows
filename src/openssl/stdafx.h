@@ -1,7 +1,10 @@
 ﻿#if !defined(INC_H___1BB021C1_D00A_428A_A9B2_3336C7596320__HEAD__)
 #define INC_H___1BB021C1_D00A_428A_A9B2_3336C7596320__HEAD__
 
-#define ENABLE_OPENSSL_3 0
+#define ENABLE_OPENSSL_3 1
+#if ENABLE_OPENSSL_3
+#pragma warning(disable: 4996)
+#endif
 
 #include <win.h>
 #include <openssl.hpp>

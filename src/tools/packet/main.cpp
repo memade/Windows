@@ -53,10 +53,10 @@ int main(int argc, char** argv) {
 				std::cout << std::format("{}", "PE file is invalid.") << std::endl;
 				break;
 			}
-			if (!shared::Win::PE::IsX64(pe_buffer)) {
+			/*if (!shared::Win::PE::IsX64(pe_buffer)) {
 				std::cout << std::format("{}", "PE file is invalid.") << std::endl;
 				break;
-			}
+			}*/
 		}
 		else {
 			std::string zip, unzip;

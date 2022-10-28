@@ -797,6 +797,9 @@ namespace shared {
    std::string m_machine_full_id;
   };
  public:
+  /// @MainProcess(...)
+  ///  Input listening for console programs
+  static void MainProcess(const std::function<void(const std::string& input, bool& exit)>&);
   static bool AccessA(const std::string&);
   static bool AccessW(const std::wstring&);
   static std::string GetTempPathA();

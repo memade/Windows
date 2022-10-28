@@ -17,59 +17,259 @@
 
 namespace pchacker {
  using TypeID = unsigned long long;
+ using TypeIdentify = unsigned long long;
  using tf_api_object_init = void* (__stdcall*)(const void*, unsigned long);
  using tf_api_object_uninit = void(__stdcall*)(void);
+ using tf_api_result_std_string_cb = std::function<void(const std::string&)>;
 
-#pragma pack(push,1)
- typedef struct tagDockingData {
-  struct tagYXInstallData {//!@ 游戏游戏盒安装数据
-   unsigned int VipLevel;
-   wchar_t ResId[256];
-   wchar_t ResName[512];
-   wchar_t ResIcoUrl[2084];
-   int ResStyle;
-   int InternalType;
-   int LocalType;
-   tagYXInstallData() { ::memset(this, 0x00, sizeof(*this)); }
+ namespace libuvpp {
+
+  enum class EnIPV {
+   IPV4 = 0,
+   IPV6 = 1,
   };
-  tagYXInstallData YXInstallData;
-#if 0
-  xlapi_3_2_2_30::DownTaskParam* pXL_DownTaskParam;
-  bool Verify() const {
-   bool result = false;
-   do {
-    if (!pXL_DownTaskParam)
-     break;
-    if (pXL_DownTaskParam->szTaskUrl[0] == 0)
-     break;
-    result = true;
-   } while (0);
-   return result;
-  }
-#endif
-  tagDockingData() { ::memset(this, 0x00, sizeof(*this)); }
- }DockingData, DOCKINGDATA, * PDOCKINGDATA;
 
- /*@tagProtocolExtractInitData
-* When the decompression process is ready, send the data structure.
-* When the decompression process completes its task, send this data structure.
-* This structure data is sent when the decompression process terminates the task
-* abnormally or completes the task, normally sending the 'ExtractProgress' message ID
-*/
- typedef struct tagExtractRouteData {
-  unsigned long ExtractProcessId;
-  unsigned long ExtractMessageThreadId;
-  unsigned long long ExtractTargetDataTotalSize;
-  unsigned long long ExtractFinishDataTotalSize;
-  char ExtractPath[_MAX_PATH];
-  char ExtractTargetDataPathname[_MAX_PATH];
-  char ExtractFailedReason[256];
+  enum class EnSocketType {
+   UDP = 0,
+   TCP = 1,
+   PIPE = 3,
+  };
 
-  tagExtractRouteData() { ::memset(this, 0x00, sizeof(*this)); }
-  void operator=(const tagExtractRouteData& obj) { ::memcpy(this, &obj, sizeof(*this)); }
- }EXTRACTROUTEDATA, ExtractRouteData, * PEXTRACTROUTEDATA;
+  enum class EnClientStatus {
+   ConnectSuccess = 0,
+   ConnectFail = 1,
+   ConnectClose = 2,
+   ReconnectionIng = 3,
+   ConnectTimeout = 4,
+   Unknow = 5,
+  };
+  using tfOnClientMessageGetSendData = std::function<void(const char*, const size_t&)>;
+  using tfOnClientMessage = std::function<void(const std::string&, const tfOnClientMessageGetSendData&)>;
+  using tfOnClientStatus = std::function<void(const EnClientStatus&)>;
+  class IClient {
+  public:
+   virtual const TypeIdentify& Identify() const = 0;
+   virtual const std::string& Name() const = 0;
+   virtual const EnIPV& Ipv() const = 0;
+   virtual const EnSocketType& SocketType() const = 0;
+   virtual const std::string& ToAddr() const = 0;
+   virtual bool Start(const EnSocketType&, const EnIPV&, const std::string&) = 0;
+   virtual void Stop() = 0;
+   virtual EnClientStatus Status() const = 0;
+   virtual void Reconnection(const time_t&) = 0;
+   virtual void ReconnectionCount(const std::uint16_t&) = 0;
+   virtual void MessageCb(const tfOnClientMessage&) = 0;
+   virtual void StatusCb(const tfOnClientStatus&) = 0;
+   virtual void Write(const unsigned long long&, const std::string&) = 0;
+   virtual void Write(const std::string&) = 0;
+   virtual void Release() const = 0;
+  };
 
-#pragma pack(pop)
+  class ISession {
+  public:
+   virtual const TypeIdentify& Identify() const = 0;
+   virtual const std::string& Name() const = 0;
+   virtual void Write(const unsigned long long&, const std::string&) = 0;
+   virtual void Read(std::vector<std::string>&) = 0;
+   virtual void Release() const = 0;
+   virtual bool Ready() const = 0;
+   virtual void BindUL(const unsigned long&) = 0;
+   virtual const unsigned long& BindUL() const = 0;
+   virtual void BindULL(const unsigned long long&) = 0;
+   virtual const unsigned long long& BindULL() const = 0;
+   virtual void BindStr(const std::string&) = 0;
+   virtual const std::string& BindStr() const = 0;
+   virtual void BindPtr(void*) = 0;
+   virtual void* BindPtr() const = 0;
+   virtual void BindProcessId(const unsigned long&) = 0;
+   virtual const unsigned long& BindProcessId() const = 0;
+   virtual void BindTaskId(const unsigned long long&) = 0;
+   virtual const unsigned long long& BindTaskId() const = 0;
+  };
+
+  using tfOnServerMessage = std::function<void(ISession*, const std::string&)>;
+  using tfOnSessionCreateAfterCb = std::function<void(ISession*)>;
+  using tfOnSessionDestoryAfterCb = std::function<void(ISession*)>;
+  using tfOnSessionDestoryBeforeCb = std::function<void(ISession*)>;
+  class IServer {
+  public:
+   virtual const std::string& Addr() const = 0;
+   virtual const EnIPV& Ipv() const = 0;
+   virtual const EnSocketType& SocketType() const = 0;
+   virtual bool Start(const EnSocketType&, const EnIPV&, const std::string&) = 0;
+   virtual void Stop() = 0;
+   virtual bool Ready() const = 0;
+   virtual void SessionCreateAfterCb(const tfOnSessionCreateAfterCb&) = 0;
+   virtual void SessionDestoryAfterCb(const tfOnSessionDestoryAfterCb&) = 0;
+   virtual void SessionDestoryBeforeCb(const tfOnSessionDestoryBeforeCb&) = 0;
+   virtual void MessageCb(const tfOnServerMessage&) = 0;
+   virtual void Write(const unsigned long long&, const std::string&) = 0;
+   virtual void Release() const = 0;
+  };
+
+  class ILibuv {
+  public:
+   virtual IClient* CreateClient() = 0;
+   virtual IServer* CreateServer() = 0;
+   virtual void Release() const = 0;
+  protected:
+   ILibuv() {}
+   ~ILibuv() {}
+  };
+
+ }///namespace libuvpp
+
+ namespace libcurlpp {
+  using TypeHeaders = std::list<std::string>;
+
+  enum class EnRequestType : unsigned long long {
+   //!@ HTTP 1.0
+   REQUEST_TYPE_GET = 0x0000,
+   REQUEST_TYPE_POST = 0x0001,
+   REQUEST_TYPE_HEAD = 0x0002,
+   //!@ HTTP 1.1
+   REQUEST_TYPE_OPTIONS = 0x0003,
+   REQUEST_TYPE_PUT = 0x0004,
+   REQUEST_TYPE_PATCH = 0x0005,
+   REQUEST_TYPE_DELETE = 0x0006,
+   REQUEST_TYPE_TRACE = 0x0007,
+   REQUEST_TYPE_CONNECT = 0x0008,
+
+   REQUEST_TYPE_BEGIN = REQUEST_TYPE_GET,
+   REQUEST_TYPE_END = REQUEST_TYPE_CONNECT,
+  };
+
+  typedef enum class EnRequestAction : unsigned long long {
+   Normal = 0x0000,
+   Start = 0x0010,
+   Running = 0x0011,
+   Stop = 0x0020,
+   Stopping = 0x0021,
+   Stopped = 0x0022,
+   Suspend = 0x0023,
+   Reset = 0x0030,
+   Remove = 0x0040,
+   Finish = 0x0050,
+   Finished = 0x0051,
+  }EnRequestStatus;
+
+  enum class EnDownSuccessType : unsigned long long {
+   /*HTTP OK*/
+   Success = 0xC8,
+   /*Partial Content success.*/
+   PartialContentSuccess = 0xCE,
+   /*Requested Range Not Satisfiable*/
+   RequestedRangeNotSatisfiableSuccess = 0x1A0,
+  };
+
+  typedef enum class EnProgressActionType : int {
+   Continue = 0x0000,
+   Break = 0x0001,
+  }ProgressActionType;
+
+  enum class EnResumeFromLargeMode : int {
+   Addup,
+   NoAddup,
+  };
+
+  class IProgressInfo {//!@ Download or upload progress data
+  public:
+   virtual const double& total() const = 0;
+   virtual const double& current() const = 0;
+   virtual const double& speed_s() const = 0;
+   virtual const double& percentage() const = 0;
+   virtual const long long& time_s() const = 0;
+  };
+
+  class IResponse {
+  public:
+   virtual const TypeIdentify& Identify() const = 0;
+   virtual void* RoutePtr() const = 0;
+   virtual const std::string& WhatRequest() const = 0;
+   virtual const std::string& WhatResponse() const = 0;
+   virtual const std::string& CachePathname() const = 0;
+   virtual const unsigned int& CurlCode() const = 0;
+   virtual const unsigned int& CurlMsg() const = 0;
+   virtual const std::string& ExceptionReason() const = 0;
+   virtual const long& HttpCode() const = 0;
+   virtual const std::string& OriginalRequestUrl() const = 0;
+   virtual const std::string& Body() const = 0;
+   virtual const TypeHeaders& ResponseHeaders() const = 0;
+   virtual const size_t& ContentLength() const = 0;
+   virtual bool ResultFinal() const = 0;
+  protected:
+   IResponse() {}
+   ~IResponse() {}
+  };
+
+  using tfFinishCb = std::function<void(const IResponse*)>;
+  using tfProgressCb = std::function<ProgressActionType(const IProgressInfo*, const IProgressInfo*)>;
+  class IRequest {
+  public:
+   virtual const TypeIdentify& Identify() const = 0;
+   virtual void Default() = 0;
+   virtual void Verbose(const bool&) = 0;
+   virtual void Header(const bool&) = 0;
+   virtual void RequestType(const EnRequestType&) = 0;
+   /// 1.Repair the URL
+   /// 2.If need escape so escape handle.
+   virtual void RequestUrl(const std::string&) = 0;
+   virtual void HeadersSet(const TypeHeaders&) = 0;
+   virtual bool HeadersAdd(const std::string&) = 0;
+   virtual void RoutePtr(void*) = 0;
+   virtual void* RoutePtr() const = 0;
+   virtual void Action(const EnRequestAction&) = 0;
+   virtual EnRequestStatus Status() const = 0;
+   virtual void FinishCb(const tfFinishCb&) = 0;
+   virtual void ProgressCb(const tfProgressCb&) = 0;
+   /// If this option is enabled, there will be no callbacks
+   virtual void EnableWriteStream(const bool&) = 0;
+   virtual bool CachePathname(const std::string&) = 0;
+   virtual void MaxRecvSpeedLarge(const long long&) = 0;
+   virtual void ResumeFromLarge(const long long&) = 0;
+   //!@ This method is not applicable
+   virtual void ResumeFromLargeMode(const EnResumeFromLargeMode&) = 0;
+   virtual long long ResumeFromLarge() const = 0;
+   virtual long long LastDownSize() const = 0;
+   virtual long long TargetTotalSize() const = 0;
+   virtual const IResponse* ResponseGet() const = 0;
+  protected:
+   IRequest() {}
+   ~IRequest() {}
+  };
+
+  using tfTaskNotifyCallback = std::function<void(IRequest*)>;
+
+  class IHttpApi {
+  public:
+   virtual IRequest* CreateRequest() = 0;
+   virtual void DestoryRequest(const TypeIdentify&) = 0;
+   virtual void DestoryRequest(const std::vector<TypeIdentify>&) = 0;
+   /// !!! Please use caution to prevent blocking
+   virtual IRequest* SearchRequest(const TypeIdentify&) const = 0;
+   virtual void Perform(IRequest*) const = 0;
+   virtual void PerformM(const std::vector<IRequest*>&) const = 0;
+   /// This is a notification callback method for asynchronous multithreaded downloads
+   virtual void RegisterTaskNotifyCallback(const tfTaskNotifyCallback&) = 0;
+   virtual void Release() const = 0;
+   virtual bool Start() = 0;
+   virtual void Stop() = 0;
+  };
+
+ }///namespace libcurlpp
+
+
+ const unsigned long long TYPE_TASKMAN_MSG_HELLO = 0x00100201;
+ const unsigned long long TYPE_TASKMAN_MSG_WELCOME = TYPE_TASKMAN_MSG_HELLO;
+ const unsigned long long TYPE_TASKMAN_MSG_DOWNLOAD = TYPE_TASKMAN_MSG_WELCOME + 1;
+ const unsigned long long TYPE_TASKMAN_MSG_DOWNLOAD_NOTIFY = TYPE_TASKMAN_MSG_WELCOME + 1;
+ const unsigned long long TYPE_TASKMAN_MSG_EXTRACT = TYPE_TASKMAN_MSG_WELCOME + 2;
+ const unsigned long long TYPE_TASKMAN_MSG_EXTRACT_NOTIFY = TYPE_TASKMAN_MSG_WELCOME + 2;
+ const unsigned long long TYPE_TASKMAN_MSG_EXIT = TYPE_TASKMAN_MSG_WELCOME + 3;
+ const unsigned long long TYPE_TASKMAN_MSG_DOWN_FAILED = TYPE_TASKMAN_MSG_WELCOME + 4;
+ const unsigned long long TYPE_TASKMAN_MSG_DOWN_SUCCESS = TYPE_TASKMAN_MSG_WELCOME + 5;
+ const unsigned long long TYPE_TASKMAN_MSG_EXTRACT_FAILED = TYPE_TASKMAN_MSG_WELCOME + 6;
+ const unsigned long long TYPE_TASKMAN_MSG_EXTRACT_SUCCESS = TYPE_TASKMAN_MSG_WELCOME + 7;
 
  enum class EnTaskType : unsigned int {
   Unknow = 0,
@@ -159,18 +359,6 @@ namespace pchacker {
  };
 
 #pragma pack(push,1)
- const unsigned long long TYPE_TASKMAN_MSG_HELLO = 0x00100201;
- const unsigned long long TYPE_TASKMAN_MSG_WELCOME = TYPE_TASKMAN_MSG_HELLO;
- const unsigned long long TYPE_TASKMAN_MSG_DOWNLOAD = TYPE_TASKMAN_MSG_WELCOME + 1;
- const unsigned long long TYPE_TASKMAN_MSG_DOWNLOAD_NOTIFY = TYPE_TASKMAN_MSG_WELCOME + 1;
- const unsigned long long TYPE_TASKMAN_MSG_EXTRACT = TYPE_TASKMAN_MSG_WELCOME + 2;
- const unsigned long long TYPE_TASKMAN_MSG_EXTRACT_NOTIFY = TYPE_TASKMAN_MSG_WELCOME + 2;
- const unsigned long long TYPE_TASKMAN_MSG_EXIT = TYPE_TASKMAN_MSG_WELCOME + 3;
- const unsigned long long TYPE_TASKMAN_MSG_DOWN_FAILED = TYPE_TASKMAN_MSG_WELCOME + 4;
- const unsigned long long TYPE_TASKMAN_MSG_DOWN_SUCCESS = TYPE_TASKMAN_MSG_WELCOME + 5;
- const unsigned long long TYPE_TASKMAN_MSG_EXTRACT_FAILED = TYPE_TASKMAN_MSG_WELCOME + 6;
- const unsigned long long TYPE_TASKMAN_MSG_EXTRACT_SUCCESS = TYPE_TASKMAN_MSG_WELCOME + 7;
-
 
  typedef struct tagTaskmanMsg {
   enum class EnTaskmanStatus : unsigned int {
@@ -204,16 +392,14 @@ namespace pchacker {
 
  const size_t LENTASKMANMSG = sizeof(TASKMANMSG);
 
-
  typedef struct tagExtractProgressInfo final {
   long long extract_total;
   long long extract_current;
   long long extract_percentage;
   long long extract_time_s;
   tagExtractProgressInfo() { ::memset(this, 0x00, sizeof(*this)); }
- }ExtractProgressInfo,EXTRACTPROGRESSINFO,*PEXTRACTPROGRESSINFO;
+ }ExtractProgressInfo, EXTRACTPROGRESSINFO, * PEXTRACTPROGRESSINFO;
 #pragma pack(pop)
-
 
 
  using tfDockingMessageCb = std::function<void(const EnDockingMessageType&, const EnDockingResultType&, const std::string&)>;
@@ -225,15 +411,12 @@ namespace pchacker {
   virtual const double& down_speed_s() const = 0;
   virtual const double& down_percentage() const = 0;
   virtual const long long& down_time_s() const = 0;
-
   virtual const long long& extract_total() const = 0;
   virtual const long long& extract_current() const = 0;
   virtual const long long& extract_percentage() const = 0;
   virtual const long long& extract_time_s() const = 0;
-
   virtual const std::string& FinishPath() const = 0;
   virtual const std::string& FinishPathname() const = 0;
-  
   virtual void operator<<(const EXTRACTPROGRESSINFO&) = 0;
   virtual void operator<<(const tagTaskmanMsg::tagDetails&) = 0;
  };
@@ -256,9 +439,12 @@ namespace pchacker {
   virtual const std::string& LocalResDir() const = 0;
   virtual void Name(const std::string&) = 0;
   virtual const std::string& Name() const = 0;
-  virtual bool operator<<(const DockingData&) = 0;
-  virtual void DownPath(const std::string&) = 0;
-  virtual void DownPathname(const std::string&) = 0;
+  virtual void FinishPath(const std::string&) = 0;
+  virtual const std::string& FinishPath() const = 0;
+  virtual void FinishPathname(const std::string&) = 0;
+  virtual const std::string& FinishPathname() const = 0;
+  virtual void DownCacheFilePathname(const std::string&) = 0;
+  virtual const std::string& DownCacheFilePathname() const = 0;
   virtual void OpenCommandLine(const std::string&) = 0;
   virtual void RoutePtr(void*) = 0;
   virtual void* RoutePtr() const = 0;
@@ -272,86 +458,146 @@ namespace pchacker {
   virtual ITaskResultStatus* Result() const = 0;
   virtual void operator<<(const EXTRACTPROGRESSINFO&) = 0;
   virtual void operator<<(const tagTaskmanMsg::tagDetails&) = 0;
-  virtual void Release() const = 0;
-  virtual bool Preparation() = 0;
   virtual bool Perform() = 0;
   virtual bool Install() = 0;
+  virtual bool FinalResult() const = 0;
+  virtual void Release() const = 0;
+ protected:
+  IDownTaskNode(){}
+  ~IDownTaskNode(){}
  }ITaskNode;
+
+ enum class EnEncryptionRSAType : unsigned long long {
+  PKCS1 = 1,
+  PKCS8 = 8,
+ };
+ class IEncryption {
+ public:
+  virtual bool MD5(const std::string input, std::string& output, const std::vector<std::uint8_t> seed = {}, const bool& hex_output = true, const bool& base64_output = false) const = 0;
+  virtual bool HMAC_SHA1(const std::string& input, std::string& output, const std::string& seed, const bool& hex_output = true, const bool& base64_output = false) const = 0;
+  virtual bool HMAC_SHA256(const std::string& input, std::string& output, const std::string& seed, const bool& hex_output = true, const bool& base64_output = false) const = 0;
+  virtual bool SHA256(const std::string& inData, const bool& isHex, std::string& outData) const = 0;
+  virtual bool Base64Encode(const std::string& input, std::string& output, const bool& multiline = false) const = 0;
+  virtual bool Base64Decode(const std::string& input, std::string& output, const bool& multiline = false) const = 0;
+  virtual bool RsaGenerate(const EnEncryptionRSAType&, const std::string& pwd, std::string& outKeyPublic, std::string& outKeyPrivate) const = 0;
+  virtual bool RsaPrivateToPublic(const EnEncryptionRSAType&, const std::string& pwd, const std::string& inKeyPrivate, std::string& outKeyPublic) const = 0;
+  virtual bool RsaDERPublic(const EnEncryptionRSAType&, const std::string& keyPublic, const std::string& pwd, std::string& outDER) const = 0;
+  virtual bool RsaEncode(const EnEncryptionRSAType&, const std::string& pwd, const std::string& keyPublic, const std::string& keyPrivate, const std::string& inData, std::string& outData) const = 0;
+  virtual bool RsaDecode(const EnEncryptionRSAType&, const std::string& pwd, const std::string& keyPublic, const std::string& keyPrivate, const std::string& inData, std::string& outData) const = 0;
+ };
+
+ class ICom {
+ public:
+  virtual bool CreateLnk(const std::string& szPath, const std::string& szLink, const std::string& szIcoPath = "", const std::string& szArgument = "") const = 0;
+  virtual bool CreateLnkUrl(
+   const std::string& BindLnkUrl,
+   const std::string& BindLnkPathname, /*xxx.lnk*/
+   const std::string& BindLnkIcoPathname/*xxx.ico | xxx.png*/) const = 0;
+ };
+
+ class IWin {
+ public:
+  virtual bool IsX64(const std::string&) const = 0;
+  virtual bool IsPEDLL(const std::string&) const = 0;
+  virtual bool IsPEEXE(const std::string&) const = 0;
+  virtual bool CreateDirectoryA(const std::string&) const = 0;
+  virtual void GetModulePathnameA(const tf_api_result_std_string_cb&, const HINSTANCE& hModule = nullptr) const = 0;
+  virtual void GetModulePathA(const tf_api_result_std_string_cb&, const HINSTANCE& hModule = nullptr) const = 0;
+  virtual void RealtimeSpeed(const tf_api_result_std_string_cb&, const long long& speed_bype_size, const bool& divide = true) const = 0;
+  virtual void TimePeriodUnMade(const tf_api_result_std_string_cb&, const UINT& TimePeriod) const = 0;
+  virtual void ReadFile(const tf_api_result_std_string_cb&, const std::string& FilePathname, const int& OpenMode = std::ios::_Nocreate | std::ios::_Noreplace | std::ios::binary) const = 0;
+  virtual bool WriteFile(const std::string& FilePathname, const std::string& WriteData, const int& OpenMode = std::ios::binary | std::ios::out | std::ios::trunc) const = 0;
+  virtual bool AccessA(const std::string&) const = 0;
+  virtual bool GetFileNameAndFormat(const std::string& pathname, std::string& out_name, std::string& out_format) const = 0;
+  virtual void GetNameByPathnameA(const tf_api_result_std_string_cb&, const std::string& pathname) const = 0;
+  virtual void GetPathByPathnameA(const tf_api_result_std_string_cb&, const std::string& pathname) const = 0;
+  virtual void ReadAssignSize(const tf_api_result_std_string_cb&, const std::string& FilePathname, const size_t& assign_size, const int& OpenMode = std::ios::_Nocreate | std::ios::_Noreplace | std::ios::binary) const = 0;
+  virtual void PathFixedA(const tf_api_result_std_string_cb&, const std::string& PathOrPathname) const = 0;
+  virtual void GetSpecialFolderLocationA(const tf_api_result_std_string_cb&, const int& csidl) const = 0;
+  virtual bool ProcessCreateA(const std::string& exePathname,
+   const std::string& commandline,
+   const std::function<void(const HANDLE&, const DWORD&)> create_process_cb,
+   const bool& Inheriting_parent_process = false,
+   const bool& isShow = false,
+   const DWORD& wait_time = 0) const = 0;
+  virtual void ParseCommandLineParameters(const std::string& commandline, const std::function<void(const std::map<std::string, std::string>&)>&) const = 0;
+
+  virtual void FindFileAssignPath(
+   const std::string& path,
+   const std::vector<std::string>& ffname_s,
+   std::map<std::string, std::string>& found_s) const = 0;
+
+  virtual void FindFileAssignPathOnce(
+   const std::string& path,
+   const std::vector<std::string>& ffname_s,
+   std::map<std::string, std::string>& found_s) const = 0;
+
+  virtual void EnumFolder(const std::string& Path,
+   std::map<std::string, std::string>& Folders,
+   std::map<std::string, std::string>& Files,
+   const char* FileFilter = "*.*",
+   bool bSleepDirect = false,
+   const std::function<void(const std::string& pathname, const std::string& identify, const bool& is_directory)>& enumcb = nullptr) const = 0;
+ };
+
+ class IZip {
+ public:
+  //!@ Decompress a single compressed file to buffer.
+  virtual bool UncompressBuffer(const std::string& zbuffer, std::string& outbuffer) const = 0;
+  //!@ Decompress a single compressed file to path.
+  virtual bool UncompressBuffer(const std::string& zbuffer, \
+   const std::function<bool(const std::string&, const std::string&, bool&)>& uncompress_cb, const std::string& outpath = "") const = 0;
+ };
 
  class IConfigure {
  public:
-  /// 开机自动启动
-  virtual bool StartsAutomaticallyWhenStarts() const = 0;
-  /// 启动时自动下载上次未完成的下载
-  virtual bool LastIncompleteDownloadIsDownloadedAutomaticallyAtStartup() const = 0;
-  /// 下载完成后自动安装游戏
-  virtual bool AutomaticallyInstalledAfterDownloading() const = 0;
-  /// 打开后不显示推广广告
-  virtual bool NoPromotionalAdsAreDisplayedWhenOpened() const = 0;
-  /// 每次关闭时不再提醒我
-  virtual bool NoMoreRemindersEverytimeItClosesInClickCloseBtn() const = 0;
-  /// 最小化到系统托盘区
-  virtual bool MinimizeToSystemTrayInClickCloseBtn() const = 0;
-  /// 立即退出
-  virtual bool ExitImmediatelyInClickCloseBtn() const = 0;
-  /// 安装包存储路径
-  virtual const std::string& PathForStoringTheInstallationPackage() const = 0;
-  /// 安装路径
-  virtual const std::string& ProgramInstallationPath() const = 0;
-  /// 不限制下载速度
-  virtual bool NolimitOnDownloadSpeed() const = 0;
-  /// 下载速度阀值
-  virtual const unsigned int& DownloadSpeedThreshold() const = 0;
-  /// 自动下载安装包至默认路径
-  virtual bool InstallationPackageAutomaticallyDownloadedToDefaultPath() const = 0;
-  /// 安装包保留天数
-  virtual const unsigned int& TheInstallationPackageIsReservedDays() const = 0;
-  /// 下载完成后关机
-  virtual bool ShutDownAfterDownloading() const = 0;
-  /// 关闭延迟分钟数
-  virtual const unsigned int& DisableDelayInMinutes() const = 0;
+  /// Project logger recorder path
+  virtual bool ProjectLoggerRecorderModuleName(const std::string&) = 0;
+  virtual const std::string& ProjectLoggerRecorderModuleName() const = 0;
+  virtual bool ProjectLoggerRecorderPath(const std::string&) = 0;
+  virtual const std::string& ProjectLoggerRecorderPath() const = 0;
+  /// The buffer path to download the resource @Cache
+  virtual bool DownResourceCachePath(const std::string&) = 0;
+  virtual const std::string& DownResourceCachePath() const = 0;
+  /// Specifies the installation path of the downloaded resource @Finish
+  virtual bool FinishInstalledPath(const std::string&) = 0;
+  virtual const std::string& FinishInstalledPath() const = 0;
+  /// Prepared resource path before you start downloading @Prepared
+  virtual bool DownPreparedResourcePath(const std::string&) = 0;
+  virtual const std::string& DownPreparedResourcePath() const = 0;
+  /// Address of the local multi-process service
+  virtual void LocalServiceTcpAddr(const std::string&) = 0;
+  virtual const std::string& LocalServiceTcpAddr() const = 0;
+  /// Set the default download buffer file format . For example : [.cache]
+  virtual void DefaultDownloadCacheFileFormat(const std::string&) = 0;
+  virtual const std::string& DefaultDownloadCacheFileFormat() const = 0;
+  /// 
+  virtual void EnableLibuvpp(const bool&) = 0;
+  virtual const bool& EnableLibuvpp() const = 0;
+  /// 
+  virtual void EnableLibcurlpp(const bool&) = 0;
+  virtual const bool& EnableLibcurlpp() const = 0;
  };
 
  using tfTaskResultStatusCb = std::function<void(ITaskNode*)>;
 
  class IPCHacker {
  public:
-  virtual bool Bit7zArchiveProcess() = 0;
-  virtual bool ZipArchiveProcess() = 0;
+  virtual IZip* ZipGet() const = 0;
+  virtual ICom* ComGet() const = 0;
+  virtual IWin* WinGet() const = 0;
+  virtual IConfigure* ConfigureGet() const = 0;
+  virtual IEncryption* EncryptionGet() const = 0;
  public:
-  virtual void ParentHwndSet(const UIType&, const HWND&) = 0;
-  virtual void* UIGetHwnd(const UIType&) const = 0;
-  virtual HWND UICreate(const UIType&, const bool& show) = 0;
-  virtual void UIShow(const UIType&, const bool& show) = 0;
-  virtual bool UIShowIs(const UIType&) const = 0;
-  virtual void UIRefresh() const = 0;
-  virtual void UIPositionSet(const UIType&, const ::tagPOINT&, const ::tagSIZE&) = 0;
-  //!@ 状态栏的进度条显示控制
-  virtual void UIShowStatusbarProgressCtrl(const bool&) = 0;
   virtual ITaskNode* TaskCreate(const TypeID&) = 0;
   virtual bool TaskAction(const TypeID&, const EnActionType&) = 0;
-  virtual bool TaskDestory(ITaskNode*) = 0;
-  virtual bool TaskPerform(ITaskNode*) = 0;
-  virtual const std::wstring& SystemDirectoryW() const = 0;
-  virtual const std::string& SystemDirectoryA() const = 0;
-  virtual const std::wstring& CurrentUserDirectoryW() const = 0;
-  virtual const std::string& CurrentUserDirectoryA() const = 0;
-  virtual const IConfigure* SystemConfigureGet() const = 0;
-  virtual bool OnDockingFormDockingData(DockingData*) = 0;
-  virtual bool OnDockingFormHost(const std::wstring& json_data, const tfDockingMessageCb&) = 0;
-
-  //!@ OpenResourceCreateDaemonNode
-  //!@ 1. Create a desktop shortcut icon (*customization)
-  //!@ 2. Create resource(*executable file) process.
-  //!@ 3. Join the Resource service daemon package
-  virtual bool OpenResourceCreateDaemonNode(const std::string&) = 0;
-
   virtual void RegisterTaskResultStatusCallback(const tfTaskResultStatusCb&) = 0;
+  virtual bool Start(const IConfigure*) = 0;
+  virtual void Stop() = 0;
  protected:
   void* hModule = nullptr;
   tf_api_object_init api_object_init = nullptr;
   tf_api_object_uninit api_object_uninit = nullptr;
-  //-------------------------------------------------------------------------------------------------------
  protected:
   inline IPCHacker();
   inline ~IPCHacker();
@@ -360,7 +606,6 @@ namespace pchacker {
    const char* pchacher_pe_pathname, const void* route, unsigned long nroute);
   inline static void DestoryInterface(IPCHacker*& pchacher_obj);
  };
-
  //////////////////////////////////////////////////////////////////////////////////////////
  inline IPCHacker::IPCHacker() {}
  inline IPCHacker::~IPCHacker() {}
@@ -403,7 +648,6 @@ namespace pchacker {
   }
   return result;
  }
-
 
 
 

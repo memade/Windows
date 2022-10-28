@@ -355,33 +355,39 @@ struct stringpool_t
 #endif
 #define __iconv_close__(icd) if(icd){	iconv_close(icd);icd=nullptr;}
 
-namespace libiconv {
+namespace libconv {
+
+ template<typename T>
+ static void FixedEof(_Inout_ T& input) {
+  auto find_eof = input.find(L'\0');
+  if (find_eof != std::string::npos) {
+   input.erase(find_eof, input.size() - find_eof);
+  }
+ }
  /*
  size_t iconv(iconv_t icd,
  ICONV_CONST char** inbuf, size_t* inbytesleft,
  char** outbuf, size_t* outbytesleft)
  */
- std::wstring IConv::gbk_to_ucs2le(const std::string& gbk_data) {
+ std::wstring IConv::gbk_to_ucs2le(const std::string& input_gbk_data) {
 		std::wstring result;
 		libiconv_t icd = nullptr;
 		do {
-			if (gbk_data.empty())
+			if (input_gbk_data.empty())
 				break;
    icd = iconv_open("UCS-2LE", "GBK");
 			if (!icd)
 				break;
-			size_t outbytesleft = 0;
-   size_t inbytesleft = gbk_data.size();
-			iconv(icd, NULL/*(char**)&gbk_data[0]*/, NULL, NULL, &outbytesleft);
-			size_t nGbk = gbk_data.size();
-			size_t nUnicode = nGbk * sizeof(wchar_t);
-			result.resize(nUnicode, 0x00);
-			char* pGbk = (char*)&gbk_data[0];
+			size_t gbk_data_size = input_gbk_data.size();
+			size_t ucs2le_data_size = gbk_data_size * sizeof(wchar_t) + 4;
+			result.resize(ucs2le_data_size, 0x00);
+			char* pGbk = (char*)&input_gbk_data[0];
 			char* pUnicode = (char*)&result[0];
-			if (0 > iconv(icd, &pGbk, &nGbk, &pUnicode, &nUnicode)) {
+			if (0 > iconv(icd, &pGbk, &gbk_data_size, &pUnicode, &ucs2le_data_size)) {
 				result.clear();
 				break;
 			}
+   FixedEof<std::wstring>(result);
 		} while (0);
 		__iconv_close__(icd);
 		return result;
@@ -395,4 +401,4 @@ namespace libiconv {
 		return result;
  }
 
-}///namespace libiconv
+}///namespace libconv

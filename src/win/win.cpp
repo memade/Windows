@@ -1436,88 +1436,56 @@ namespace shared {
   return result;
  }
  bool Win::CreateDirectoryW(const std::wstring& create_directory_path) {
-  if (create_directory_path.empty())
-   return false;
-  std::wstring temp_directory_path{ create_directory_path };
-  do {
-   if (::_waccess(temp_directory_path.c_str(), 0) == 0) {
-    break;
-   }
-   for (auto it = temp_directory_path.begin(); it != temp_directory_path.end(); ++it) {
-    if (*it == '/')
-     *it = '\\';
-   }
-   do {
-    auto found = temp_directory_path.find(L"\\\\");
-    if (found == std::string::npos)
-     break;
-    temp_directory_path.replace(found, ::wcslen(L"\\\\"), L"\\");
-   } while (1);
-
-   std::vector<std::wstring> levels;
-   do {
-    if (::_waccess(temp_directory_path.c_str(), 0) == 0)
-     break;
-    if (temp_directory_path.empty())
-     break;
-    levels.emplace_back(temp_directory_path);
-    temp_directory_path.pop_back();
-    temp_directory_path = temp_directory_path.substr(0, temp_directory_path.rfind(L"\\"));
-   } while (1);
-
-   std::sort(levels.begin(), levels.end(),
-    [&](const auto& obj1, const auto& obj2)->bool {
-     return obj1.size() < obj2.size();
-    });
-
-   for (auto& level : levels) {
-    if (_wmkdir(level.c_str()) != 0)
-     break;
-   }
-  } while (0);
-  return ::_waccess(temp_directory_path.c_str(), 0) == 0;
+  return CreateDirectoryA(IConv::WStringToMBytes(create_directory_path));
  }
  bool Win::CreateDirectoryA(const std::string& create_directory_path) {
-  if (create_directory_path.empty())
-   return false;
-  std::string temp_directory_path{ create_directory_path };
+  bool result = false;
   do {
-   if (::_access(temp_directory_path.c_str(), 0) == 0) {
+   if (create_directory_path.empty())
     break;
-   }
-   for (auto it = temp_directory_path.begin(); it != temp_directory_path.end(); ++it) {
-    if (*it == '/')
-     *it = '\\';
-   }
+   std::string temp_directory_path{ create_directory_path };
    do {
-    auto found = temp_directory_path.find("\\\\");
-    if (found == std::string::npos)
+    if (::_access(temp_directory_path.c_str(), 0) == 0) {
+     result = true;//Directory already exists
      break;
-    temp_directory_path.replace(found, ::strlen("\\\\"), "\\");
-   } while (1);
+    }
+    for (auto it = temp_directory_path.begin(); it != temp_directory_path.end(); ++it) {
+     if (*it == '/')
+      *it = '\\';
+    }
+    do {
+     auto found = temp_directory_path.find("\\\\");
+     if (found == std::string::npos)
+      break;
+     temp_directory_path.replace(found, ::strlen("\\\\"), "\\");
+    } while (1);
 
-   std::vector<std::string> levels;
-   do {
-    if (::_access(temp_directory_path.c_str(), 0) == 0)
-     break;
-    if (temp_directory_path.empty())
-     break;
-    levels.emplace_back(temp_directory_path);
-    temp_directory_path.pop_back();
-    temp_directory_path = temp_directory_path.substr(0, temp_directory_path.rfind("\\"));
-   } while (1);
+    std::vector<std::string> levels;
+    do {
+     if (::_access(temp_directory_path.c_str(), 0) == 0)
+      break;
+     if (temp_directory_path.empty())
+      break;
+     levels.emplace_back(temp_directory_path);
+     temp_directory_path.pop_back();
+     temp_directory_path = temp_directory_path.substr(0, temp_directory_path.rfind("\\"));
+    } while (1);
 
-   std::sort(levels.begin(), levels.end(),
-    [&](const auto& obj1, const auto& obj2)->bool {
-     return obj1.size() < obj2.size();
-    });
+    std::sort(levels.begin(), levels.end(),
+     [&](const auto& obj1, const auto& obj2)->bool {
+      return obj1.size() < obj2.size();
+     });
 
-   for (auto& level : levels) {
-    if (_mkdir(level.c_str()) != 0)
-     break;
-   }
+    result = true;
+    for (auto& level : levels) {
+     if (::_mkdir(level.c_str()) != 0) {
+      result = false;
+      break;
+     }
+    }
+   } while (0);
   } while (0);
-  return ::_access(temp_directory_path.c_str(), 0) == 0;
+  return result;
  }
  std::string Win::GetModuleNameA(const bool& RemoveSuffix /*= false*/, const HINSTANCE& hModule /*= nullptr*/) {
   std::string result;
@@ -2071,7 +2039,7 @@ namespace shared {
       const std::string current_target_fullpathname = shared::Win::PathFixedA(path + "\\" + pathname);
       for (const auto& target_fname : ffname_s) {
        if (::_memicmp(target_fname.c_str(), identify.c_str(), target_fname.size()) == 0) {
-        if(found_s.find(identify) == found_s.end())
+        if (found_s.find(identify) == found_s.end())
          found_s.emplace(identify, current_target_fullpathname);
        }
       }
@@ -4190,5 +4158,24 @@ VXD, 386	 	Windows virtual device drivers
    }
   } while (0);
   return result;
+ }
+
+
+ void Win::MainProcess(const std::function<void(const std::string& input, bool& exit)>& main_process_callback) {
+  if (!main_process_callback)
+   return;
+  std::thread(
+   [&]() {
+    do {
+     std::string _input;
+     bool exit_flag = false;
+     char c = 0;
+     while (std::cin >> std::noskipws >> c) { if ('\n' == c) break; _input.push_back(c); }
+     std::cin >> std::skipws;
+     main_process_callback(_input, exit_flag);
+     if(exit_flag)
+      break;
+    } while (1);
+   }).join();
  }
 }///namespace shared
