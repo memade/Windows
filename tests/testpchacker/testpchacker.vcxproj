@@ -134,32 +134,7 @@
       <AdditionalManifestFiles>D:\__SVN__\Memade\src\cef3\cef3client\resources\win\compatibility.manifest %(AdditionalManifestFiles)</AdditionalManifestFiles>
     </Manifest>
     <PostBuildEvent>
-      <Command>xcopy /Y $(SolutionDir)..\..\include\stdc++.h D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\include\
-xcopy /Y $(SolutionDir)..\..\include\libcurlpp.hpp D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\include\
-xcopy /Y $(SolutionDir)..\..\include\pchacker.hpp D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\include\
-xcopy /Y $(SolutionDir)..\..\include\container.hpp D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\include\
-
-xcopy /Y $(SolutionDir)..\..\include\stdc++.h D:\__Code.Aliyun.Com__\CardPackage\CardPackage\include\
-xcopy /Y $(SolutionDir)..\..\include\libcurlpp.hpp D:\__Code.Aliyun.Com__\CardPackage\CardPackage\include\
-xcopy /Y $(SolutionDir)..\..\include\pchacker.hpp D:\__Code.Aliyun.Com__\CardPackage\CardPackage\include\
-xcopy /Y $(SolutionDir)..\..\include\container.hpp D:\__Code.Aliyun.Com__\CardPackage\CardPackage\include\
-
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Debug\libcurlpp.dll D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\bin\Debug\Components\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Debug\pchacker.dll D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\bin\Debug\Components\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Debug\libuvpp.dll D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\bin\Debug\Components\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Release\libcurlpp.dll D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\bin\Release\Components\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Release\pchacker.dll D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\bin\Release\Components\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Release\libuvpp.dll D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\bin\Release\Components\
-
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Debug\libcurlpp.dll D:\__Code.Aliyun.Com__\CardPackage\bin\Win32\Debug\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Debug\pchacker.dll D:\__Code.Aliyun.Com__\CardPackage\bin\Win32\Debug\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Debug\libuvpp.dll D:\__Code.Aliyun.Com__\CardPackage\bin\Win32\Debug\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Release\libcurlpp.dll D:\__Code.Aliyun.Com__\CardPackage\bin\Win32\Release\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Release\pchacker.dll D:\__Code.Aliyun.Com__\CardPackage\bin\Win32\Release\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Release\libuvpp.dll D:\__Code.Aliyun.Com__\CardPackage\bin\Win32\Release\
-
-xcopy /Y $(SolutionDir)..\..\projects\pchacker\res\Taskman.exe D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\bin\Debug\Components\
-xcopy /Y $(SolutionDir)..\..\projects\pchacker\res\Taskman.exe D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\bin\Release\Components\
+      <Command>call $(solutiondir)..\..\compile\scripts\projects\CopyToTargetProjects.bat $(Configuration)
 
 </Command>
     </PostBuildEvent>
@@ -194,32 +169,7 @@ xcopy /Y $(SolutionDir)..\..\projects\pchacker\res\Taskman.exe D:\__Codeup.Aliyu
       <PreprocessorDefinitions>X86;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <PostBuildEvent>
-      <Command>xcopy /Y $(SolutionDir)..\..\include\stdc++.h D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\include\
-xcopy /Y $(SolutionDir)..\..\include\libcurlpp.hpp D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\include\
-xcopy /Y $(SolutionDir)..\..\include\pchacker.hpp D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\include\
-xcopy /Y $(SolutionDir)..\..\include\container.hpp D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\include\
-
-xcopy /Y $(SolutionDir)..\..\include\stdc++.h D:\__Code.Aliyun.Com__\CardPackage\CardPackage\include\
-xcopy /Y $(SolutionDir)..\..\include\libcurlpp.hpp D:\__Code.Aliyun.Com__\CardPackage\CardPackage\include\
-xcopy /Y $(SolutionDir)..\..\include\pchacker.hpp D:\__Code.Aliyun.Com__\CardPackage\CardPackage\include\
-xcopy /Y $(SolutionDir)..\..\include\container.hpp D:\__Code.Aliyun.Com__\CardPackage\CardPackage\include\
-
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Debug\libcurlpp.dll D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\bin\Debug\Components\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Debug\pchacker.dll D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\bin\Debug\Components\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Debug\libuvpp.dll D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\bin\Debug\Components\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Release\libcurlpp.dll D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\bin\Release\Components\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Release\pchacker.dll D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\bin\Release\Components\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Release\libuvpp.dll D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\bin\Release\Components\
-
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Debug\libcurlpp.dll D:\__Code.Aliyun.Com__\CardPackage\bin\Win32\Debug\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Debug\pchacker.dll D:\__Code.Aliyun.Com__\CardPackage\bin\Win32\Debug\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Debug\libuvpp.dll D:\__Code.Aliyun.Com__\CardPackage\bin\Win32\Debug\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Release\libcurlpp.dll D:\__Code.Aliyun.Com__\CardPackage\bin\Win32\Release\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Release\pchacker.dll D:\__Code.Aliyun.Com__\CardPackage\bin\Win32\Release\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Release\libuvpp.dll D:\__Code.Aliyun.Com__\CardPackage\bin\Win32\Release\
-
-xcopy /Y $(SolutionDir)..\..\projects\pchacker\res\Taskman.exe D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\bin\Debug\Components\
-xcopy /Y $(SolutionDir)..\..\projects\pchacker\res\Taskman.exe D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\bin\Release\Components\
+      <Command>call $(solutiondir)..\..\compile\scripts\projects\CopyToTargetProjects.bat $(Configuration)
 
 </Command>
     </PostBuildEvent>
@@ -250,32 +200,7 @@ xcopy /Y $(SolutionDir)..\..\projects\pchacker\res\Taskman.exe D:\__Codeup.Aliyu
       <PreprocessorDefinitions>X64;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <PostBuildEvent>
-      <Command>xcopy /Y $(SolutionDir)..\..\include\stdc++.h D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\include\
-xcopy /Y $(SolutionDir)..\..\include\libcurlpp.hpp D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\include\
-xcopy /Y $(SolutionDir)..\..\include\pchacker.hpp D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\include\
-xcopy /Y $(SolutionDir)..\..\include\container.hpp D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\include\
-
-xcopy /Y $(SolutionDir)..\..\include\stdc++.h D:\__Code.Aliyun.Com__\CardPackage\CardPackage\include\
-xcopy /Y $(SolutionDir)..\..\include\libcurlpp.hpp D:\__Code.Aliyun.Com__\CardPackage\CardPackage\include\
-xcopy /Y $(SolutionDir)..\..\include\pchacker.hpp D:\__Code.Aliyun.Com__\CardPackage\CardPackage\include\
-xcopy /Y $(SolutionDir)..\..\include\container.hpp D:\__Code.Aliyun.Com__\CardPackage\CardPackage\include\
-
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Debug\libcurlpp.dll D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\bin\Debug\Components\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Debug\pchacker.dll D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\bin\Debug\Components\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Debug\libuvpp.dll D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\bin\Debug\Components\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Release\libcurlpp.dll D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\bin\Release\Components\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Release\pchacker.dll D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\bin\Release\Components\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Release\libuvpp.dll D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\bin\Release\Components\
-
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Debug\libcurlpp.dll D:\__Code.Aliyun.Com__\CardPackage\bin\Win32\Debug\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Debug\pchacker.dll D:\__Code.Aliyun.Com__\CardPackage\bin\Win32\Debug\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Debug\libuvpp.dll D:\__Code.Aliyun.Com__\CardPackage\bin\Win32\Debug\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Release\libcurlpp.dll D:\__Code.Aliyun.Com__\CardPackage\bin\Win32\Release\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Release\pchacker.dll D:\__Code.Aliyun.Com__\CardPackage\bin\Win32\Release\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Release\libuvpp.dll D:\__Code.Aliyun.Com__\CardPackage\bin\Win32\Release\
-
-xcopy /Y $(SolutionDir)..\..\projects\pchacker\res\Taskman.exe D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\bin\Debug\Components\
-xcopy /Y $(SolutionDir)..\..\projects\pchacker\res\Taskman.exe D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\bin\Release\Components\
+      <Command>call $(solutiondir)..\..\compile\scripts\projects\CopyToTargetProjects.bat $(Configuration)
 
 </Command>
     </PostBuildEvent>
@@ -311,32 +236,7 @@ xcopy /Y $(SolutionDir)..\..\projects\pchacker\res\Taskman.exe D:\__Codeup.Aliyu
       <PreprocessorDefinitions>X64;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <PostBuildEvent>
-      <Command>xcopy /Y $(SolutionDir)..\..\include\stdc++.h D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\include\
-xcopy /Y $(SolutionDir)..\..\include\libcurlpp.hpp D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\include\
-xcopy /Y $(SolutionDir)..\..\include\pchacker.hpp D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\include\
-xcopy /Y $(SolutionDir)..\..\include\container.hpp D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\include\
-
-xcopy /Y $(SolutionDir)..\..\include\stdc++.h D:\__Code.Aliyun.Com__\CardPackage\CardPackage\include\
-xcopy /Y $(SolutionDir)..\..\include\libcurlpp.hpp D:\__Code.Aliyun.Com__\CardPackage\CardPackage\include\
-xcopy /Y $(SolutionDir)..\..\include\pchacker.hpp D:\__Code.Aliyun.Com__\CardPackage\CardPackage\include\
-xcopy /Y $(SolutionDir)..\..\include\container.hpp D:\__Code.Aliyun.Com__\CardPackage\CardPackage\include\
-
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Debug\libcurlpp.dll D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\bin\Debug\Components\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Debug\pchacker.dll D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\bin\Debug\Components\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Debug\libuvpp.dll D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\bin\Debug\Components\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Release\libcurlpp.dll D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\bin\Release\Components\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Release\pchacker.dll D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\bin\Release\Components\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Release\libuvpp.dll D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\bin\Release\Components\
-
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Debug\libcurlpp.dll D:\__Code.Aliyun.Com__\CardPackage\bin\Win32\Debug\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Debug\pchacker.dll D:\__Code.Aliyun.Com__\CardPackage\bin\Win32\Debug\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Debug\libuvpp.dll D:\__Code.Aliyun.Com__\CardPackage\bin\Win32\Debug\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Release\libcurlpp.dll D:\__Code.Aliyun.Com__\CardPackage\bin\Win32\Release\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Release\pchacker.dll D:\__Code.Aliyun.Com__\CardPackage\bin\Win32\Release\
-xcopy /Y $(SolutionDir)..\..\bin\Win32\Release\libuvpp.dll D:\__Code.Aliyun.Com__\CardPackage\bin\Win32\Release\
-
-xcopy /Y $(SolutionDir)..\..\projects\pchacker\res\Taskman.exe D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\bin\Debug\Components\
-xcopy /Y $(SolutionDir)..\..\projects\pchacker\res\Taskman.exe D:\__Codeup.Aliyun.Com__\Martell\projects\gamebox-2021-final\bin\Release\Components\
+      <Command>call $(solutiondir)..\..\compile\scripts\projects\CopyToTargetProjects.bat $(Configuration)
 
 </Command>
     </PostBuildEvent>

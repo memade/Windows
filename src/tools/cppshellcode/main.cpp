@@ -9,23 +9,8 @@ int main(int argc, char** argv) {
 		return -1;
 	}
 
-	std::map<std::string, std::string> param_map;
-	for (int i = 0; i < argc; ++i) {
-		std::string the = argv[i];
-		do {
-			auto k = ::StrStrIA(the.c_str(), "--");
-			auto v = ::StrStrIA(the.c_str(), "=");
-			if (!k || !v)
-				continue;
-			auto key = shared::IConv::ToLowerA(std::string(k, v - k));
-			auto value = std::string(v + ::strlen("="));
-			if (key.empty() || value.empty())
-				continue;
-			param_map.emplace(shared::IConv::ToLowerA(std::string(k, v - k)), std::string(v + ::strlen("=")));
-
-			std::cout << std::format("{}={}", key, value) << std::endl;
-		} while (0);
-	}
+	tfCommandLineNode param_map;
+	shared::Win::ParseCommandLineParameters(argc, argv, param_map);
 
 #if 0
 	--input = $(SolutionDir)..\..\bin\shared\x64\Release\$(TargetName)$(TargetExt)
@@ -40,6 +25,51 @@ int main(int argc, char** argv) {
 			return -1;
 
 	bool result = false;
+	shared::PEAdditionalDataHead PEDataHead;
+	//!@ 不生成shellcode 
+	bool no_shellcode = param_map.find("--no-shellcode")!= param_map.end();
+	do {
+		if (!no_shellcode)
+			break;
+		int enable = ::atoi(param_map["--no-shellcode"].c_str());
+		if (enable == 0) {
+			no_shellcode = false;
+			break;
+		}
+		auto input = param_map["--input"];
+		auto output = param_map["--output"];
+		if (!shared::Win::AccessA(input))
+			break;
+		auto input_buffer = shared::Win::File::Read(input);
+		if (input_buffer.empty())
+			break;
+		std::string out_buffer;
+		bool zip = ::atoi(param_map["--zip"].c_str())==1?true:false;
+		if (zip) {
+			if (Z_OK != shared::Zip::zipCompress(input_buffer, out_buffer))
+				break;
+		}
+
+		PEDataHead.size_pe = static_cast<unsigned long>(input_buffer.size());
+		PEDataHead.size_shellcode_original = PEDataHead.size_pe;
+		PEDataHead.size_shellcode_process = static_cast<decltype(PEDataHead.size_shellcode_process)>(out_buffer.size());
+		PEDataHead.size_data = PEDataHead.size_shellcode_process;
+		PEDataHead.size_total = sizeof(PEDataHead) + PEDataHead.size_data - sizeof(PEDataHead.data);
+		auto data_buffer = new char[PEDataHead.size_total];
+		::memcpy(data_buffer, &PEDataHead, sizeof(PEDataHead));
+		auto pHead = (shared::PEAdditionalDataHead*)data_buffer;
+		::memcpy(&pHead->data[0], out_buffer.data(), out_buffer.size());
+
+		std::string FinalData(data_buffer, PEDataHead.size_total);
+
+		if (!shared::Win::File::Write(output, FinalData))
+			break;
+
+		result = true;
+	} while (0);
+
+	if (no_shellcode)
+		return 0;
 
 	std::string InputFilePathname = param_map["--input"];
 
@@ -89,7 +119,6 @@ int main(int argc, char** argv) {
 	}
 	shared::Win::CreateDirectoryA(shared::Win::GetPathByPathnameA(OutputFilePathname));
 
-	shared::PEAdditionalDataHead PEDataHead;
 	if (Identify.size() == sizeof(shared::PEAdditionalDataHead::search_identify)) {
 		::memcpy(PEDataHead.search_identify, Identify.data(), sizeof(PEDataHead.search_identify));
 	}

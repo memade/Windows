@@ -46,6 +46,7 @@ int main(int argc, char** argv) {
 	DWORD AppendDataSize = 0;
 
 	do {
+		std::cout << std::format("load pe pathname is '{}'", input_parameters["--input-pe"]) << std::endl;
 		pe_buffer = shared::Win::File::Read(input_parameters["--input-pe"]);
 		std::cout << std::format("Read to pe file buffer size({}).", pe_buffer.size()) << std::endl;
 		if (!pe_buffer.empty()) {
@@ -68,6 +69,7 @@ int main(int argc, char** argv) {
 			pe_buffer = unzip;
 		}
 
+		std::cout << std::format("input-shellcode is '{}'.", input_parameters["--input-shellcode"]) << std::endl;
 		append_data = shared::Win::File::Read(input_parameters["--input-shellcode"]);
 		AppendDataSize = static_cast<DWORD>(append_data.size());
 		if (AppendDataSize <= 0) {
@@ -94,8 +96,8 @@ bool Finish(const std::string& host_pe_buffer, const std::string& append_data, s
 	bool result = false;
 	std::string final_appenddata{ append_data };
 	do {//!@ ****** 对添加payload的长度限制做了修正，payload长度需要满足是8的倍数，否则数字签名状态无效(感谢维一零的帮助)
-		const size_t shellcode_totoal_size = final_appenddata.size();
-		auto remain = shellcode_totoal_size % 8ul;
+		const size_t shellcode_total_size = final_appenddata.size();
+		auto remain = shellcode_total_size % 8ul;
 		if (remain == 0)
 			break;
 		//!@ 0x00 补位

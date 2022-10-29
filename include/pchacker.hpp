@@ -190,13 +190,19 @@ namespace pchacker {
    virtual const std::string& CachePathname() const = 0;
    virtual const unsigned int& CurlCode() const = 0;
    virtual const unsigned int& CurlMsg() const = 0;
-   virtual const std::string& ExceptionReason() const = 0;
    virtual const long& HttpCode() const = 0;
    virtual const std::string& OriginalRequestUrl() const = 0;
+   virtual const std::string& FixedRequestUrl() const = 0;
    virtual const std::string& Body() const = 0;
    virtual const TypeHeaders& ResponseHeaders() const = 0;
    virtual const size_t& ContentLength() const = 0;
    virtual bool ResultFinal() const = 0;
+   virtual EnRequestType RequestType() const = 0;
+   virtual EnRequestAction Status() const = 0;
+   virtual long long TargetTotalSize() const = 0;
+   virtual long long ResumeFromLarge() const = 0;
+   virtual EnResumeFromLargeMode ResumeFromLargeMode() const = 0;
+   virtual long long MaxRecvSpeedLarge() const = 0;
   protected:
    IResponse() {}
    ~IResponse() {}
@@ -215,7 +221,7 @@ namespace pchacker {
    /// 2.If need escape so escape handle.
    virtual void RequestUrl(const std::string&) = 0;
    virtual void HeadersSet(const TypeHeaders&) = 0;
-   virtual bool HeadersAdd(const std::string&) = 0;
+   virtual void HeadersAdd(const std::string&) = 0;
    virtual void RoutePtr(void*) = 0;
    virtual void* RoutePtr() const = 0;
    virtual void Action(const EnRequestAction&) = 0;
@@ -551,6 +557,9 @@ namespace pchacker {
 
  class IConfigure {
  public:
+  /// Project Current path
+  virtual void ProjectCurrentPath(const std::string&) = 0;
+  virtual const std::string& ProjectCurrentPath() const = 0;
   /// Project logger recorder path
   virtual bool ProjectLoggerRecorderModuleName(const std::string&) = 0;
   virtual const std::string& ProjectLoggerRecorderModuleName() const = 0;
@@ -572,8 +581,8 @@ namespace pchacker {
   virtual void DefaultDownloadCacheFileFormat(const std::string&) = 0;
   virtual const std::string& DefaultDownloadCacheFileFormat() const = 0;
   /// 
-  virtual void EnableLibuvpp(const bool&) = 0;
-  virtual const bool& EnableLibuvpp() const = 0;
+  virtual void EnableLibuvppServer(const bool&) = 0;
+  virtual const bool& EnableLibuvppServer() const = 0;
   /// 
   virtual void EnableLibcurlpp(const bool&) = 0;
   virtual const bool& EnableLibcurlpp() const = 0;
@@ -588,6 +597,8 @@ namespace pchacker {
   virtual IWin* WinGet() const = 0;
   virtual IConfigure* ConfigureGet() const = 0;
   virtual IEncryption* EncryptionGet() const = 0;
+  virtual libcurlpp::IHttpApi* LibcurlppGet() const = 0;
+  virtual libuvpp::ILibuv* LibuvppGet() const = 0;
  public:
   virtual ITaskNode* TaskCreate(const TypeID&) = 0;
   virtual bool TaskAction(const TypeID&, const EnActionType&) = 0;

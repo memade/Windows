@@ -4,11 +4,7 @@
 #include <win.h>
 #include <spdlog.hpp>
 #include <openssl.hpp>
-#include <bit7z.h>
-#include <libcurlpp.hpp>
 #include <pchacker.hpp>
-#include <libuvpp.hpp>
-#include <uvpp.hpp>
 #include <iconv.hpp>
 
 /// /*新生®（上海）**/
