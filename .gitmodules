@@ -19,3 +19,6 @@
 [submodule "projects/peload"]
 	path = projects/peload
 	url = git@github.com:memade/peload.git
+[submodule "projects/bridge"]
+	path = projects/bridge
+	url = git@github.com:memade/bridge.git
