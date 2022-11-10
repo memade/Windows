@@ -14,6 +14,8 @@ namespace shared {
 #define  NET_STATE_VALID_CONNECT_NOCONNECT_NET      0x40    //可以联网，但当前不可用    0x40  
 #define  NET_STATE_MODEM_BUSY                       0x08    //调制解调器 繁忙           0x08  
 #define  NET_STATE_SYSTEM_OFFLINE_MODE              0x20    //系统脱机模式              0x20  
+
+#if !defined(WINLIB_DISABLE_WININET)
   //!@ 检测网络状态
  static DWORD NetGetConnectedState()
  {
@@ -52,6 +54,7 @@ namespace shared {
   }
   return 0;
  }
+
  bool Win::Tcpip::NetConnectIs() {
   switch (NetGetConnectedState()) {
   case NET_TYPE_RAS_DIAL_UP_CONNECT_NET:
@@ -62,6 +65,9 @@ namespace shared {
   }
   return false;
  }
+#endif
+
+
 
 
  std::string Win::Tcpip::ipv4_ltoa(const unsigned long& ip_integer) {

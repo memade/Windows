@@ -15,9 +15,16 @@
 #include <chrono>
 #include <tuple>
 #include <random>
-#if _MSVC_LANG>201703L
+#if _HAS_CXX17
+#include <codecvt>
+#endif
+#if _HAS_CXX20/*_MSVC_LANG>201703L*/
 #include <format>
 #endif
+#if _HAS_CXX23
+#endif
+
+
 #include <future>
 
 #include <array>

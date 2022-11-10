@@ -735,6 +735,61 @@ namespace shared {
   } while (0);
   return result;
  }
+
+#if 0
+ bool Win::File::WriteUTF8BOM(const std::wstring& file_pathname, const std::wstring& input_unicode_data) {
+  //!@ http://zplutor.github.io/2016/07/03/convert-character-encoding-using-std-wstring-convert/
+  /*
+  使用std::wstring_convert进行字符编码转换
+C++11新增的std::wstring_convert可以很方便地在std::string和std::wstring之间进行转换。例如，把一个std::wstring转换成以UTF-8编码的std::string：
+
+std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+std::string string = converter.to_bytes(L"这是一个宽字符串");
+反过来，把一个以UTF-8编码的std::string转换成std::wstring：
+
+std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+std::wstring wide_string = converter.from_bytes("\xe5\xad\x97\xe7\xac\xa6\xe4\xb8\xb2”);  //字符串的内容为“字符串”
+std::wstring_convert使用模板参数中指定的codecvt进行实际的转换工作，也就是说，std::string使用哪种字符编码由这个codecvt来决定。上面的例子用的是std::codecvt_utf8，即UTF-8编码。理论上，指定不同的codecvt，即可支持各种字符编码。但是，如何得到合适codecvt则是不小的问题。
+
+来看一下std::wstring_convert其中一个构造函数：
+
+wstring_convert(codecvt* pcvt = new codecvt);
+在构造std::wstring_convert对象的时候需要传入一个codecvt对象的指针，如果没有传入，则默认使用new codecvt来创建。std::wstring_convert自行维护codecvt对象的生命周期，它的析构函数会调用delete操作符来删除该对象。这就限制了只能使用通过new操作符来创建的codecvt，而不能使用从std::locale中获取的codecvt。
+
+在C++标准提供的codecvt中，能够直接用于std::wstring_convert的只有三个：std::codecvt_utf8，std::codecvt_utf16以及std::codecvt_utf8_utf16。可见，标准只支持UTF族的字符编码。为了获取其它字符编码的codecvt，需要使用std::codecvt_byname，这个类可以通过字符编码的名称来创建一个codecvt。这看起来挺不错，但遗憾的是，字符编码的名称并没有统一的标准，各个平台的支持情况都不一样。例如，在Windows下可以使用“chs”来创建简体中文编码的codecvt，在Mac OS X下则要使用“zh_cn.gb2312”；甚至在Mac OS X下，即使成功创建了这个codecvt，它也不能正常地转换。
+
+下面以Windows为例，说明如何将std::codecvt_byname用于std::wstring_convert。由于历史原因，std::codecvt_byname的析构函数是protected的，std::wstring_convert不能对它调用delete，所以首先要自行定义一个类来继承std::codecvt_byname：
+
+class chs_codecvt : public std::codecvt_byname<wchar_t, char, std::mbstate_t> {
+public:
+    chs_codecvt() : codecvt_byname("chs") { }
+};
+chs_codecvt的默认析构函数是public的，从而让std::wstring_convert可以删除它。为方便起见，在chs_codecvt的构造函数中，直接把“chs”传给了std::codecvt_byname。
+
+接下来的用法跟本文开头的例子基本一致：
+
+std::wstring_convert<chs_codecvt> converter;
+std::string string = converter.to_bytes(L"你好");
+std::wstring wide_string = converter.from_bytes("\xc4\xe3\xba\xc3”);  //字符串的内容为“你好”
+综上所述，只有UTF编码的转换是完全符合C++标准并且真正能够跨平台的，使用这些国际化的字符编码能够减少很多不必要的麻烦。
+  */
+  bool result = false;
+  do {
+   std::ofstream ofs(file_pathname);
+   if (!ofs.is_open())
+    break;
+   std::wstring_convert<std::codecvt_utf8<wchar_t>> conv;
+   std::string utf8_data = conv.to_bytes(input_unicode_data);
+   if (utf8_data.empty())
+    break;
+   ofs << 0xEF << 0xBB << 0xBF;
+   ofs << utf8_data;
+   ofs.close();
+   result = true;
+  } while (0);
+  return result;
+ }
+#endif
  bool Win::File::WriteAddto(const std::string& FilePathname, const std::string& WriteData) {
   bool result = false;
   do {

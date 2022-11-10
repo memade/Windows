@@ -1,5 +1,8 @@
 ﻿#include "stdafx.h"
+#if !defined(WINLIB_DISABLE_WINDOWS)
+#if !defined(WINLIB_DISABLE_GDIPLUS)
 using namespace Gdiplus;
+#endif
 
 namespace shared {
 	 bool Win::Window::SetLogo(const HWND& hWnd, const HICON& hIcon) {
@@ -23,6 +26,7 @@ namespace shared {
 			} while (0);
 			return result;
 	}
+#if !defined(WINLIB_DISABLE_GDIPLUS)
 	ULONG_PTR Win::Window::GdiplusStartup() {
 		ULONG_PTR gdiplusToken = 0;
 		Gdiplus::GdiplusStartupInput gdiplusStartupInput = { 0 };
@@ -37,6 +41,8 @@ namespace shared {
 			return;
 		Gdiplus::GdiplusShutdown(gdiplusToken);
 	}
+#endif
+
 #if 0//!@ WndProc
 	[](HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)->LRESULT {
 		PAINTSTRUCT ps;
@@ -360,6 +366,7 @@ namespace shared {
 		_In_ const std::function<void(const unsigned int& bmpWidth, const unsigned int& bmpHeight, int& x, int& y)>& create_cb
 	) {
 		bool result = false;
+#if !defined(WINLIB_DISABLE_GDIPLUS)
 		IStream* pStream = nullptr;
 		Gdiplus::Image* pImage = nullptr;
 		do {
@@ -389,6 +396,7 @@ namespace shared {
 			pStream->Release();
 			pStream = nullptr;
 		}
+#endif
 		return result;
 	}
 	bool Win::Window::Win32CreateDIBitmap(
@@ -464,5 +472,6 @@ namespace shared {
 		} while (0);
 		return result;
 	}
-
 }///namespace shared
+
+#endif

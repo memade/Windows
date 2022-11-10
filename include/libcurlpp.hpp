@@ -13,28 +13,6 @@
 #if !defined(INC_H___0C762477_855F_488C_8D6A_65BDA5BAC3CF__HEAD__)
 #define INC_H___0C762477_855F_488C_8D6A_65BDA5BAC3CF__HEAD__
 
-/// Projects are compiled using static libraries
-#define ENABLE_STATIC_COMPILATION 0
-
-
-
-#if ENABLE_STATIC_COMPILATION
-#ifdef SHARED_API
-#undef SHARED_API
-#endif
-#ifdef _USRDLL
-#undef _USRDLL
-#endif
-#else
-#ifndef SHARED_API
-#define SHARED_API
-#endif
-#ifndef _USRDLL
-#define _USRDLL
-#endif
-#endif
-
-
 namespace libcurlpp {
 
  using TypeIdentify = unsigned long long;

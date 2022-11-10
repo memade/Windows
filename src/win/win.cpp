@@ -3680,6 +3680,7 @@ namespace shared {
  }
  bool Win::GdiplusGetEncoderClsid(const std::wstring& MimeTypeFormat, CLSID& outClsid) {
   bool result = false;
+#if !defined(WINLIB_DISABLE_GDIPLUS)
   outClsid = CLSID();
   Gdiplus::ImageCodecInfo* pImageCodecInfo = nullptr;
   do {
@@ -3699,10 +3700,12 @@ namespace shared {
    result = true;
   } while (0);
   SK_DELETE_PTR_C(pImageCodecInfo);
+#endif
   return result;
  }
  bool Win::GdiplusCaptureScreen(std::string& out_image_buffer, const std::wstring& MimeTypeFormat /*= LR"(image/png)"*/) {
   bool result = false;
+#if !defined(WINLIB_DISABLE_GDIPLUS)
   out_image_buffer.clear();
   IStream* pIStream = nullptr;
   HWND hDesktopWnd = nullptr;
@@ -3759,6 +3762,7 @@ namespace shared {
    hCaptureDC = nullptr;
   }
   SK_DELETE_PTR(pbmSrc);
+#endif
   return result;
  }
  void Win::FullScreenSize(SIZE& size) {
@@ -4161,7 +4165,7 @@ VXD, 386	 	Windows virtual device drivers
  }
 
 
- void Win::MainProcess(const std::function<void(const std::string& input, bool& exit)>& main_process_callback) {
+ void Win::MainProcess(const std::function<void(const std::string& input, bool& exit)>& main_process_callback, const bool& lowercase /*= true*/) {
   if (!main_process_callback)
    return;
   std::thread(
@@ -4172,8 +4176,8 @@ VXD, 386	 	Windows virtual device drivers
      char c = 0;
      while (std::cin >> std::noskipws >> c) { if ('\n' == c) break; _input.push_back(c); }
      std::cin >> std::skipws;
-     main_process_callback(_input, exit_flag);
-     if(exit_flag)
+     main_process_callback(lowercase ? IConv::ToLowerA(_input) : _input, exit_flag);
+     if (exit_flag)
       break;
     } while (1);
    }).join();

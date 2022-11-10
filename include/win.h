@@ -27,10 +27,15 @@
 #include <rpcdce.h>
 #pragma comment(lib,"Rpcrt4")
 
+#if !defined(WINLIB_DISABLE_WININET)
 #include <wininet.h>
 #pragma comment(lib,"Wininet")
+#endif
+#if !defined(WINLIB_DISABLE_WINHTTP)
 #include "winhttp.hpp"
 #pragma comment(lib, "winhttp")
+#endif
+
 #include <atlbase.h>
 #include <atlsafe.h>
 #include <strsafe.h>
@@ -60,8 +65,11 @@
 #include <userenv.h>
 #pragma comment(lib,"Userenv")
 
+#if !defined(WINLIB_DISABLE_GDIPLUS)
 #include <gdiplus.h>
 #pragma comment(lib,"gdiplus")
+#endif
+
 #pragma comment(lib,"Comctl32")
 
 #include <io.h>
@@ -70,7 +78,7 @@
 
 #include "macro.h"
 //!@ Enable SK NTCore(Packaging)
-#ifdef ENABLE_NTDEF_H
+#if !defined(WINLIB_DISABLE_NTDEF_H)
 #include "ntdef.h"
 #include <winternl.h>
 #else
@@ -380,6 +388,11 @@ namespace shared {
    static std::string Read(const std::string& FilePathname, const int& OpenMode = std::ios::_Nocreate | std::ios::_Noreplace | std::ios::binary);
    static bool Write(const std::string& FilePathname, const std::string& WriteData, const int& OpenMode = std::ios::binary | std::ios::out | std::ios::trunc);
    static bool WriteAddto(const std::string& FilePathname, const std::string& WriteData);
+#if 0
+   //!@ Create UTF-8 file with BOM
+   //!@ Write UTF8 data
+   bool WriteUTF8BOM(const std::wstring& file_pathname, const std::wstring& input_unicode_data);
+#endif
    static bool Empty(const std::string& FilePathname);
    static std::string Load(const std::string& FilePathname, const std::string& OpenMode = "rb", const int& _ShFlag = _SH_DENYNO);
    static bool CopyFilePass(const std::wstring& toPath, const std::wstring& fromPathname);
@@ -459,7 +472,9 @@ namespace shared {
   };
   class Tcpip final {
   public:
+#if !defined(DISABLE_WININET)
    static bool NetConnectIs();
+#endif
    static std::string ipv4_ltoa(const unsigned long&);
    static unsigned long ipv4_atol(const std::string&);
    static bool ipv4_inetntop(const void* sockaddr_or_sockaddr_in, std::string&, unsigned short&);
@@ -799,7 +814,7 @@ namespace shared {
  public:
   /// @MainProcess(...)
   ///  Input listening for console programs
-  static void MainProcess(const std::function<void(const std::string& input, bool& exit)>&);
+  static void MainProcess(const std::function<void(const std::string& input, bool& exit)>&,const bool& lowercase = true);
   static bool AccessA(const std::string&);
   static bool AccessW(const std::wstring&);
   static std::string GetTempPathA();
@@ -980,11 +995,14 @@ namespace shared {
   static FileType GetFileTypeByDiskA(const std::string& filePathname);
   static FileType GetFileTypeByDiskW(const std::wstring& filePathname);
   static FileType GetFileTypeByMemory(const std::string& file_buffer);
+#if !defined(WINLIB_DISABLE_WINDOWS)
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   class Window final {
   public:
+#if !defined(DISABLE_GDIPLUS)
    static ULONG_PTR GdiplusStartup();
    static void GdiplusShutdown(_In_ const ULONG_PTR&);
+#endif
 
    static bool SetLogo(const HWND&, const HICON&);
    static bool SetLogo2(const HWND&, const HICON&);
@@ -1068,7 +1086,7 @@ namespace shared {
 
   };//!@ End Window
 
-
+#endif
 
 
 

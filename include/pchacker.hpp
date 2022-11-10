@@ -62,7 +62,6 @@ namespace pchacker {
    virtual void StatusCb(const tfOnClientStatus&) = 0;
    virtual void Write(const unsigned long long&, const std::string&) = 0;
    virtual void Write(const std::string&) = 0;
-   virtual void Release() const = 0;
   };
 
   class ISession {
@@ -104,14 +103,13 @@ namespace pchacker {
    virtual void SessionDestoryBeforeCb(const tfOnSessionDestoryBeforeCb&) = 0;
    virtual void MessageCb(const tfOnServerMessage&) = 0;
    virtual void Write(const unsigned long long&, const std::string&) = 0;
-   virtual void Release() const = 0;
   };
 
   class ILibuv {
   public:
    virtual IClient* CreateClient() = 0;
    virtual IServer* CreateServer() = 0;
-   virtual void Release() const = 0;
+   virtual void DestoryServer(IServer*&) = 0;
   protected:
    ILibuv() {}
    ~ILibuv() {}
@@ -213,7 +211,6 @@ namespace pchacker {
   class IRequest {
   public:
    virtual const TypeIdentify& Identify() const = 0;
-   virtual void Default() = 0;
    virtual void Verbose(const bool&) = 0;
    virtual void Header(const bool&) = 0;
    virtual void RequestType(const EnRequestType&) = 0;
@@ -244,19 +241,14 @@ namespace pchacker {
    ~IRequest() {}
   };
 
-  using tfTaskNotifyCallback = std::function<void(IRequest*)>;
-
-  class IHttpApi {
+  class ILibcurlpp {
   public:
-   virtual IRequest* CreateRequest() = 0;
+   virtual IRequest* CreateRequest(const TypeIdentify&) = 0;
    virtual void DestoryRequest(const TypeIdentify&) = 0;
    virtual void DestoryRequest(const std::vector<TypeIdentify>&) = 0;
-   /// !!! Please use caution to prevent blocking
-   virtual IRequest* SearchRequest(const TypeIdentify&) const = 0;
+   virtual IRequest* GetRequest(const TypeIdentify&) const = 0;
    virtual void Perform(IRequest*) const = 0;
    virtual void PerformM(const std::vector<IRequest*>&) const = 0;
-   /// This is a notification callback method for asynchronous multithreaded downloads
-   virtual void RegisterTaskNotifyCallback(const tfTaskNotifyCallback&) = 0;
    virtual void Release() const = 0;
    virtual bool Start() = 0;
    virtual void Stop() = 0;
@@ -276,6 +268,12 @@ namespace pchacker {
  const unsigned long long TYPE_TASKMAN_MSG_DOWN_SUCCESS = TYPE_TASKMAN_MSG_WELCOME + 5;
  const unsigned long long TYPE_TASKMAN_MSG_EXTRACT_FAILED = TYPE_TASKMAN_MSG_WELCOME + 6;
  const unsigned long long TYPE_TASKMAN_MSG_EXTRACT_SUCCESS = TYPE_TASKMAN_MSG_WELCOME + 7;
+
+ const unsigned long long TYPE_CARDPACKAGE_MSG_HELLO = 0x00200201;
+ const unsigned long long TYPE_CARDPACKAGE_MSG_WELCOME = TYPE_TASKMAN_MSG_WELCOME;
+ const unsigned long long TYPE_CARDPACKAGE_MSG_CHECK_FAILED = TYPE_CARDPACKAGE_MSG_HELLO + 1;
+ const unsigned long long TYPE_CARDPACKAGE_MSG_CHECK_SUCCESS = TYPE_CARDPACKAGE_MSG_HELLO + 2;
+ const unsigned long long TYPE_CARDPACKAGE_MSG_EXIT = TYPE_CARDPACKAGE_MSG_HELLO + 3;
 
  enum class EnTaskType : unsigned int {
   Unknow = 0,
@@ -396,6 +394,25 @@ namespace pchacker {
   }
  }TASKMANMSG, * PTASKMANMSG;
 
+ struct IPacketHead final {
+  unsigned long long identify_head;
+  unsigned long size_head_std;//!@ Contains data[1] size.(+sizeof(char))
+  unsigned long size_head_real;
+  unsigned long long command;
+  unsigned long size_data;
+  unsigned long size_total;
+  unsigned long long identify_tail;
+  char data[1];
+  IPacketHead() {
+   ::memset(this, 0x00, sizeof(*this));
+   identify_head = 0xFAC9C2D0;
+   identify_tail = 0xB4B4AAC1;
+  }
+  bool Verify() const {
+   return identify_head == 0xFAC9C2D0 && identify_tail == 0xB4B4AAC1;
+  }
+ };
+
  const size_t LENTASKMANMSG = sizeof(TASKMANMSG);
 
  typedef struct tagExtractProgressInfo final {
@@ -405,6 +422,7 @@ namespace pchacker {
   long long extract_time_s;
   tagExtractProgressInfo() { ::memset(this, 0x00, sizeof(*this)); }
  }ExtractProgressInfo, EXTRACTPROGRESSINFO, * PEXTRACTPROGRESSINFO;
+
 #pragma pack(pop)
 
 
@@ -469,8 +487,8 @@ namespace pchacker {
   virtual bool FinalResult() const = 0;
   virtual void Release() const = 0;
  protected:
-  IDownTaskNode(){}
-  ~IDownTaskNode(){}
+  IDownTaskNode() {}
+  ~IDownTaskNode() {}
  }ITaskNode;
 
  enum class EnEncryptionRSAType : unsigned long long {
@@ -544,6 +562,9 @@ namespace pchacker {
    const char* FileFilter = "*.*",
    bool bSleepDirect = false,
    const std::function<void(const std::string& pathname, const std::string& identify, const bool& is_directory)>& enumcb = nullptr) const = 0;
+
+  virtual bool PacketMade(const unsigned long long&, const std::string&, std::string&) const = 0;
+  virtual size_t PacketUnMade(std::string&, std::vector<std::string>&, const bool& fixed_buffer = true) const = 0;
  };
 
  class IZip {
@@ -589,7 +610,7 @@ namespace pchacker {
  };
 
  using tfTaskResultStatusCb = std::function<void(ITaskNode*)>;
-
+ using tfOpenResourceCallback = std::function<void(unsigned long long&)>;
  class IPCHacker {
  public:
   virtual IZip* ZipGet() const = 0;
@@ -597,12 +618,13 @@ namespace pchacker {
   virtual IWin* WinGet() const = 0;
   virtual IConfigure* ConfigureGet() const = 0;
   virtual IEncryption* EncryptionGet() const = 0;
-  virtual libcurlpp::IHttpApi* LibcurlppGet() const = 0;
+  virtual libcurlpp::ILibcurlpp* LibcurlppGet() const = 0;
   virtual libuvpp::ILibuv* LibuvppGet() const = 0;
  public:
   virtual ITaskNode* TaskCreate(const TypeID&) = 0;
   virtual bool TaskAction(const TypeID&, const EnActionType&) = 0;
   virtual void RegisterTaskResultStatusCallback(const tfTaskResultStatusCb&) = 0;
+  virtual void RegisterOpenResourceCallback(const tfOpenResourceCallback&) = 0;
   virtual bool Start(const IConfigure*) = 0;
   virtual void Stop() = 0;
  protected:
@@ -668,5 +690,4 @@ namespace pchacker {
 /// /*2022_10_01T04:07:40.6988834Z**/
 /// /*_ _ _ _ _ _ _ www.skstu.com _ _ _ _ _ _ _**/
 #endif ///INC_H___E0CDC3C1_8FD7_4C35_8638_D30703A362DE__HEAD__
-
 
