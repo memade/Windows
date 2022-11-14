@@ -669,7 +669,7 @@ namespace pchacker {
    if (!api_object_init || !api_object_uninit)
     break;
    result = reinterpret_cast<decltype(result)>(api_object_init(param, size_param));
-   if (!result)
+   if (!result) 
     break;
    result->hModule = hModule;
    result->api_object_init = api_object_init;

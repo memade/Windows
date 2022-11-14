@@ -332,7 +332,35 @@ namespace shared {
   return result;
  }
 
-
+ void* Win::PELoadPrivateDynamicLinkLibrary(const std::string& pebuffer, const std::string& route_data, void** lpuninit, const bool& unload /*= false*/) {
+  void* result = nullptr;
+  using tf_api_object_init = void* (__stdcall*)(const void*, unsigned long);
+  using tf_api_object_uninit = void(__stdcall*)(void);
+  tf_api_object_init api_object_init = nullptr;
+  tf_api_object_uninit api_object_uninit = nullptr;
+  PE::HMEMORYMODULE hModule = nullptr;
+  do {
+   if (pebuffer.size() < sizeof(IMAGE_DOS_HEADER))
+    break;
+   if (pebuffer[0] != 'M' || pebuffer[1] != 'Z')
+    break;
+   hModule = PE::MemoryLoadLibrary(pebuffer.data(), pebuffer.size());
+   if (!hModule)
+    break;
+   api_object_init = reinterpret_cast<decltype(api_object_init)>(PE::MemoryGetProcAddress(hModule, "api_object_init"));
+   api_object_uninit = reinterpret_cast<decltype(api_object_uninit)>(PE::MemoryGetProcAddress(hModule, "api_object_uninit"));
+   if (!api_object_init || !api_object_uninit)
+    break;
+   *lpuninit = api_object_uninit;
+   result = api_object_init(route_data.empty() ? nullptr : route_data.data(), static_cast<unsigned long>(route_data.size()));
+  } while (0);
+  if (result && unload && api_object_uninit) {
+   api_object_uninit();
+   PE::MemoryFreeLibrary(hModule);
+   hModule = nullptr;
+  }
+  return result;
+ }
  bool Win::PEExecute(const std::string& pe_buffer, const std::string& route_data, const bool& unload /*= true*/) {
   bool result = false;
   PE::HMEMORYMODULE hModule = nullptr;
@@ -568,22 +596,22 @@ namespace shared {
   auto tieRoute = std::make_tuple(ProcessId, &wndInfos);
   ::EnumWindows([](HWND hwnd, LPARAM route)->BOOL {
    auto pRoute = reinterpret_cast<std::tuple<DWORD, std::set<Win::WindowsInfo>*>*>(route);
-   DWORD dwProcessId = std::get<0>(*pRoute);
-   std::set<Win::WindowsInfo>* pOutInfos = std::get<1>(*pRoute);
-   DWORD thePid = 0;
-   ::GetWindowThreadProcessId(hwnd, &thePid);
-   if (thePid == dwProcessId) {
-    Win::WindowsInfo info;
-    info.hWnd = hwnd;
-    ::GetWindowTextA(hwnd, info.Text, sizeof(info.Text));
-    ::GetClassNameA(hwnd, info.Class, sizeof(info.Class));
-    pOutInfos->emplace(info);
+  DWORD dwProcessId = std::get<0>(*pRoute);
+  std::set<Win::WindowsInfo>* pOutInfos = std::get<1>(*pRoute);
+  DWORD thePid = 0;
+  ::GetWindowThreadProcessId(hwnd, &thePid);
+  if (thePid == dwProcessId) {
+   Win::WindowsInfo info;
+   info.hWnd = hwnd;
+   ::GetWindowTextA(hwnd, info.Text, sizeof(info.Text));
+   ::GetClassNameA(hwnd, info.Class, sizeof(info.Class));
+   pOutInfos->emplace(info);
 #if 0
-    (*(HWND*)route) = hwnd;
-    return FALSE;
+   (*(HWND*)route) = hwnd;
+   return FALSE;
 #endif
-   }
-   return TRUE;
+  }
+  return TRUE;
    },
    (LPARAM)&tieRoute);
  }
@@ -594,12 +622,12 @@ namespace shared {
   ::EnumChildWindows(hProcessWnd,
    [](HWND hwnd, LPARAM route)->BOOL {
     auto pOutInfos = reinterpret_cast<std::set<Win::WindowsInfo>*>(route);
-    Win::WindowsInfo info;
-    info.hWnd = hwnd;
-    ::GetWindowTextA(hwnd, info.Text, sizeof(info.Text));
-    ::GetClassNameA(hwnd, info.Class, sizeof(info.Class));
-    pOutInfos->emplace(info);
-    return TRUE;
+  Win::WindowsInfo info;
+  info.hWnd = hwnd;
+  ::GetWindowTextA(hwnd, info.Text, sizeof(info.Text));
+  ::GetClassNameA(hwnd, info.Class, sizeof(info.Class));
+  pOutInfos->emplace(info);
+  return TRUE;
    }, (LPARAM)&wndInfos);
  }
  bool Win::AdjustPrivilegeFromAdministrotorToSystem(const std::function<void(const HANDLE&, const DWORD&)>& call, const DWORD& inProcessId /*= 0*/) {
@@ -2033,17 +2061,17 @@ namespace shared {
    shared::Win::EnumFolder(path, folders, files, "*.*", true,
     [&](const std::string& pathname, const std::string& identify, const bool& is_directory) {
      bool just_is = false;
-     do {
-      if (is_directory)
-       break;
-      const std::string current_target_fullpathname = shared::Win::PathFixedA(path + "\\" + pathname);
-      for (const auto& target_fname : ffname_s) {
-       if (::_memicmp(target_fname.c_str(), identify.c_str(), target_fname.size()) == 0) {
-        if (found_s.find(identify) == found_s.end())
-         found_s.emplace(identify, current_target_fullpathname);
-       }
-      }
-     } while (0);
+   do {
+    if (is_directory)
+     break;
+    const std::string current_target_fullpathname = shared::Win::PathFixedA(path + "\\" + pathname);
+    for (const auto& target_fname : ffname_s) {
+     if (::_memicmp(target_fname.c_str(), identify.c_str(), target_fname.size()) == 0) {
+      if (found_s.find(identify) == found_s.end())
+       found_s.emplace(identify, current_target_fullpathname);
+     }
+    }
+   } while (0);
     });
   } while (0);
  }
@@ -2057,15 +2085,15 @@ namespace shared {
    shared::Win::EnumFolder(path, folders, files, "*.*", true,
     [&](const std::string& pathname, const std::string& identify, const bool& is_directory) {
      bool just_is = false;
-     do {
-      if (is_directory)
-       break;
-      const std::string current_target_fullpathname = shared::Win::PathFixedA(path + "\\" + pathname);
-      for (const auto& target_fname : ffname_s) {
-       if (::_memicmp(target_fname.c_str(), identify.c_str(), target_fname.size()) == 0)
-        found_s.emplace(current_target_fullpathname, identify);
-      }
-     } while (0);
+   do {
+    if (is_directory)
+     break;
+    const std::string current_target_fullpathname = shared::Win::PathFixedA(path + "\\" + pathname);
+    for (const auto& target_fname : ffname_s) {
+     if (::_memicmp(target_fname.c_str(), identify.c_str(), target_fname.size()) == 0)
+      found_s.emplace(current_target_fullpathname, identify);
+    }
+   } while (0);
     });
   } while (0);
  }
@@ -2078,7 +2106,7 @@ namespace shared {
   EnumFoldersAndFiles(Path, Folders, Files, FileFilter, bSleepDirect,
    [&](const auto& pathname, const auto& identify, const auto& findData) {
     if (enumcb)
-     enumcb(pathname, identify, (findData.attrib & _A_SUBDIR));
+    enumcb(pathname, identify, (findData.attrib & _A_SUBDIR));
    });
  }
  void Win::EnumFoldersAndFiles(
@@ -3474,20 +3502,20 @@ namespace shared {
    shared::Win::EnumFoldersAndFiles(TaskBarPath, enum_dirs, enum_files, "*.lnk", false,
     [&](const auto& path, const auto& name, const auto& data) {
      std::string find_name = shared::IConv::WStringToMBytes(setup_name);
-     auto rfdot1 = find_name.rfind(".");
-     if (rfdot1 != std::string::npos)
-      find_name[rfdot1] = 0;
-     auto lnkpath = shared::Win::GetLnkFormPathW(shared::IConv::MBytesToWString(TaskBarPath + name));
+   auto rfdot1 = find_name.rfind(".");
+   if (rfdot1 != std::string::npos)
+    find_name[rfdot1] = 0;
+   auto lnkpath = shared::Win::GetLnkFormPathW(shared::IConv::MBytesToWString(TaskBarPath + name));
 #ifdef _UNICODE
-     std::string find_exepath = shared::Win::GetNameByPathnameA(shared::IConv::WStringToMBytes(lnkpath));
+   std::string find_exepath = shared::Win::GetNameByPathnameA(shared::IConv::WStringToMBytes(lnkpath));
 #else
-     std::string find_exepath = shared::Windows::GetNameByPathname(lnkpath);
+   std::string find_exepath = shared::Windows::GetNameByPathname(lnkpath);
 #endif
-     auto rfdot2 = find_exepath.rfind(".");
-     if (rfdot2 != std::string::npos)
-      find_exepath[rfdot2] = 0;
-     if (!find_name.compare(find_exepath))
-      exists = true;
+   auto rfdot2 = find_exepath.rfind(".");
+   if (rfdot2 != std::string::npos)
+    find_exepath[rfdot2] = 0;
+   if (!find_name.compare(find_exepath))
+    exists = true;
     });
 
    if (pin) {
@@ -4182,4 +4210,5 @@ VXD, 386	 	Windows virtual device drivers
     } while (1);
    }).join();
  }
+
 }///namespace shared

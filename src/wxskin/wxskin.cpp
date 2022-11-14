@@ -3,6 +3,51 @@
 namespace shared {
  namespace wx {
 
+  extern const int CMD_APP_FRAME_SHOW = wxNewId();
+  extern const int CMD_APP_TERMINATE = wxNewId();
+
+  IwxApp::IwxApp() {
+
+  }
+  IwxApp::~IwxApp() {
+  }
+  void IwxApp::RegisterAppCloseEventNotifyCb(const tfAppCloseEventNotifyCallback& appCloseEventNotifyCb) {
+   m_AppCloseEventNotifyCallback = appCloseEventNotifyCb;
+  }
+  bool IwxApp::OnInit() {
+   bool result = false;
+   do {
+    if (!wxApp::OnInit())
+     break;
+
+    wxAppBase::SetExitOnFrameDelete(false);
+    wxEvtHandler::Bind(wxEVT_THREAD, &IwxApp::OnShow, this, CMD_APP_FRAME_SHOW);
+    wxEvtHandler::Bind(wxEVT_THREAD, &IwxApp::OnTerminate, this, CMD_APP_TERMINATE);
+
+    result = true;
+   } while (0);
+   return result;
+  }
+  int IwxApp::OnExit() {
+   int result = 0;
+   do {
+
+
+    result = wxApp::OnExit();
+
+    if (m_AppCloseEventNotifyCallback)
+     m_AppCloseEventNotifyCallback();
+   } while (0);
+   return result;
+  }
+  void IwxApp::OnShow(wxThreadEvent& event) {
+   m_pFrame = new IMDIParentFrame();
+   m_pFrame->Show(true);
+  }
+  void IwxApp::OnTerminate(wxThreadEvent& event) {
+   ExitMainLoop();
+  }
+#if 0
   ISkin::ISkin() {
    ::memset(&pos, 0x00, sizeof(pos));
    ::memset(&size, 0x00, sizeof(size));
@@ -195,7 +240,7 @@ namespace shared {
      break;
     if (encodingType<EncodingType::BEGIN || encodingType>EncodingType::END)
      break;
-    app =  new IwxApp(buffer, dataType, encodingType);
+    app = new IwxApp(buffer, dataType, encodingType);
     if (!app)
      break;
     result = true;
@@ -206,6 +251,8 @@ namespace shared {
 
    return app;
   }
+#endif
+
 
 
 

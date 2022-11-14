@@ -5,6 +5,15 @@ using namespace Gdiplus;
 #endif
 
 namespace shared {
+	static Win::tagWindowConfig GlobalWindowConfig;
+	extern Win::tagWindowConfig* GlobalWindowConfigGet() { return &GlobalWindowConfig; }
+
+	Win::tagWindowConfig::tagWindowConfig() {
+		::memset(this, 0x00, sizeof(*this));
+	}
+	void Win::tagWindowConfig::operator=(const Win::tagWindowConfig& obj) {
+		::memcpy(this, &obj, sizeof(*this));
+	}
 	 bool Win::Window::SetLogo(const HWND& hWnd, const HICON& hIcon) {
 			bool result = false;
 			do {
@@ -81,6 +90,8 @@ namespace shared {
 		_In_ const WNDPROC& wndProc,
 		_In_ const std::wstring& wndTitle,
 		_In_ const std::wstring& wndClass /*= L""*/,
+		_In_ const POINT& position /*= { 0 }*/,//! x,y
+		_In_ const SIZE& size /*= { 0 }*/,//! cx,cy
 		_In_ const DWORD& hbrBackground /*= RGB(255,255,255)*/,
 		_In_ const bool& show /*= true*/,
 		_In_ const HWND& hParent /*= NULL*/) {
@@ -112,10 +123,10 @@ namespace shared {
 				wcex.lpszClassName,
 				wndTitle.c_str(),
 				dwStyle,
-				0,
-				0,
-				0,
-				0,
+				position.x,
+				position.y,
+				size.cx,
+				size.cy,
 				hParent,
 				NULL,
 				hInstance,
@@ -150,8 +161,6 @@ namespace shared {
 					::DispatchMessageW(&msg);
 				}
 				else {
-
-
 					std::this_thread::sleep_for(std::chrono::milliseconds(100));
 				}
 			} while (1);

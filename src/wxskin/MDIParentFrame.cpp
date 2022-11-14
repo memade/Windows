@@ -3,13 +3,54 @@
 namespace shared {
  namespace wx {
 
+  wxBEGIN_EVENT_TABLE(IwxMDIParentFrame, wxMDIParentFrame)
+   EVT_SIZE(IwxMDIParentFrame::OnSize)
+   EVT_CLOSE(IwxMDIParentFrame::OnClose)
+   wxEND_EVENT_TABLE();
+
+  IwxMDIParentFrame::IwxMDIParentFrame(
+   wxWindow* parent,
+   const wxWindowID& id,
+   const wxString& title,
+   const wxPoint& pos,
+   const wxSize& size,
+   long style) :
+   wxMDIParentFrame(parent, id, title, pos, size, style) {
+  }
+
+  IwxMDIParentFrame::~IwxMDIParentFrame() {
+
+  }
+
+  void IwxMDIParentFrame::OnSize(wxSizeEvent& wxEvent) {
+   wxEvent.Skip();
+  }
+  void IwxMDIParentFrame::OnClose(wxCloseEvent& wxEvent) {
+   int res = wxMessageBox(
+    "Are you sure you want to exit system?",
+    "tip",
+    wxYES_NO,
+    this);
+   if (res != wxYES) {
+    wxEvent.Veto();
+   }
+   else {
+    auto handle = wxApp::GetInstance();
+    if (handle)
+     wxQueueEvent(handle, new wxThreadEvent(wxEVT_THREAD, CMD_APP_TERMINATE));
+    wxEvent.Skip();
+
+
+   }
+  }
+#if 0
   IwxMDIParentFrame::IwxMDIParentFrame(const std::wstring& xml,
    wxWindow* parent,
    const wxWindowID& id,
    const wxString& title,
    const wxPoint& pos,
    const wxSize& size,
-   long style) : 
+   long style) :
    wxMDIParentFrame(parent, id, title, pos, size, style) {
    m_SkinConfig = xml;
    Parse();
@@ -99,6 +140,10 @@ namespace shared {
    SK_DELETE_PTR(pDoc);
    return result;
   }
+#endif
+
+
+
 
  }///namespace wx
 }///namespace shared

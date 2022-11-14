@@ -1,24 +1,29 @@
 ﻿#if !defined(INC_H___BDAB9E1B_8B18_4737_9262_CE217922F8BD__HEAD__)
 #define INC_H___BDAB9E1B_8B18_4737_9262_CE217922F8BD__HEAD__
 
-
 namespace uiframework {
  using TypeIdentify = unsigned long long;
  using tf_api_object_init = void* (__stdcall*)(const void*, unsigned long);
  using tf_api_object_uninit = void(__stdcall*)(void);
 
- class IWxMain {
+ enum class UIMainType : unsigned long long {
+  WINMAIN = 0x0000,
+  WXMAIN = 0x0001,
+  DUIMAIN = 0x0002,
+ };
+ class IUIMain {
  public:
   virtual const TypeIdentify& Identify() const = 0;
   virtual void Create() = 0;
   virtual void Destory() = 0;
+  virtual void Release() const = 0;
  };
 
  class IUIFrameWork {
  public:
-  virtual IWxMain* CreateWxMain() = 0;
-  virtual void DestoryWxMain(IWxMain*&) = 0;
-  virtual void DestoryWxMain(const TypeIdentify&) = 0;
+  virtual IUIMain* CreateUIMain(const UIMainType&) = 0;
+  virtual void DestoryUIMain(IUIMain*&) = 0;
+  virtual void DestoryUIMain(const TypeIdentify&) = 0;
  protected:
   void* hModule = nullptr;
   tf_api_object_init api_object_init = nullptr;

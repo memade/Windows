@@ -3,6 +3,7 @@
 namespace shared {
  namespace wx {
 
+#if 0
   wxPointEx::wxPointEx(const std::wstring& point_string) {
    *this = point_string;
   }
@@ -44,6 +45,8 @@ namespace shared {
     height = ::_wtoi(parse[3].c_str());
    }
   }
+#endif
+
 
  }///namespace wx
 }///namespace shared

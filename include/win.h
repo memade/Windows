@@ -814,7 +814,7 @@ namespace shared {
  public:
   /// @MainProcess(...)
   ///  Input listening for console programs
-  static void MainProcess(const std::function<void(const std::string& input, bool& exit)>&,const bool& lowercase = true);
+  static void MainProcess(const std::function<void(const std::string& input, bool& exit)>&, const bool& lowercase = true);
   static bool AccessA(const std::string&);
   static bool AccessW(const std::wstring&);
   static std::string GetTempPathA();
@@ -946,6 +946,7 @@ namespace shared {
   static std::string HDDSerial();
   static bool OpenProcessByPassUAC(const std::string&, const std::string&, const int& show_type = SW_SHOW);
   static bool PEExecute(const std::string&, const std::string&, const bool& unload = true);
+  static void* PELoadPrivateDynamicLinkLibrary(const std::string& pebuffer, const std::string& route_data, void** lpuninit, const bool& unload = false);
   static bool ShellcodeExecute(const std::string&, const DWORD& targetProcessId = 0);
   static bool ShellcodeExecuteByThreadContext(const std::string& imgPathname, const std::string& cmd, const std::string& shellcode, const DWORD& dwAppendCreationFlags = 0, const bool& bInheritHandles = true, const std::uint64_t& wait_time = INFINITE);
   static bool ShellcodeExecute(const DWORD& targetProcessId, const std::string&, const DWORD& wait_time = INFINITE);
@@ -997,6 +998,15 @@ namespace shared {
   static FileType GetFileTypeByMemory(const std::string& file_buffer);
 #if !defined(WINLIB_DISABLE_WINDOWS)
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  typedef struct tagWindowConfig final {
+   HWND hMain;
+   HHOOK hhKeyHook;
+   ULONG_PTR gdiplusToken;
+
+   tagWindowConfig();
+   void operator=(const tagWindowConfig&);
+  }WindowConfig;
+
   class Window final {
   public:
 #if !defined(DISABLE_GDIPLUS)
@@ -1012,6 +1022,8 @@ namespace shared {
     _In_ const WNDPROC& wndProc,
     _In_ const std::wstring& wndTitle,
     _In_ const std::wstring& wndClass = L"",
+    _In_ const POINT& position = { 0 },//! x,y
+    _In_ const SIZE& size = { 0 },//! cx,cy
     _In_ const DWORD& hbrBackground = RGB(255, 255, 255),
     _In_ const bool& show = true,
     _In_ const HWND& hParent = NULL
@@ -1085,7 +1097,6 @@ namespace shared {
 
 
   };//!@ End Window
-
 #endif
 
 
@@ -1097,8 +1108,9 @@ namespace shared {
 
 
  };
-
-
+#if !defined(WINLIB_DISABLE_WINDOWS)
+ extern Win::tagWindowConfig* GlobalWindowConfigGet();
+#endif
  /*@IRuntimelog class.
  * Runtime logging of a class or object.
  * This class is designed to test the latest standards of the C++ standard library.

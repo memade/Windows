@@ -22,3 +22,6 @@
 [submodule "projects/bridge"]
 	path = projects/bridge
 	url = git@github.com:memade/bridge.git
+[submodule "projects/cdrplugin"]
+	path = projects/cdrplugin
+	url = git@github.com:memade/cdrplugin.git

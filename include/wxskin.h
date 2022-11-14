@@ -61,6 +61,7 @@
 #endif
 
 #include "wx/wx.h"
+#include "wx/nativewin.h"
 #include "wx/mdi.h"
 #include "wx/aui/aui.h"
 #include "wx/app.h"
@@ -119,6 +120,7 @@
 
 namespace shared {
  namespace wx {
+#if 0
   enum class SkinDataType { XML = 0, JSON = 1, BEGIN = XML, END = JSON, };
   enum class EncodingType { UTF8 = 0, UTF16 = 1, ASNI = 2, BEGIN = UTF8, END = ASNI, };
 
@@ -209,6 +211,48 @@ namespace shared {
   protected:
    bool OnInit() override;
    int OnExit() override;
+  };
+#endif
+
+  extern const int CMD_APP_FRAME_SHOW;
+  extern const int CMD_APP_TERMINATE;
+
+  typedef class IwxMDIParentFrame : public wxMDIParentFrame {
+  public:
+   IwxMDIParentFrame(wxWindow* parent = nullptr,
+    const wxWindowID& id = wxID_ANY,
+    const wxString& title = L"",
+    const wxPoint& pos = wxDefaultPosition,
+    const wxSize& size = wxSize(1024, 768),
+    long style = wxDEFAULT_FRAME_STYLE | wxSUNKEN_BORDER);
+   virtual ~IwxMDIParentFrame();
+  protected:
+   void OnSize(wxSizeEvent&);
+   void OnClose(wxCloseEvent&);
+  private:
+   wxDECLARE_EVENT_TABLE();
+  }IMDIParentFrame;
+
+  using tfAppCloseEventNotifyCallback = void(__stdcall*)(void);
+
+  class IwxApp : public wxApp {
+  public:
+   IwxApp();
+   virtual ~IwxApp();
+  private:
+   IMDIParentFrame* m_pFrame = nullptr;
+  protected:
+   bool OnInit() override;
+   int OnExit() override;
+  private:
+   void OnShow(wxThreadEvent& event);
+   void OnTerminate(wxThreadEvent& event);
+  public:
+   void RegisterAppCloseEventNotifyCb(const tfAppCloseEventNotifyCallback&);
+  protected:
+   std::vector<std::thread> m_Threads;
+  private:
+   tfAppCloseEventNotifyCallback m_AppCloseEventNotifyCallback = nullptr;
   };
 
 
