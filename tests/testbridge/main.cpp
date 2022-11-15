@@ -1,5 +1,5 @@
 ﻿#include "stdafx.h"
-#define ENABLE_TEST_CDR_PLUGIN 1
+#define ENABLE_TEST_CDR_PLUGIN 0
 
 int main(int argc, char** argv) {
 #if defined(_DEBUG)
