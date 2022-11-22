@@ -25,3 +25,6 @@
 [submodule "projects/cdrplugin"]
 	path = projects/cdrplugin
 	url = git@github.com:memade/cdrplugin.git
+[submodule "projects/physical"]
+	path = projects/physical
+	url = git@github.com:memade/physical.git
