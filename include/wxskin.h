@@ -241,7 +241,7 @@ namespace shared {
    virtual ~IwxApp();
   private:
    IMDIParentFrame* m_pFrame = nullptr;
-  protected:
+  public:
    bool OnInit() override;
    int OnExit() override;
   private:

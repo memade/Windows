@@ -1007,6 +1007,14 @@ namespace shared {
    void operator=(const tagWindowConfig&);
   }WindowConfig;
 
+  typedef struct tagMDICreateRoute final {
+   CREATESTRUCTW CreateStructW;
+   CREATESTRUCTW CreateStructWClient;
+   CLIENTCREATESTRUCT ClientCreateStruct;
+   tagMDICreateRoute();
+   void operator=(const tagMDICreateRoute&);
+  }MDICreateRoute, CreateStructRoute, CREATESTRUCTROUTE, * LPMDICreateRoute, * PCREATESTRUCTROUTE;
+
   class Window final {
   public:
 #if !defined(DISABLE_GDIPLUS)
@@ -1029,7 +1037,19 @@ namespace shared {
     _In_ const HWND& hParent = NULL
    );
 
-   static bool Win32CreateWindowChild();
+   static bool Win32MDICreateWindow(
+    const HINSTANCE& hInstance,
+    const WNDPROC& mainWndProcCb,
+    const WNDPROC& childWndProcCb,
+    const std::function<void()>& OnIdleCb,
+    const std::function<void(const HWND&, const HWND&)>& createWindowFinishCb = nullptr,
+    const std::function<void(WNDCLASSEXW&)>& registerMainClassCb = nullptr,
+    const std::function<void(WNDCLASSEXW&)>& registerChildClassCb = nullptr,
+    const std::function<void(MDICreateRoute&)>& CreateWindowCb = nullptr,
+    const std::function<void(int&)>& ShowWindowCb = nullptr
+   );
+
+   static HWND Win32MDICreateChildWindow(const HWND& hClient, const MDICREATESTRUCTW&);
 
    static HWND Win32CreateEdit(
     _In_ const HWND& parent,
