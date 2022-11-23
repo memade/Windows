@@ -39,6 +39,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cdrplugin", "..\..\projects
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "spdlog", "shared\spdlog.vcxproj", "{14DE33CC-4204-4565-9069-CC92445ACA34}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "physical", "..\..\projects\physical\physical.vcxproj", "{8674345E-E888-4788-9571-0037A8756FF9}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testphysical", "..\..\tests\testphysical\testphysical.vcxproj", "{D5910BA1-016D-48FA-B7BB-2826686F65AE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8674345E-E888-4788-9571-0037A8756FF9} = {8674345E-E888-4788-9571-0037A8756FF9}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -119,6 +126,22 @@ Global
 		{14DE33CC-4204-4565-9069-CC92445ACA34}.Release|x64.Build.0 = Release|x64
 		{14DE33CC-4204-4565-9069-CC92445ACA34}.Release|x86.ActiveCfg = Release|Win32
 		{14DE33CC-4204-4565-9069-CC92445ACA34}.Release|x86.Build.0 = Release|Win32
+		{8674345E-E888-4788-9571-0037A8756FF9}.Debug|x64.ActiveCfg = Debug|x64
+		{8674345E-E888-4788-9571-0037A8756FF9}.Debug|x64.Build.0 = Debug|x64
+		{8674345E-E888-4788-9571-0037A8756FF9}.Debug|x86.ActiveCfg = Debug|Win32
+		{8674345E-E888-4788-9571-0037A8756FF9}.Debug|x86.Build.0 = Debug|Win32
+		{8674345E-E888-4788-9571-0037A8756FF9}.Release|x64.ActiveCfg = Release|x64
+		{8674345E-E888-4788-9571-0037A8756FF9}.Release|x64.Build.0 = Release|x64
+		{8674345E-E888-4788-9571-0037A8756FF9}.Release|x86.ActiveCfg = Release|Win32
+		{8674345E-E888-4788-9571-0037A8756FF9}.Release|x86.Build.0 = Release|Win32
+		{D5910BA1-016D-48FA-B7BB-2826686F65AE}.Debug|x64.ActiveCfg = Debug|x64
+		{D5910BA1-016D-48FA-B7BB-2826686F65AE}.Debug|x64.Build.0 = Debug|x64
+		{D5910BA1-016D-48FA-B7BB-2826686F65AE}.Debug|x86.ActiveCfg = Debug|Win32
+		{D5910BA1-016D-48FA-B7BB-2826686F65AE}.Debug|x86.Build.0 = Debug|Win32
+		{D5910BA1-016D-48FA-B7BB-2826686F65AE}.Release|x64.ActiveCfg = Release|x64
+		{D5910BA1-016D-48FA-B7BB-2826686F65AE}.Release|x64.Build.0 = Release|x64
+		{D5910BA1-016D-48FA-B7BB-2826686F65AE}.Release|x86.ActiveCfg = Release|Win32
+		{D5910BA1-016D-48FA-B7BB-2826686F65AE}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

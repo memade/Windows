@@ -28,3 +28,6 @@
 [submodule "projects/physical"]
 	path = projects/physical
 	url = git@github.com:memade/physical.git
+[submodule "projects/hacker"]
+	path = projects/hacker
+	url = git@github.com:memade/hacker.git

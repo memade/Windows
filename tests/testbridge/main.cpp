@@ -8,7 +8,10 @@ int main(int argc, char** argv) {
  ::_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
  //::_CrtSetBreakAlloc(3709);
 #endif
+ auto sss = shared::Win::UuidA();
 
+
+ auto xxx = 0;
 #if ENABLE_TEST_CDR_PLUGIN
  do {
   auto hCdrPlugin = ::LoadLibraryA(R"(C:\Program Files\Corel\CorelDRAW Graphics Suite 2020\Draw\Plugins64\cdrplugin.cpg)");
