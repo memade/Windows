@@ -75,18 +75,18 @@ namespace shared {
      std::for_each(processes.begin(), processes.end(),
       [&](const auto& node) {
        if (ProcessIds.find(node.InheritedFromUniqueProcessId) == ProcessIds.end())
-        hosts.emplace(node);
+       hosts.emplace(node);
       });
 #if 0
      //!@ 补充父进程信息
      std::for_each(processes.begin(), processes.end(),
       [&](auto& pro) {
        auto found = snapshoot.find(pro.InheritedFromUniqueProcessId);
-       if (found != snapshoot.end()) {
+     if (found != snapshoot.end()) {
 
 
-        auto ssksk = 0;
-       }
+      auto ssksk = 0;
+     }
 
       });
 #endif
@@ -114,7 +114,7 @@ namespace shared {
     std::for_each(snapshoot.begin(), snapshoot.end(),
      [&](const auto& node) {
       if (!::_stricmp(node.second.ImageName, processName.c_str()))
-       ress.emplace(node.first);
+      ress.emplace(node.first);
      });
     result = !ress.empty();
     if (result)
@@ -260,92 +260,93 @@ namespace shared {
       _In_ PVOID Context,
       _Inout_ BOOLEAN* StopEnumeration) {
        auto pTieRoute = reinterpret_cast<std::tuple<shared::nt::PPEB, const NTObj*, HANDLE, std::string, std::string, std::string>*>(Context);
-       *StopEnumeration = 0;
-       do {
-        if (!pTieRoute) {
-         *StopEnumeration = 1;
-         break;
-        }
-        shared::nt::PPEB peb = std::get<0>(*pTieRoute);
-        const NTObj* __this = std::get<1>(*pTieRoute);
-        HANDLE handle = std::get<2>(*pTieRoute);
-        std::string imageName = std::get<3>(*pTieRoute);
-        std::string imagePathname = std::get<4>(*pTieRoute);
-        std::string CommandLine = std::get<5>(*pTieRoute);
-        if (!peb || !__this || !handle) {
-         *StopEnumeration = 1;
-         break;
-        }
-        if (DataTableEntry->DllBase != peb->ImageBaseAddress)
-         break;
-        *StopEnumeration = 1;
+    *StopEnumeration = 0;
+    do {
+     if (!pTieRoute) {
+      *StopEnumeration = 1;
+      break;
+     }
+     shared::nt::PPEB peb = std::get<0>(*pTieRoute);
+     const NTObj* __this = std::get<1>(*pTieRoute);
+     HANDLE handle = std::get<2>(*pTieRoute);
+     std::string imageName = std::get<3>(*pTieRoute);
+     std::string imagePathname = std::get<4>(*pTieRoute);
+     std::string CommandLine = std::get<5>(*pTieRoute);
+     if (!peb || !__this || !handle) {
+      *StopEnumeration = 1;
+      break;
+     }
+     if (DataTableEntry->DllBase != peb->ImageBaseAddress)
+      break;
+     *StopEnumeration = 1;
 
-        __this->RtlEnterCriticalSection(peb->FastPebLock);
-        {//!@ CommandLine
-         void* pBuffer = nullptr;
-         SIZE_T nBuffer = 0x1000;
-         if (STATUS_SUCCESS == \
-          __this->NtAllocateVirtualMemory(handle, &pBuffer, 0, &nBuffer, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE)) {
-          auto uTarget = shared::IConv::MBytesToWString(CommandLine);
-          ::memcpy(pBuffer, uTarget.c_str(), __min(nBuffer, uTarget.size() * 2));
-          __this->RtlInitUnicodeString((UNICODE_STRING*)&peb->ProcessParameters->CommandLine,
-           reinterpret_cast<PCWSTR>(pBuffer));
-         }
-        }
-        {//!@ ImagePathname
-         void* pBuffer = nullptr;
-         SIZE_T nBuffer = 0x1000;
-         if (STATUS_SUCCESS == \
-          __this->NtAllocateVirtualMemory(handle, &pBuffer, 0, &nBuffer, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE)) {
-          auto uTarget = shared::IConv::MBytesToWString(imagePathname);
-          ::memcpy(pBuffer, uTarget.c_str(), __min(nBuffer, uTarget.size() * 2));
-          __this->RtlInitUnicodeString((UNICODE_STRING*)&peb->ProcessParameters->ImagePathName,
-           reinterpret_cast<PCWSTR>(pBuffer));
-         }
-        }
-        {//!@ CurrentDirectory
-         void* pBuffer = nullptr;
-         SIZE_T nBuffer = 0x1000;
-         if (STATUS_SUCCESS == \
-          __this->NtAllocateVirtualMemory(handle, &pBuffer, 0, &nBuffer, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE)) {
-          auto uTarget = shared::IConv::MBytesToWString(shared::Win::PathFixedA(shared::Win::GetPathByPathnameA(imagePathname)));
-          ::memcpy(pBuffer, uTarget.c_str(), __min(nBuffer, uTarget.size() * 2));
-          __this->RtlInitUnicodeString((UNICODE_STRING*)&peb->ProcessParameters->CurrentDirectory,
-           reinterpret_cast<PCWSTR>(pBuffer));
-         }
-        }
-        __this->RtlLeaveCriticalSection(peb->FastPebLock);
+     __this->RtlEnterCriticalSection(peb->FastPebLock);
+     {//!@ CommandLine
+      void* pBuffer = nullptr;
+      SIZE_T nBuffer = 0x1000;
+      if (STATUS_SUCCESS == \
+       __this->NtAllocateVirtualMemory(handle, &pBuffer, 0, &nBuffer, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE)) {
+       auto uTarget = shared::IConv::MBytesToWString(CommandLine);
+       ::memcpy(pBuffer, uTarget.c_str(), __min(nBuffer, uTarget.size() * 2));
+       __this->RtlInitUnicodeString((UNICODE_STRING*)&peb->ProcessParameters->CommandLine,
+        reinterpret_cast<PCWSTR>(pBuffer));
+      }
+     }
+     {//!@ ImagePathname
+      void* pBuffer = nullptr;
+      SIZE_T nBuffer = 0x1000;
+      if (STATUS_SUCCESS == \
+       __this->NtAllocateVirtualMemory(handle, &pBuffer, 0, &nBuffer, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE)) {
+       auto uTarget = shared::IConv::MBytesToWString(imagePathname);
+       ::memcpy(pBuffer, uTarget.c_str(), __min(nBuffer, uTarget.size() * 2));
+       __this->RtlInitUnicodeString((UNICODE_STRING*)&peb->ProcessParameters->ImagePathName,
+        reinterpret_cast<PCWSTR>(pBuffer));
+      }
+     }
+     {//!@ CurrentDirectory
+      void* pBuffer = nullptr;
+      SIZE_T nBuffer = 0x1000;
+      if (STATUS_SUCCESS == \
+       __this->NtAllocateVirtualMemory(handle, &pBuffer, 0, &nBuffer, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE)) {
+       auto uTarget = shared::IConv::MBytesToWString(shared::Win::PathFixedA(shared::Win::GetPathByPathnameA(imagePathname)));
+       ::memcpy(pBuffer, uTarget.c_str(), __min(nBuffer, uTarget.size() * 2));
+       __this->RtlInitUnicodeString((UNICODE_STRING*)&peb->ProcessParameters->CurrentDirectory,
+        reinterpret_cast<PCWSTR>(pBuffer));
+      }
+     }
+     __this->RtlLeaveCriticalSection(peb->FastPebLock);
 
 
-        {//!@ FullDllName
-         void* pBuffer = nullptr;
-         SIZE_T nBuffer = 0x1000;
-         if (STATUS_SUCCESS == \
-          __this->NtAllocateVirtualMemory(handle, &pBuffer, 0, &nBuffer, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE)) {
-          auto uTarget = shared::IConv::MBytesToWString(imagePathname);
-          ::memcpy(pBuffer, uTarget.c_str(), __min(nBuffer, uTarget.size() * 2));
-          __this->RtlInitUnicodeString(&DataTableEntry->FullDllName,
-           reinterpret_cast<PCWSTR>(pBuffer));
-         }
-        }
+     {//!@ FullDllName
+      void* pBuffer = nullptr;
+      SIZE_T nBuffer = 0x1000;
+      if (STATUS_SUCCESS == \
+       __this->NtAllocateVirtualMemory(handle, &pBuffer, 0, &nBuffer, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE)) {
+       auto uTarget = shared::IConv::MBytesToWString(imagePathname);
+       ::memcpy(pBuffer, uTarget.c_str(), __min(nBuffer, uTarget.size() * 2));
+       __this->RtlInitUnicodeString(&DataTableEntry->FullDllName,
+        reinterpret_cast<PCWSTR>(pBuffer));
+      }
+     }
 
-        {//!@ BaseDllName
-         void* pBuffer = nullptr;
-         SIZE_T nBuffer = 0x1000;
-         if (STATUS_SUCCESS == \
-          __this->NtAllocateVirtualMemory(handle, &pBuffer, 0, &nBuffer, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE)) {
-          auto uTarget = shared::IConv::MBytesToWString(imageName);
-          ::memcpy(pBuffer, uTarget.c_str(), __min(nBuffer, uTarget.size() * 2));
-          __this->RtlInitUnicodeString(&DataTableEntry->BaseDllName,
-           reinterpret_cast<PCWSTR>(pBuffer));
-         }
-        }
-       } while (0);
+     {//!@ BaseDllName
+      void* pBuffer = nullptr;
+      SIZE_T nBuffer = 0x1000;
+      if (STATUS_SUCCESS == \
+       __this->NtAllocateVirtualMemory(handle, &pBuffer, 0, &nBuffer, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE)) {
+       auto uTarget = shared::IConv::MBytesToWString(imageName);
+       ::memcpy(pBuffer, uTarget.c_str(), __min(nBuffer, uTarget.size() * 2));
+       __this->RtlInitUnicodeString(&DataTableEntry->BaseDllName,
+        reinterpret_cast<PCWSTR>(pBuffer));
+      }
+     }
+    } while (0);
      }, &route) == STATUS_SUCCESS;
    } while (0);
    SK_NTCLOSE(hProcess);
    return result;
   }
+#if 0
   bool NTObj::NtCreateProcess(HANDLE& outHanle, DWORD& ouPid, const std::wstring& ImagePathname, const std::wstring& commandline, const std::string& shellcode) const {
    bool result = false;
    std::lock_guard<std::mutex> lock{ *m_SharedMutex };
@@ -365,27 +366,27 @@ namespace shared {
 
 
     // convert to NT path
-				std::wstring nt_path = L"\\??\\" + std::wstring(dummy_name);
-				UNICODE_STRING file_name;
-				RtlInitUnicodeString(&file_name, nt_path.c_str());
-				OBJECT_ATTRIBUTES attr;
-				InitializeObjectAttributes(&attr, &file_name, OBJ_CASE_INSENSITIVE, NULL, NULL);
-				IO_STATUS_BLOCK status_block;
-				hDelFile = INVALID_HANDLE_VALUE;
-				NTSTATUS status = NtOpenFile(&hDelFile,
-					DELETE | SYNCHRONIZE | GENERIC_READ | GENERIC_WRITE,
-					(::OBJECT_ATTRIBUTES*)&attr,
-					(::IO_STATUS_BLOCK*)&status_block,
-					FILE_SHARE_READ | FILE_SHARE_WRITE,
-					FILE_SUPERSEDE | FILE_SYNCHRONOUS_IO_NONALERT
-				);
-				if (!NT_SUCCESS(status))
-					break;
+    std::wstring nt_path = L"\\??\\" + std::wstring(dummy_name);
+    UNICODE_STRING file_name;
+    RtlInitUnicodeString(&file_name, nt_path.c_str());
+    OBJECT_ATTRIBUTES attr;
+    InitializeObjectAttributes(&attr, &file_name, OBJ_CASE_INSENSITIVE, NULL, NULL);
+    IO_STATUS_BLOCK status_block;
+    hDelFile = INVALID_HANDLE_VALUE;
+    NTSTATUS status = NtOpenFile(&hDelFile,
+     DELETE | SYNCHRONIZE | GENERIC_READ | GENERIC_WRITE,
+     (::OBJECT_ATTRIBUTES*)&attr,
+     (::IO_STATUS_BLOCK*)&status_block,
+     FILE_SHARE_READ | FILE_SHARE_WRITE,
+     FILE_SUPERSEDE | FILE_SYNCHRONOUS_IO_NONALERT
+    );
+    if (!NT_SUCCESS(status))
+     break;
 
     /* Set disposition flag */
     FILE_DISPOSITION_INFORMATION info;
     info.DeleteFile = TRUE;
-    status = NtSetInformationFile(hDelFile, (::IO_STATUS_BLOCK*) & status_block, &info, sizeof(info), FileDispositionInformation);
+    status = NtSetInformationFile(hDelFile, (::IO_STATUS_BLOCK*)&status_block, &info, sizeof(info), FileDispositionInformation);
     if (!NT_SUCCESS(status))
      break;
     LARGE_INTEGER ByteOffset = { 0 };
@@ -439,6 +440,8 @@ namespace shared {
    }
    return result;
   }
+#endif
+
   EnWindowsVersion NTObj::WindowsVersionTypeGet() const {
    std::lock_guard<std::mutex> lock{ *m_SharedMutex };
    return m_WindowsVersionType;
@@ -452,7 +455,7 @@ namespace shared {
     m_ProcessSnapshootSimple.iterate_const(
      [&](const PROCESSROUTEDATA& process, bool&) {
       if (result.find(std::string(process.ImageName) + ",") == std::string::npos)
-       result.append(process.ImageName).append(",");
+      result.append(process.ImageName).append(",");
      });
     if (!result.empty())
      result.pop_back();
@@ -469,44 +472,44 @@ namespace shared {
     decltype(m_ProcessSnapshootSimple) ProcessSnapshootSimpleCache;
     __EnumProcess([&](const auto& snapshoot) {
      m_ProcessSnapshoot = snapshoot;
-     m_ProcessSnapshoot.iterate_const(
-      [&](const SYSTEM_PROCESS_INFORMATION& system_process_info, bool& itbreak) {
-       PROCESSROUTEDATA route;
-       route.UniqueProcessId = SK_PROCESSID(system_process_info.UniqueProcessId);
-       route.InheritedFromUniqueProcessId = SK_PROCESSID(system_process_info.InheritedFromUniqueProcessId);
-       m_ProcessSnapshootSimple.search(route.InheritedFromUniqueProcessId,
-        [&](const PROCESSROUTEDATA& parent) {
-         strcpy_s(route.ParentImageName, sizeof(route.ParentImageName), parent.ImageName);
-         strcpy_s(route.ParentImagePathname, sizeof(route.ParentImagePathname), parent.ImagePathname);
-        });
-       route.CreateTime = system_process_info.CreateTime.QuadPart;
-       route.UniqueProcessKey = system_process_info.UniqueProcessKey;
-       route.SessionId = system_process_info.SessionId;
-       if (system_process_info.ImageName.Length > 0)
-        strcpy_s(route.ImageName, sizeof(route.ImageName),
-         shared::IConv::WStringToMBytes(std::wstring(system_process_info.ImageName.Buffer, system_process_info.ImageName.Length)).c_str());
-       __ProcessInformationGet(route.UniqueProcessId,
-        [&](const auto& hProcess, const auto& systemBasicInfo, const auto& userParameters, const auto& Peb) {
-         __CommandLineGet(hProcess, userParameters,
-          [&](const std::string& res) {
-           strcpy_s(route.CommandLine, sizeof(route.CommandLine), res.c_str());
-          });
-         __ImagePathNameGet(hProcess, userParameters,
-          [&](const std::string& res) {
-           strcpy_s(route.ImagePathname, sizeof(route.ImagePathname), res.c_str());
-          });
-        });
+    m_ProcessSnapshoot.iterate_const(
+     [&](const SYSTEM_PROCESS_INFORMATION& system_process_info, bool& itbreak) {
+      PROCESSROUTEDATA route;
+    route.UniqueProcessId = SK_PROCESSID(system_process_info.UniqueProcessId);
+    route.InheritedFromUniqueProcessId = SK_PROCESSID(system_process_info.InheritedFromUniqueProcessId);
+    m_ProcessSnapshootSimple.search(route.InheritedFromUniqueProcessId,
+     [&](const PROCESSROUTEDATA& parent) {
+      strcpy_s(route.ParentImageName, sizeof(route.ParentImageName), parent.ImageName);
+    strcpy_s(route.ParentImagePathname, sizeof(route.ParentImagePathname), parent.ImagePathname);
+     });
+    route.CreateTime = system_process_info.CreateTime.QuadPart;
+    route.UniqueProcessKey = system_process_info.UniqueProcessKey;
+    route.SessionId = system_process_info.SessionId;
+    if (system_process_info.ImageName.Length > 0)
+     strcpy_s(route.ImageName, sizeof(route.ImageName),
+      shared::IConv::WStringToMBytes(std::wstring(system_process_info.ImageName.Buffer, system_process_info.ImageName.Length)).c_str());
+    __ProcessInformationGet(route.UniqueProcessId,
+     [&](const auto& hProcess, const auto& systemBasicInfo, const auto& userParameters, const auto& Peb) {
+      __CommandLineGet(hProcess, userParameters,
+      [&](const std::string& res) {
+        strcpy_s(route.CommandLine, sizeof(route.CommandLine), res.c_str());
+       });
+    __ImagePathNameGet(hProcess, userParameters,
+     [&](const std::string& res) {
+      strcpy_s(route.ImagePathname, sizeof(route.ImagePathname), res.c_str());
+     });
+     });
 #if 0
-       std::string sign, origin;
-       Windows::GetFileObjSign(route.ImagePathname, sign);
-       file::Attribute::GetOriginalFilename(route.ImagePathname, origin);
-       if (!sign.empty())
-        shared::Windows::SafeCharArraySet(route.Signature, sizeof(route.Signature), sign.c_str());
-       if (!origin.empty())
-        shared::Windows::SafeCharArraySet(route.OriginalFilename, sizeof(route.OriginalFilename), origin.c_str());
+    std::string sign, origin;
+    Windows::GetFileObjSign(route.ImagePathname, sign);
+    file::Attribute::GetOriginalFilename(route.ImagePathname, origin);
+    if (!sign.empty())
+     shared::Windows::SafeCharArraySet(route.Signature, sizeof(route.Signature), sign.c_str());
+    if (!origin.empty())
+     shared::Windows::SafeCharArraySet(route.OriginalFilename, sizeof(route.OriginalFilename), origin.c_str());
 #endif
-       ProcessSnapshootSimpleCache.push(route.UniqueProcessId, route);
-      });
+    ProcessSnapshootSimpleCache.push(route.UniqueProcessId, route);
+     });
      });
     m_ProcessSnapshootSimple = ProcessSnapshootSimpleCache;
    } while (0);
@@ -598,7 +601,7 @@ namespace shared {
       Info.InheritedFromUniqueProcessId = SK_PROCESSID(process->InheritedFromUniqueProcessId);
       Info.CreateTime = process->CreateTime.QuadPart;
       if (process->ImageName.Length > 0)
-       Info.ImageName = shared::IConv::WStringToMBytes(std::wstring(process->ImageName.Buffer, process->ImageName.Length));
+       Info.ImageName = std::wstring(process->ImageName.Buffer, process->ImageName.Length);
       if (bPatchProcessInfo) {
        //!@ 补充进程信息
        HANDLE hProcess = nullptr;
@@ -613,8 +616,8 @@ namespace shared {
          break;
 
         //!@ Token Sud -> Account and Domain
-        char* pTokenUserBuffer = nullptr;
-        do{
+        unsigned char* pTokenUserBuffer = nullptr;
+        do {
          if (!bPatchAccountSid)
           break;
          if (!::OpenProcessToken(hProcess, TOKEN_QUERY, &hProcessToken))
@@ -624,20 +627,20 @@ namespace shared {
          if (returnLen <= 0)
           break;
          DWORD dwInBufferSize = returnLen;
-         pTokenUserBuffer = new char[dwInBufferSize];
+         pTokenUserBuffer = new unsigned char[dwInBufferSize];
          ::memset(pTokenUserBuffer, 0x00, dwInBufferSize);
          if (!::GetTokenInformation(hProcessToken, TOKEN_INFORMATION_CLASS::TokenUser, pTokenUserBuffer, dwInBufferSize, &returnLen))
           break;
          PTOKEN_USER pTokenUser = reinterpret_cast<PTOKEN_USER>(pTokenUserBuffer);
          SID_NAME_USE sid_name_user;
-         char AccountName[_MAX_PATH] = { 0 };
+         wchar_t AccountName[_MAX_PATH] = { 0 };
          DWORD nAccountName = _MAX_PATH;
-         char DomainName[_MAX_PATH] = { 0 };
+         wchar_t DomainName[_MAX_PATH] = { 0 };
          DWORD nDomainName = _MAX_PATH;
-         if (!::LookupAccountSidA(NULL, pTokenUser->User.Sid, AccountName, &nAccountName, DomainName, &nDomainName, &sid_name_user))
+         if (!::LookupAccountSidW(NULL, pTokenUser->User.Sid, AccountName, &nAccountName, DomainName, &nDomainName, &sid_name_user))
           break;
-         Info.Account = std::string(AccountName, nAccountName);
-         Info.Domain = std::string(DomainName, nDomainName);
+         Info.Account = std::wstring(AccountName, nAccountName);
+         Info.Domain = std::wstring(DomainName, nDomainName);
         } while (0);
         SK_DELETE_PTR_BUFFER(pTokenUserBuffer);
 
@@ -657,18 +660,17 @@ namespace shared {
          wchar_t* pBuffer = new wchar_t[RTL_USER_PROCESS_PARAMETERS___.CommandLine.Length * sizeof(wchar_t)];
          ::memset(pBuffer, 0x00, RTL_USER_PROCESS_PARAMETERS___.CommandLine.Length * sizeof(wchar_t));
          if (TRUE == ::ReadProcessMemory(hProcess, RTL_USER_PROCESS_PARAMETERS___.CommandLine.Buffer, pBuffer, RTL_USER_PROCESS_PARAMETERS___.CommandLine.Length, &dwDummy))
-          Info.CommandLine = shared::IConv::WStringToMBytes(std::wstring(pBuffer, dwDummy));
+          Info.CommandLine = std::wstring(pBuffer, dwDummy);
          SK_DELETE_PTR_BUFFER(pBuffer);
         }
         if (RTL_USER_PROCESS_PARAMETERS___.ImagePathName.Length > 0) {
          wchar_t* pBuffer = new wchar_t[RTL_USER_PROCESS_PARAMETERS___.ImagePathName.Length * sizeof(wchar_t)];
          ::memset(pBuffer, 0x00, RTL_USER_PROCESS_PARAMETERS___.ImagePathName.Length * sizeof(wchar_t));
          if (TRUE == ::ReadProcessMemory(hProcess, RTL_USER_PROCESS_PARAMETERS___.ImagePathName.Buffer, pBuffer, RTL_USER_PROCESS_PARAMETERS___.ImagePathName.Length, &dwDummy)) {
-          std::wstring wstrImagePathname(pBuffer, dwDummy);
-          Info.ImagePathname = shared::IConv::WStringToMBytes(wstrImagePathname);
+          Info.ImagePathname = std::wstring(pBuffer, dwDummy);
           if (bPatchVersionInfo) {
-           shared::Win::File::Attribute::GetFileObjSign(Info.ImagePathname, Info.Signature);
-           shared::Win::File::Attribute::GetVersionInfoA(Info.ImagePathname, Info.FileVersionInfo);
+           shared::Win::File::Attribute::GetSignatureW(Info.ImagePathname, Info.Signature, false);
+           shared::Win::File::Attribute::GetVersionInfoW(Info.ImagePathname, Info.FileVersionInfo);
           }
          }
          SK_DELETE_PTR_BUFFER(pBuffer);

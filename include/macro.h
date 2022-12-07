@@ -12,6 +12,7 @@
 #define SK_CLASS_MALLOC(name,outptr) auto p = new name(); outptr= reinterpret_cast<long long>(p);
 
 #define SK_CLOSE_HANDLE(h) {if(h)::CloseHandle(h);h=nullptr;}
+#define SK_CLOSE_SERVICE_HANDLE(h) {if(h)::CloseServiceHandle(h);h=nullptr;}
 #define SK_NTCLOSE(h) {if(h)NtClose(h);h=nullptr;}
 #define SK_DELETE_PTR(p) {if(p) delete p;p=nullptr;}
 #define SK_DELETE_PTR_BUFFER(pbuf) {if(pbuf) delete[] pbuf;pbuf=nullptr;}

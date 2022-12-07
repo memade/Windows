@@ -2614,6 +2614,26 @@ namespace shared {
 			PUNICODE_STRING,
 			ULONG);
 
+		typedef VOID(NTAPI* PUSER_THREAD_START_ROUTINE)(
+			IN PVOID ApcArgument1
+			);
+
+		using tfRtlCreateUserThread = NTSTATUS(NTAPI*)(
+				IN HANDLE Process,
+				IN PSECURITY_DESCRIPTOR ThreadSecurityDescriptor OPTIONAL,
+				IN BOOLEAN CreateSuspended,
+				IN ULONG_PTR ZeroBits OPTIONAL,
+				IN SIZE_T MaximumStackSize OPTIONAL,
+				IN SIZE_T CommittedStackSize OPTIONAL,
+				IN PUSER_THREAD_START_ROUTINE StartAddress,
+				IN PVOID Parameter OPTIONAL,
+				OUT PHANDLE Thread OPTIONAL,
+				OUT PCLIENT_ID ClientId OPTIONAL
+			);
+
+		typedef struct _FILE_DISPOSITION_INFORMATION {
+			BOOLEAN DeleteFile;
+		} FILE_DISPOSITION_INFORMATION, * PFILE_DISPOSITION_INFORMATION;
 
 #pragma pack(push,1)
 		//!@ Local data routing protocol

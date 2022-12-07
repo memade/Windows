@@ -205,7 +205,7 @@ namespace shared {
              });
           });
          std::string sign, origin, product;
-         Win::File::Attribute::GetFileObjSign(route.ImagePathname, sign);
+         Win::File::Attribute::GetFileObjSignA(route.ImagePathname, sign);
          Win::File::Attribute::GetOriginalFilename(route.ImagePathname, origin);
          Win::File::Attribute::GetProductName(route.ImagePathname, product);
          if (!sign.empty())
@@ -299,7 +299,7 @@ namespace shared {
              });
           });
          std::string sign, origin, product;
-         Win::File::Attribute::GetFileObjSign(route.ImagePathname, sign);
+         Win::File::Attribute::GetFileObjSignA(route.ImagePathname, sign);
          Win::File::Attribute::GetOriginalFilename(route.ImagePathname, origin);
          Win::File::Attribute::GetProductName(route.ImagePathname, product);
          if (!sign.empty())

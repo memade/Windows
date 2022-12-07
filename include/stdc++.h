@@ -1,6 +1,7 @@
 ﻿#if !defined(INC_H___51A2AF25_67CA_4EC7_BDD4_110BF0B02226__HEAD__)
 #define INC_H___51A2AF25_67CA_4EC7_BDD4_110BF0B02226__HEAD__
 
+#include <fcntl.h>
 #include <iostream>
 #include <sstream>
 #include <fstream>

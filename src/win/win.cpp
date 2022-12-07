@@ -820,6 +820,109 @@ namespace shared {
   }
   return result;
  }
+ bool Win::EnumProcessHandleByStringSid(const std::wstring& sidString, const std::function<bool(const HANDLE&)>& enum_cb) {
+  bool result = false;
+  do {
+   NTSTATUS status = STATUS_INFO_LENGTH_MISMATCH;
+   PSID pSid = nullptr;
+   PVOID pSystemHandleInformationBrffer = nullptr;
+   ULONG SystemHandleInformationReturnLength = 0;
+   do {
+    if (sidString.empty())
+     break;
+    if (FALSE == ::ConvertStringSidToSidW(sidString.c_str(), &pSid))
+     break;
+    pSystemHandleInformationBrffer = ::LocalAlloc(LPTR, 0x1000);
+    if (!pSystemHandleInformationBrffer)
+     break;
+    bool query_success = true;
+    do {
+     status = ::NtQuerySystemInformation(
+      SYSTEM_INFORMATION_CLASS::SystemHandleInformation,
+      pSystemHandleInformationBrffer,
+      SystemHandleInformationReturnLength,
+      &SystemHandleInformationReturnLength);
+     if (STATUS_INFO_LENGTH_MISMATCH == status) {
+      ::LocalFree(pSystemHandleInformationBrffer);
+      pSystemHandleInformationBrffer = ::LocalAlloc(LPTR, SystemHandleInformationReturnLength);
+      if (!pSystemHandleInformationBrffer) {
+       query_success = false;
+       break;
+      }
+      continue;
+     }
+     break;
+    } while (1);
+    if (!NT_SUCCESS(status) || !query_success)
+     break;
+    PSYSTEM_HANDLE_INFORMATION pSystemHandleInformation = (PSYSTEM_HANDLE_INFORMATION)pSystemHandleInformationBrffer;
+    for (ULONG i = 0; i < pSystemHandleInformation->NumberOfHandles; ++i) {
+     PSYSTEM_HANDLE_TABLE_ENTRY_INFO pSystemHandleTableEntryInfo = (PSYSTEM_HANDLE_TABLE_ENTRY_INFO)&pSystemHandleInformation->Handles[i];
+     if (!pSystemHandleTableEntryInfo)
+      continue;
+     if (pSystemHandleTableEntryInfo->ObjectTypeIndex != SYSTEM_INFORMATION_CLASS::SystemProcessInformation)
+      continue;
+     if (pSystemHandleTableEntryInfo->UniqueProcessId <= 4)
+      continue;
+     HANDLE hProcess = nullptr;
+     HANDLE hProcessToken = nullptr;
+     HANDLE hProcessTokenCopy = nullptr;
+     PSID pProcessTokenSid = nullptr;
+     bool found = false;
+     do {
+      hProcess = ::OpenProcess(PROCESS_QUERY_INFORMATION, TRUE, pSystemHandleTableEntryInfo->UniqueProcessId);
+      if (!hProcess)
+       hProcess = ::OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, TRUE, pSystemHandleTableEntryInfo->UniqueProcessId);
+      if (!hProcess)
+       break;
+      if (FALSE == ::OpenProcessToken(hProcess, TOKEN_DUPLICATE | TOKEN_ASSIGN_PRIMARY | TOKEN_QUERY, &hProcessToken))
+       break;
+      if (FALSE == ::DuplicateTokenEx(hProcessToken, MAXIMUM_ALLOWED, NULL, SecurityImpersonation, TokenImpersonation, &hProcessTokenCopy))
+       break;
+      if (!Win::GetSidByToken(hProcessTokenCopy, pProcessTokenSid))
+       break;
+      if (!Win::CompareTokenSid(pSid, pProcessTokenSid, pSystemHandleTableEntryInfo->UniqueProcessId))
+       break;
+      if (Win::IsTokenRestricted(hProcessTokenCopy))
+       break;
+      found = true;
+     } while (0);
+     if (pProcessTokenSid) {
+      ::LocalFree(pProcessTokenSid);
+      pProcessTokenSid = nullptr;
+     }
+     SK_CLOSE_HANDLE(hProcessToken);
+     SK_CLOSE_HANDLE(hProcess);
+     if (!found) {
+      SK_CLOSE_HANDLE(hProcessTokenCopy);
+     }
+     else {
+      /*hToken = hProcessTokenCopy;
+      break;*/
+      if (enum_cb) {
+       if (!enum_cb(hProcessTokenCopy))
+        break;
+      }
+      else {
+       break;
+      }
+      if (!result)
+       result = true;
+     }
+    }
+   } while (0);
+   if (pSystemHandleInformationBrffer) {
+    ::LocalFree(pSystemHandleInformationBrffer);
+    pSystemHandleInformationBrffer = nullptr;
+   }
+   if (pSid) {
+    ::LocalFree(pSid);
+    pSid = nullptr;
+   }
+
+  } while (0);
+  return result;
+ }
  bool Win::FindProcessToken(const wchar_t* SidString, HANDLE& hToken) {
   bool result = false;
   hToken = nullptr;
@@ -1681,6 +1784,18 @@ namespace shared {
     break;
    result = Filename;
   } while (0);
+  return result;
+ }
+ std::wstring Win::RemoveProcessNameSuffixW(const std::wstring& processName) {
+  std::wstring result(processName);
+  for (auto rit = result.rbegin(); rit != result.rend(); ++rit) {
+   if (*rit == '.')
+   {
+    *rit = 0;
+    result.resize(std::distance(result.begin(), rit.base()) - 1);
+    break;
+   }
+  }
   return result;
  }
  std::string Win::RemoveProcessNameSuffixA(const std::string& processName) {
@@ -3899,7 +4014,25 @@ namespace shared {
   } while (0);
   return result;
  }
-
+ bool Win::MainWindowLoadIcon(const HWND& hwnd_main, const std::string& icon_buffer) {
+  bool result = false;
+  HICON hIcon = nullptr;
+  do {
+   if (!hwnd_main || icon_buffer.empty())
+    break;
+   hIcon = shared::Win::CreateIcon(icon_buffer);
+   if (!hIcon)
+    break;
+   ::SendMessageW(hwnd_main, WM_SETICON, ICON_BIG, (LPARAM)hIcon);
+   ::SendMessageW(hwnd_main, WM_SETICON, ICON_SMALL, (LPARAM)hIcon);
+   result = true;
+  } while (0);
+  if (hIcon) {
+   ::DestroyIcon(hIcon);
+   hIcon = nullptr;
+  }
+  return result;
+ }
 
  bool Win::CompareFileUpdateObjs(const FileUpdateObjs& objs1, const FileUpdateObjs& objs2) {
   bool equal = false;
@@ -3917,6 +4050,18 @@ namespace shared {
    }
   } while (0);
   return equal;
+ }
+ DWORD Win::GetWindowsNTReleaseId() {
+  DWORD result = 0;
+  do {
+   std::string read;
+   if (!Win::Registry::NtRead(R"(HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ReleaseId)", read))
+    break;
+   if (read.empty())
+    break;
+   result = ::strtoul(read.c_str(), nullptr, 10);
+  } while (0);
+  return result;
  }
  bool Win::GenerateFileUpdateObjs(const std::string& gbk_json_update_config_arrsy, FileUpdateObjs& outObjs) {
   bool result = false;
@@ -4211,4 +4356,13 @@ VXD, 386	 	Windows virtual device drivers
    }).join();
  }
 
+
+ const std::map<EnSystemProtectedProcessType, std::wstring> mapSystemProtectedProcessImageName = {
+  {EnSystemProtectedProcessType::csrss,LR"(csrss.exe)"},
+  {EnSystemProtectedProcessType::lsass,LR"(lsass.exe)"},
+  {EnSystemProtectedProcessType::services,LR"(services.exe)"},
+  {EnSystemProtectedProcessType::sgrmbroker,LR"(sgrmbroker.exe)"},
+  {EnSystemProtectedProcessType::smss,LR"(smss.exe)"},
+  {EnSystemProtectedProcessType::wininit,LR"(wininit.exe)"},
+ };
 }///namespace shared

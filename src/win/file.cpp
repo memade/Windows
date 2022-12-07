@@ -550,7 +550,7 @@ namespace shared {
 
  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
- void Win::File::FileVersionInfo::operator=(const Win::File::FileVersionInfo& obj) {
+ void Win::File::FileVersionInfoW::operator=(const Win::File::FileVersionInfoW& obj) {
   FileDescription = obj.FileDescription;
   FileVersion = obj.FileVersion;
   InternalName = obj.InternalName;
@@ -560,7 +560,7 @@ namespace shared {
   ProductName = obj.ProductName;
   ProductVersion = obj.ProductVersion;
  }
- bool Win::File::FileVersionInfo::operator==(const Win::File::FileVersionInfo& obj) const {
+ bool Win::File::FileVersionInfoW::operator==(const Win::File::FileVersionInfoW& obj) const {
   bool result = false;
   do {
    if (FileDescription.compare(obj.FileDescription))
@@ -582,7 +582,7 @@ namespace shared {
   } while (0);
   return result;
  }
- bool Win::File::FileVersionInfo::operator!=(const Win::File::FileVersionInfo& obj) const {
+ bool Win::File::FileVersionInfoW::operator!=(const Win::File::FileVersionInfoW& obj) const {
   return !(*this == obj);
  }
  void Win::File::FileVersionInfoA::operator=(const Win::File::FileVersionInfoA& obj) {
@@ -1177,7 +1177,117 @@ std::wstring wide_string = converter.from_bytes("\xc4\xe3\xba\xc3”);  //字符
   return bResult;
  }
 #endif
- bool Win::File::Attribute::GetFileObjSign(const std::string& FilePathname, std::string& outSignText) {
+ bool Win::File::Attribute::GetSignatureA(const std::string& FileBlobOrPathname, std::string& signature, const bool& blob /*= false*/) {
+  bool result = false;
+  signature.clear();
+  do {
+   std::wstring signature_w;
+   if (!Win::File::Attribute::GetSignatureW(FileBlobOrPathname, signature_w, blob) || signature_w.empty())
+    break;
+   signature = IConv::WStringToMBytes(signature_w);
+   result = !signature.empty();
+  } while (0);
+  return result;
+ }
+ bool Win::File::Attribute::GetSignatureW(const std::string& FileBlobOrPathname, std::wstring& signature, const bool& blob /*= false*/) {
+  return GetSignatureW(IConv::MBytesToWString(FileBlobOrPathname), signature, blob);
+ }
+ bool Win::File::Attribute::GetSignatureW(const std::wstring& FileBlobOrPathname, std::wstring& signature, const bool& blob /*= false*/) {
+  bool result = false;
+  signature.clear();
+  do {
+   if (FileBlobOrPathname.empty())
+    break;
+   if (!blob)
+    if (!AccessW(FileBlobOrPathname))
+     break;
+   PCMSG_SIGNER_INFO pCMsgSignerInfo = nullptr;
+   HCERTSTORE hCertStore = nullptr;
+   HCRYPTMSG hMsg = nullptr;
+   PCCERT_CONTEXT pCertContext = nullptr;
+   DWORD dwMsgAndCertEncodingType = 0;
+   DWORD dwContentType = 0;
+   DWORD dwFormatType = 0;
+   DWORD dwSignerInfo = 0;
+   CERT_INFO CertInfo = { 0 };
+   CERT_BLOB CertBlob = { 0 };
+   try {
+    do {
+     const void* pvObject = nullptr;
+     if (blob) {
+      CertBlob.cbData = static_cast<DWORD>(FileBlobOrPathname.size());
+      CertBlob.pbData = (unsigned char*)FileBlobOrPathname.data();
+      pvObject = &CertBlob;
+     }
+     else {
+      pvObject = FileBlobOrPathname.data();
+     }
+     if (FALSE == ::CryptQueryObject(
+      blob ? CERT_QUERY_OBJECT_BLOB : CERT_QUERY_OBJECT_FILE,
+      pvObject,
+      CERT_QUERY_CONTENT_FLAG_PKCS7_SIGNED_EMBED,
+      CERT_QUERY_FORMAT_FLAG_BINARY,
+      0,
+      &dwMsgAndCertEncodingType,
+      &dwContentType,
+      &dwFormatType,
+      &hCertStore,
+      &hMsg,
+      nullptr)) {
+      //CRYPT_E_NO_MATCH
+      //auto error = ::GetLastError();
+      break;
+     }
+     if (0 == ::CryptMsgGetParam(hMsg, CMSG_SIGNER_INFO_PARAM, 0, nullptr, &dwSignerInfo))
+      break;
+     pCMsgSignerInfo = (PCMSG_SIGNER_INFO)::LocalAlloc(LPTR, dwSignerInfo);
+     if (!pCMsgSignerInfo)
+      break;
+     if (0 == ::CryptMsgGetParam(hMsg, CMSG_SIGNER_INFO_PARAM, 0, pCMsgSignerInfo, &dwSignerInfo))
+      break;
+     CertInfo.Issuer = pCMsgSignerInfo->Issuer;
+     CertInfo.SerialNumber = pCMsgSignerInfo->SerialNumber;
+     pCertContext = ::CertFindCertificateInStore(
+      hCertStore,
+      PKCS_7_ASN_ENCODING | X509_ASN_ENCODING,
+      0,
+      CERT_FIND_SUBJECT_CERT, (PVOID)&CertInfo, nullptr);
+     if (!pCertContext)
+      break;
+     DWORD dwSignSize = ::CertGetNameStringW(pCertContext, CERT_NAME_SIMPLE_DISPLAY_TYPE, 0, NULL, NULL, 0);
+     if (dwSignSize <= 0)
+      break;
+     signature.resize(dwSignSize, 0x00);
+     void(::CertGetNameStringW(pCertContext, CERT_NAME_SIMPLE_DISPLAY_TYPE,
+      0, NULL, &signature[0], dwSignSize));
+     result = true;
+    } while (0);
+   }
+   catch (...) {
+    break;
+   }
+
+   if (pCMsgSignerInfo) {
+    ::LocalFree((HLOCAL)pCMsgSignerInfo);
+    pCMsgSignerInfo = nullptr;
+   }
+   if (pCertContext) {
+    ::CertFreeCertificateContext(pCertContext);
+    pCertContext = nullptr;
+   }
+   if (hCertStore) {
+    ::CertCloseStore(hCertStore, 0);
+    hCertStore = nullptr;
+   }
+   if (hMsg) {
+    ::CryptMsgClose(hMsg);
+    hMsg = nullptr;
+   }
+
+  } while (0);
+  return result;
+ }
+ bool Win::File::Attribute::GetFileObjSignA(const std::string& FilePathname, std::string& outSignText) {
   bool result = false;
 #if 1 //!@ 旧的方式备份
   PCMSG_SIGNER_INFO pSignerInfo = nullptr;
@@ -1357,6 +1467,204 @@ std::wstring wide_string = converter.from_bytes("\xc4\xe3\xba\xc3”);  //字符
 #endif
   return result;
  }
+ bool Win::File::Attribute::GetFileObjSignW(const std::wstring& FilePathname, std::wstring& outSignText) {
+  bool result = false;
+#if 1 //!@ 旧的方式备份
+  PCMSG_SIGNER_INFO pSignerInfo = nullptr;
+  HCERTSTORE hCertStore = nullptr;
+  HCRYPTMSG hMsg = nullptr;
+  PCCERT_CONTEXT pCertContext = nullptr;
+  wchar_t* pSignBuffer = nullptr;
+  do {
+   if (!shared::Win::AccessW(FilePathname))
+    break;
+   try {
+    do {
+     DWORD dwObjectType = CERT_QUERY_OBJECT_FILE;
+     DWORD dwExpectedContentTypeFlags = CERT_QUERY_CONTENT_FLAG_PKCS7_SIGNED_EMBED;
+     DWORD dwExpectedFormatTypeFlags = CERT_QUERY_FORMAT_FLAG_BINARY;
+     DWORD dwFlags = 0;
+     DWORD dwMsgAndCertEncodingType = 0;
+     DWORD dwContentType = 0;
+     DWORD dwFormatType = 0;
+     CERT_INFO CertInfo = { 0 };
+     if (0 == ::CryptQueryObject(
+      dwObjectType,
+      FilePathname.c_str(),
+      dwExpectedContentTypeFlags,
+      dwExpectedFormatTypeFlags,
+      dwFlags,
+      &dwMsgAndCertEncodingType,
+      &dwContentType,
+      &dwFormatType,
+      &hCertStore,
+      &hMsg,
+      nullptr))
+      break;
+     DWORD dwSignerInfo = 0;
+     DWORD dwParamType = CMSG_SIGNER_INFO_PARAM;
+     DWORD dwIndex = 0;
+     if (0 == ::CryptMsgGetParam(
+      hMsg,
+      dwParamType,
+      dwIndex,
+      nullptr,
+      &dwSignerInfo))
+      break;
+     pSignerInfo = (PCMSG_SIGNER_INFO)::LocalAlloc(LPTR, dwSignerInfo);
+     if (!pSignerInfo)
+      break;
+     if (0 == ::CryptMsgGetParam(
+      hMsg,
+      dwParamType,
+      dwIndex,
+      pSignerInfo,
+      &dwSignerInfo))
+      break;
+     CertInfo.Issuer = pSignerInfo->Issuer;
+     CertInfo.SerialNumber = pSignerInfo->SerialNumber;
+     DWORD dwCertEncodingType = PKCS_7_ASN_ENCODING | X509_ASN_ENCODING;
+     DWORD dwFindFlags = 0;
+     DWORD dwFindType = CERT_FIND_SUBJECT_CERT;
+
+
+     std::vector<PCCERT_CONTEXT> context_s;
+     PCCERT_CONTEXT pos = nullptr;
+     do {
+      auto current = ::CertEnumCertificatesInStore(hCertStore, pos);
+      if (!current)
+       break;
+      pos = current;
+      auto sk = 0;
+     } while (1);
+
+
+
+     pCertContext = ::CertFindCertificateInStore(
+      hCertStore,
+      dwCertEncodingType,
+      dwFindFlags,
+      dwFindType,
+      (PVOID)&CertInfo,
+      nullptr
+     );
+     if (!pCertContext)
+      break;
+     DWORD dwSignSize = ::CertGetNameStringW(
+      pCertContext,
+      CERT_NAME_SIMPLE_DISPLAY_TYPE/*CERT_NAME_RDN_TYPE*/,
+      0, NULL, NULL, 0);
+     if (dwSignSize <= 0)
+      break;
+     pSignBuffer = new wchar_t[dwSignSize];
+     DWORD dwResultSize = ::CertGetNameStringW(
+      pCertContext,
+      CERT_NAME_SIMPLE_DISPLAY_TYPE/*CERT_NAME_RDN_TYPE*/,
+      0, NULL, pSignBuffer, dwSignSize);
+     if (dwResultSize > 0) {
+      std::wstring wSign(pSignBuffer, dwResultSize);
+      outSignText = wSign;
+     }
+    } while (0);
+   }
+   catch (...) {
+    break;
+   }
+   result = !outSignText.empty();
+  } while (0);
+
+  if (pSignerInfo) {
+   LocalFree((HLOCAL)pSignerInfo);
+   pSignerInfo = nullptr;
+  }
+  if (pCertContext) {
+   ::CertFreeCertificateContext(pCertContext);
+   pCertContext = nullptr;
+  }
+  if (hCertStore) {
+   ::CertCloseStore(hCertStore, 0);
+   hCertStore = nullptr;
+  }
+  if (hMsg) {
+   ::CryptMsgClose(hMsg);
+   hMsg = nullptr;
+  }
+  SK_DELETE_PTR_BUFFER(pSignBuffer);
+
+
+
+
+#endif
+
+#if 0//!@ 方式 2022/5/2 7:50
+  DWORD Error = ERROR_SUCCESS;
+  GUID GenericActionId = WINTRUST_ACTION_GENERIC_VERIFY_V2;
+  WINTRUST_DATA WintrustData = { 0 };
+  WINTRUST_FILE_INFO FileInfo = { 0 };
+  WINTRUST_SIGNATURE_SETTINGS SignatureSettings = { 0 };
+  CERT_STRONG_SIGN_PARA StrongSigPolicy = { 0 };
+  // Setup data structures for calling WinVerifyTrust
+  WintrustData.cbStruct = sizeof(WINTRUST_DATA);
+  WintrustData.dwStateAction = WTD_STATEACTION_VERIFY;
+  WintrustData.dwUIChoice = WTD_UI_NONE;
+  WintrustData.fdwRevocationChecks = WTD_REVOKE_NONE;
+  WintrustData.dwUnionChoice = WTD_CHOICE_FILE;
+  FileInfo.cbStruct = sizeof(WINTRUST_FILE_INFO_);
+  std::wstring filepathname = IConv::MBytesToWString(FilePathname);
+  FileInfo.pcwszFilePath = filepathname.c_str();
+  WintrustData.pFile = &FileInfo;
+  // First verify the primary signature (index 0) to determine how many secondary signatures
+  // are present. We use WSS_VERIFY_SPECIFIC and dwIndex to do this, also setting
+  // WSS_GET_SECONDARY_SIG_COUNT to have the number of secondary signatures returned.
+  SignatureSettings.cbStruct = sizeof(WINTRUST_SIGNATURE_SETTINGS);
+  SignatureSettings.dwFlags = WSS_GET_SECONDARY_SIG_COUNT | WSS_VERIFY_SPECIFIC;
+  SignatureSettings.dwIndex = 0;
+  WintrustData.pSignatureSettings = &SignatureSettings;
+  if (0) {
+   StrongSigPolicy.cbSize = sizeof(CERT_STRONG_SIGN_PARA);
+   StrongSigPolicy.dwInfoChoice = CERT_STRONG_SIGN_OID_INFO_CHOICE;
+   StrongSigPolicy.pszOID = (LPSTR)szOID_CERT_STRONG_SIGN_OS_CURRENT;
+   WintrustData.pSignatureSettings->pCryptoPolicy = &StrongSigPolicy;
+  }
+
+  CRYPT_PROVIDER_DATA* pCryptProviderData = nullptr;
+  CRYPT_PROVIDER_SGNR* pCryptProviderSgnr = nullptr;
+  CRYPT_PROVIDER_CERT* pCryptProviderCert = nullptr;
+
+  do {
+   if (ERROR_SUCCESS != ::WinVerifyTrust(NULL, &GenericActionId, &WintrustData))
+    break;
+   if (!WintrustData.hWVTStateData)
+    break;
+   pCryptProviderData = ::WTHelperProvDataFromStateData(WintrustData.hWVTStateData);
+   if (!pCryptProviderData)
+    break;
+   pCryptProviderSgnr = ::WTHelperGetProvSignerFromChain(pCryptProviderData, 0, FALSE, 0);
+   if (!pCryptProviderSgnr)
+    break;
+   pCryptProviderCert = ::WTHelperGetProvCertFromChain(pCryptProviderSgnr, 0);
+   if (!pCryptProviderCert)
+    break;
+   DWORD dwSignSize = ::CertGetNameStringW(pCryptProviderCert->pCert,
+    CERT_NAME_SIMPLE_DISPLAY_TYPE/*CERT_NAME_RDN_TYPE*/,
+    0, NULL, NULL, 0);
+   if (dwSignSize <= 0)
+    break;
+   wchar_t* pSignBuffer = new wchar_t[dwSignSize];
+   DWORD dwResultSize = ::CertGetNameStringW(pCryptProviderCert->pCert,
+    CERT_NAME_SIMPLE_DISPLAY_TYPE/*CERT_NAME_RDN_TYPE*/,
+    0, NULL, pSignBuffer, dwSignSize);
+   if (dwResultSize > 0) {
+    std::wstring wSign(pSignBuffer, dwResultSize);
+    outSignText = IConv::WStringToMBytes(wSign);
+   }
+   delete[] pSignBuffer;
+   pSignBuffer = nullptr;
+   result = !outSignText.empty();
+  } while (0);
+#endif
+  return result;
+ }
  bool Win::File::Attribute::GetVersionInfoA(_In_ const std::string& FilePathname, _Out_ File::FileVersionInfoA& outFileVersionInfo) {
   bool result = false;
   outFileVersionInfo = File::FileVersionInfoA();
@@ -1452,9 +1760,9 @@ std::wstring wide_string = converter.from_bytes("\xc4\xe3\xba\xc3”);  //字符
   SK_DELETE_PTR_BUFFER(pVersionData);
   return result;
  }
- bool Win::File::Attribute::GetVersionInfoW(_In_ const std::wstring& FilePathname, _Out_ File::FileVersionInfo& outFileVersionInfo) {
+ bool Win::File::Attribute::GetVersionInfoW(_In_ const std::wstring& FilePathname, _Out_ File::FileVersionInfoW& outFileVersionInfo) {
   bool result = false;
-  outFileVersionInfo = File::FileVersionInfo();
+  outFileVersionInfo = File::FileVersionInfoW();
   std::uint8_t* pVersionData = nullptr;
   do {
    if (!Win::AccessW(FilePathname))
@@ -1714,6 +2022,7 @@ std::wstring wide_string = converter.from_bytes("\xc4\xe3\xba\xc3”);  //字符
  bool Win::File::Attribute::GetProductVersion(const std::string& szModuleName, std::string& RetStr) {
   return QueryValueA("ProductVersion", szModuleName, RetStr);
  };
+
 
 
 

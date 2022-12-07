@@ -230,6 +230,7 @@ namespace shared {
 			m_ExportFunctionPosQ.clear();
 			m_Ready.store(false);
 		}
+#if 0
 		bool NTObj::RouteObj::MemoryModule::Execute(DWORD& ProcessId, DWORD& ThreadId, void* param /*= nullptr*/) const {
 			bool result = false;
 			ThreadId = 0;
@@ -240,7 +241,7 @@ namespace shared {
 					break;
 				HANDLE hRemoteThread = nullptr;
 				::CLIENT_ID ClientID = { 0 };
-				NTSTATUS status = ::RtlCreateUserThread(
+				NTSTATUS status = RtlCreateUserThread(
 					m_hProcess,
 					NULL,
 					FALSE,
@@ -261,6 +262,7 @@ namespace shared {
 			} while (0);
 			return result;
 		}
+#endif
 		bool NTObj::RouteObj::MemoryModule::Execute(void* param) const {
 			bool result = false;
 			std::lock_guard<std::mutex> lock{ *m_Mutex };
@@ -279,8 +281,15 @@ namespace shared {
 				::GetExitCodeThread(hRemoteThread, &dwThreadExitCode);
 				SK_CLOSE_HANDLE(hRemoteThread);
 #else
+				auto hNTDLL = ::GetModuleHandleW(L"NTDLL.DLL");
+				if (!hNTDLL)
+					break;
+				tfRtlCreateUserThread fnRtlCreateUserThread = \
+					reinterpret_cast<tfRtlCreateUserThread>(::GetProcAddress(hNTDLL, "RtlCreateUserThread"));
+				if (!fnRtlCreateUserThread)
+					break;
 				HANDLE hRemoteThread = nullptr;
-				NTSTATUS status = ::RtlCreateUserThread(
+				NTSTATUS status = fnRtlCreateUserThread(
 					m_hProcess,
 					NULL,
 					FALSE,

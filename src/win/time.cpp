@@ -54,10 +54,11 @@ namespace shared {
  }
  std::string Win::Time::TimeSystemString(bool IsMilliseconds /*= false*/) {
   std::string result;
+#if 0
   SYSTEMTIME _sysTime;
   ::GetLocalTime(&_sysTime);
   if (IsMilliseconds) {
-   result = std::format("{:04}/{:02}/{:02} {:02}.{:02}.{:02}.{:03}",
+   result = std::format("{:04}/{:02}/{:02} {:02}:{:02}:{:02}:{:03}",
     _sysTime.wYear,
     _sysTime.wMonth,
     _sysTime.wDay,
@@ -67,7 +68,7 @@ namespace shared {
     _sysTime.wMilliseconds);
   }
   else {
-   result = std::format("{:04}/{:02}/{:02} {:02}.{:02}.{:02}",
+   result = std::format("{:04}/{:02}/{:02} {:02}:{:02}:{:02}",
     _sysTime.wYear,
     _sysTime.wMonth,
     _sysTime.wDay,
@@ -75,6 +76,33 @@ namespace shared {
     _sysTime.wMinute,
     _sysTime.wSecond);
   }
+#else
+  std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
+  std::uint64_t dis_millseconds = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()).count()
+   - std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()).count() * 1000;
+  std::time_t tt = std::chrono::system_clock::to_time_t(now);
+  tm time_tm = { 0 };
+  ::localtime_s(&time_tm, &tt);
+
+  result = IsMilliseconds ? std::format(
+   "{:04}/{:02}/{:02} {:02}:{:02}:{:02}.{:03}",
+   time_tm.tm_year + 1900,
+   time_tm.tm_mon + 1,
+   time_tm.tm_mday,
+   time_tm.tm_hour,
+   time_tm.tm_min,
+   time_tm.tm_sec,
+   dis_millseconds
+  ) : std::format(
+   "{:04}/{:02}/{:02} {:02}:{:02}:{:02}",
+   time_tm.tm_year + 1900,
+   time_tm.tm_mon + 1,
+   time_tm.tm_mday,
+   time_tm.tm_hour,
+   time_tm.tm_min,
+   time_tm.tm_sec
+  );
+#endif
   return result;
  }
 

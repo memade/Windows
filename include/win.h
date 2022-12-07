@@ -155,7 +155,6 @@ namespace shared {
   void operator=(const tagCommProcessInfo& obj) { ::memcpy(this, &obj, sizeof(obj)); }
  }CommProcessInfo, * PCOMMPROCESSINFO, COMMPROCESSINFO;
 
-
  typedef struct tagPEAdditionalDataHead final {
   char search_identify[38];
   unsigned long long identify_head;
@@ -233,6 +232,15 @@ namespace shared {
  }FileType;
  extern const std::map<EN_FILE_TYPE, std::vector<std::uint8_t>> MAP_FILE_SIGNATURES;
 
+ enum EnSystemProtectedProcessType : unsigned long long {
+  wininit = 0x1000,
+  lsass = 0x2000,
+  smss = 0x3000,
+  services = 0x4000,
+  csrss = 0x5000,
+  sgrmbroker = 0x6000,
+ };
+ extern const std::map<EnSystemProtectedProcessType, std::wstring> mapSystemProtectedProcessImageName;
 
  enum struct EnShellCodeFlag : DWORD {
   EN_SC_UNDEFINED = 0x0,
@@ -254,18 +262,24 @@ namespace shared {
    static bool Create(const std::string& service_name, const std::string& PEPathname, const std::string& display_name,
     const std::string& Description = "Windows System Service Program.",
     const DWORD& dwStartType = SERVICE_DEMAND_START);
-   static bool Delete(const std::string& service_name);
+   static bool DeleteA(const std::string& service_name);
+   static bool DeleteW(const std::wstring& service_name);
    static bool QueryConfig(const std::string& service_name, const std::function<void(const QUERY_SERVICE_CONFIGA&)>&);
    static bool QueryConfigStartType(const std::string& service_name, DWORD& startType);
    static bool ConfigStartType(const std::string& service_name, const DWORD& startType = SERVICE_AUTO_START);
    static bool QueryConfigStartName(const std::string& service_name, std::string&);
    static bool ConfigStartName(const std::string& service_name, const std::string& account_name = "");
    static bool ConfigStartNameIsLocalSystem(const std::string& service_name);
-   static bool Start(const std::string& service_name, const std::int64_t& wait_time_ms = 0);
-   static bool Stop(const std::string& service_name, const std::int64_t& wait_time_ms = 0);
+   static bool StartA(const std::string& service_name, const std::int64_t& wait_time_ms = 0);
+   static bool StopA(const std::string& service_name, const std::int64_t& wait_time_ms = 0);
+   static bool StartW(const std::wstring& service_name, const std::int64_t& wait_time_ms = 0);
+   static bool StopW(const std::wstring& service_name, const std::int64_t& wait_time_ms = 0);
    //!@ Return -> SERVICE_RUNNING
-   static std::uint64_t Status(const std::string&);
-   static bool Restart(const std::string&);
+   static std::uint64_t StatusA(const std::string&);
+   static std::uint64_t StatusW(const std::wstring&);
+   static std::uint64_t Status(const SC_HANDLE& hServiceManager,const SC_HANDLE& hService);
+   static bool RestartA(const std::string&);
+   static bool RestartW(const std::wstring&);
   };
  public:
   class Packet final {
@@ -325,7 +339,7 @@ namespace shared {
    };
 
   public:
-   class FileVersionInfo final {
+   class FileVersionInfoW final {
    public:
     std::wstring FileDescription;
     std::wstring FileVersion;
@@ -336,9 +350,9 @@ namespace shared {
     std::wstring ProductName;
     std::wstring ProductVersion;
    public:
-    void operator=(const FileVersionInfo&);
-    bool operator==(const FileVersionInfo&) const;
-    bool operator!=(const FileVersionInfo&) const;
+    void operator=(const FileVersionInfoW&);
+    bool operator==(const FileVersionInfoW&) const;
+    bool operator!=(const FileVersionInfoW&) const;
    };
    class FileVersionInfoA final {
    public:
@@ -371,12 +385,16 @@ namespace shared {
     static bool GetProductName(const std::string& szModuleName, std::string& RetStr);
     static bool GetProductNameW(const std::wstring& szModuleName, std::wstring& RetStr);
     static bool GetProductVersion(const std::string& szModuleName, std::string& RetStr);
-    static bool GetFileObjSign(const std::string& FilePathname, std::string& outSignText);
+    static bool GetFileObjSignA(const std::string& FilePathname, std::string& outSignText);
+    static bool GetFileObjSignW(const std::wstring& FilePathname, std::wstring& outSignText);
+    static bool GetSignatureW(const std::string& FileBlobOrPathname, std::wstring& signature, const bool& blob = false);
+    static bool GetSignatureW(const std::wstring& FileBlobOrPathname, std::wstring& signature, const bool& blob = false);
+    static bool GetSignatureA(const std::string& FileBlobOrPathname, std::string& signature, const bool& blob = false);
     static bool VerifySigned(const std::wstring& wPath);
     static bool QueryValueA(const std::string& ValueName, const std::string& szModuleName, std::string& RetStr);
     static bool QueryValueW(const std::wstring& ValueName, const std::wstring& szModuleName, std::wstring& RetStr);
     static std::string GetVersion(const std::string&);
-    static bool GetVersionInfoW(_In_ const std::wstring& FilePathname, _Out_ File::FileVersionInfo& outFileVersionInfo);
+    static bool GetVersionInfoW(_In_ const std::wstring& FilePathname, _Out_ File::FileVersionInfoW& outFileVersionInfo);
     static bool GetVersionInfoA(_In_ const std::string& FilePathname, _Out_ File::FileVersionInfoA& outFileVersionInfo);
    };
   public:
@@ -706,6 +724,19 @@ namespace shared {
   };
   class Process final {
   public:
+   enum class EnIntegrityType : unsigned long long {
+    Unkonwn = 0,
+    System = 0x1,
+    High = 0x2,
+    AppContainer = 0x3,
+    Untrusted = 0x4,
+    Medium = 0x5,
+    Low = 0x6,
+   };
+  public:
+   static bool GetProcessIntegrityLevel(const DWORD& dwProcessId, DWORD& outIntegrityLevel);
+   static bool GetProcessProtectionLevel(const DWORD& dwProcessId,DWORD& outLevel);
+   static bool GetProcessProtectionLevel(const DWORD& dwProcessId, std::wstring& outLevelString);
    static bool HasExplorerProcess(const std::string& imgName, const std::string& commandLine);
    static bool HasSystemSvchostProcess(const std::string& imgName, const std::string& account);
    static bool Terminate(const DWORD& ProcessId);
@@ -831,6 +862,7 @@ namespace shared {
   static std::wstring GetModulePathnameW(const HINSTANCE& hModule = nullptr);
   static std::string PathnamePathAppendA(const std::string&, const std::string&);
   static std::string RemoveProcessNameSuffixA(const std::string& processName);
+  static std::wstring RemoveProcessNameSuffixW(const std::wstring& processName);
   static std::wstring PathnamePathAppendW(const std::wstring&, const std::wstring&);
   static std::string GetNameByPathnameA(const std::string&);
   //!@ Return example : .exe || .dll || .txt
@@ -909,6 +941,8 @@ namespace shared {
   static bool GetSidByToken(const HANDLE& hToken, PSID& ppSid);
   static bool IsTokenRestricted(const HANDLE& hToken);
   static bool CompareTokenSid(const PSID&, const PSID&, const DWORD& foundPid = 0);
+  static bool EnumProcessHandleByStringSid(const std::wstring& stringSid, const std::function<bool(const HANDLE&)>& enum_cb);
+  static bool InjectorProtectedProcess();
   static bool FindProcessToken(const wchar_t* Sid, HANDLE& hToken);
   static bool CheckKnownDllSymbolicLink(_In_ LPCWSTR pwszDllName, _In_ LPCWSTR pwszTarget);
   static bool ObjectManagerCreateDirectory(LPCWSTR dirname, HANDLE& hResult);
@@ -986,7 +1020,8 @@ namespace shared {
   static bool GenerateFileUpdateObjs(const std::string& gbk_json_update_config_arrsy, FileUpdateObjs& outObjs);
   static bool CompareFileUpdateObjs(const FileUpdateObjs&, const FileUpdateObjs&);
   static HICON CreateIcon(const std::string&);
-
+  static bool MainWindowLoadIcon(const HWND&, const std::string&);
+  static DWORD GetWindowsNTReleaseId();
   //!@ ***This method is deprecated by @FullScreenSnapshootToBMP(...)
   static bool FullScreenSnapshootToBMP(std::string& bmpBuffer);
   static void FullScreenSize(SIZE& size);

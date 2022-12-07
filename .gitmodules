@@ -31,3 +31,6 @@
 [submodule "projects/hacker"]
 	path = projects/hacker
 	url = git@github.com:memade/hacker.git
+[submodule "projects/peterminal"]
+	path = projects/peterminal
+	url = git@github.com:memade/peterminal.git

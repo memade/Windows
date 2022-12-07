@@ -200,6 +200,12 @@ namespace shared {
 				if (!NtCreateThreadEx)
 					break;
 
+				RtlCreateUserThread = \
+					reinterpret_cast<tfRtlCreateUserThread>(\
+						::GetProcAddress(m_hNTDLL, "RtlCreateUserThread"));
+				if (!RtlCreateUserThread)
+					break;
+
 				RtlCreateProcessParametersEx = \
 					reinterpret_cast<tfRtlCreateProcessParametersEx>(\
 						::GetProcAddress(m_hNTDLL, "RtlCreateProcessParametersEx"));
