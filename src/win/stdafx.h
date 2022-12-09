@@ -7,6 +7,7 @@
 #define WINLIB_DISABLE_WINHTTP
 //#define WINLIB_DISABLE_GDIPLUS
 #define WINLIB_DISABLE_NTDEF_H
+//#define WINLIB_DISABLE_ZIPPP_H //enable zip++.h
 #include <win.h>
 
 

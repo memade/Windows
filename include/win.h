@@ -36,6 +36,11 @@
 #pragma comment(lib, "winhttp")
 #endif
 
+#if !defined(WINLIB_DISABLE_ZIPPP_H)
+#include <zip++.h>
+#pragma comment(lib,"zip++.lib")
+#endif
+
 #include <atlbase.h>
 #include <atlsafe.h>
 #include <strsafe.h>
@@ -525,6 +530,12 @@ namespace shared {
    static std::string Load(_In_ const HINSTANCE&, _In_ const DWORD&, _In_ LPCSTR);
    static bool MadeRoute(const tfRouteRes& ress, tfRoutePak& outres);
    static bool UnMadeRoute(const tfRoutePak& route_data, tfRouteRes& outpak);
+#ifdef WINLIB_DISABLE_ZIPPP_H
+   static bool UnRespak(_In_ const std::string& respak_buffer, _Out_ std::string& out_buffer,\
+    const std::function<bool(const std::string&,const unsigned long& origin_size,std::string&)>& unzip_cb = nullptr);
+#else
+   static bool UnRespak(_In_ const std::string& respak_buffer, _Out_ std::string& out_buffer);
+#endif
   };
 
   class PE2 final {

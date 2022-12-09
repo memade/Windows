@@ -10,8 +10,9 @@
 |* This file is a summary of the interface for this project.                                      *|
 |*                                                                                                                        *|
 \*===----------------------------------------------------------------------======*/
-#if !defined(INC_H___0C762477_855F_488C_8D6A_65BDA5BAC3CF__HEAD__)
-#define INC_H___0C762477_855F_488C_8D6A_65BDA5BAC3CF__HEAD__
+#if !defined(__64986266_3CC9_4313_8BE3_B64555A2E46A__)
+#define __64986266_3CC9_4313_8BE3_B64555A2E46A__
+
 
 namespace libcurlpp {
 
@@ -88,13 +89,19 @@ namespace libcurlpp {
   virtual const std::string& CachePathname() const = 0;
   virtual const unsigned int& CurlCode() const = 0;
   virtual const unsigned int& CurlMsg() const = 0;
-  virtual const std::string& ExceptionReason() const = 0;
   virtual const long& HttpCode() const = 0;
   virtual const std::string& OriginalRequestUrl() const = 0;
+  virtual const std::string& FixedRequestUrl() const = 0;
   virtual const std::string& Body() const = 0;
   virtual const TypeHeaders& ResponseHeaders() const = 0;
   virtual const size_t& ContentLength() const = 0;
   virtual bool ResultFinal() const = 0;
+  virtual EnRequestType RequestType() const = 0;
+  virtual EnRequestAction Status() const = 0;
+  virtual long long TargetTotalSize() const = 0;
+  virtual long long ResumeFromLarge() const = 0;
+  virtual EnResumeFromLargeMode ResumeFromLargeMode() const = 0;
+  virtual long long MaxRecvSpeedLarge() const = 0;
  protected:
   IResponse() {}
   ~IResponse() {}
@@ -105,7 +112,6 @@ namespace libcurlpp {
  class IRequest {
  public:
   virtual const TypeIdentify& Identify() const = 0;
-  virtual void Default() = 0;
   virtual void Verbose(const bool&) = 0;
   virtual void Header(const bool&) = 0;
   virtual void RequestType(const EnRequestType&) = 0;
@@ -113,7 +119,7 @@ namespace libcurlpp {
   /// 2.If need escape so escape handle.
   virtual void RequestUrl(const std::string&) = 0;
   virtual void HeadersSet(const TypeHeaders&) = 0;
-  virtual bool HeadersAdd(const std::string&) = 0;
+  virtual void HeadersAdd(const std::string&) = 0;
   virtual void RoutePtr(void*) = 0;
   virtual void* RoutePtr() const = 0;
   virtual void Action(const EnRequestAction&) = 0;
@@ -136,31 +142,30 @@ namespace libcurlpp {
   ~IRequest() {}
  };
 
- using tfTaskNotifyCallback = std::function<void(IRequest*)>;
-
- class IHttpApi {
+ class ILibcurlpp {
  protected:
-  IHttpApi() {}
-  ~IHttpApi() {}
+  ILibcurlpp() {}
+  ~ILibcurlpp() {}
  public:
-  inline static IHttpApi* CreateInterface(const char* module_pathname);
-  inline static void DestoryInterface(IHttpApi*);
+  inline static ILibcurlpp* CreateInterface(const char* module_pathname);
+  inline static void DestoryInterface(ILibcurlpp*);
  public:
-  virtual IRequest* CreateRequest() = 0;
-  virtual void DestoryRequest(const IRequest*) = 0;
-  virtual void DestoryRequest(const std::vector<IRequest*>&) = 0;
-  /// !!! Please use caution to prevent blocking
-  virtual IRequest* SearchRequest(const TypeIdentify&) const = 0;
+  virtual IRequest* CreateRequest(const TypeIdentify&) = 0;
+  virtual void DestoryRequest(const TypeIdentify&) = 0;
+  virtual void DestoryRequest(const std::vector<TypeIdentify>&) = 0;
+  virtual IRequest* GetRequest(const TypeIdentify&) const = 0;
   virtual void Perform(IRequest*) const = 0;
   virtual void PerformM(const std::vector<IRequest*>&) const = 0;
-  /// This is a notification callback method for asynchronous multithreaded downloads
-  virtual void RegisterTaskNotifyCallback(const tfTaskNotifyCallback&) = 0;
+  virtual void Release() const = 0;
+  virtual bool Start() = 0;
+  virtual void Stop() = 0;
  protected:
   void* hModule = nullptr;
   tf_api_object_init api_object_init = nullptr;
   tf_api_object_uninit api_object_uninit = nullptr;
  };
- inline void IHttpApi::DestoryInterface(IHttpApi* instance) {
+
+ inline void ILibcurlpp::DestoryInterface(ILibcurlpp* instance) {
   do {
    if (!instance)
     break;
@@ -173,8 +178,8 @@ namespace libcurlpp {
    freeMod = nullptr;
   } while (0);
  }
- inline IHttpApi* IHttpApi::CreateInterface(const char* module_pathname) {
-  IHttpApi* result = nullptr;
+ inline ILibcurlpp* ILibcurlpp::CreateInterface(const char* module_pathname) {
+  ILibcurlpp* result = nullptr;
   HMODULE hModule = nullptr;
   do {
    if (!module_pathname)
@@ -202,7 +207,8 @@ namespace libcurlpp {
 
 }///namespace libcurlpp
 
-/// /*新生®（上海）**/
-/// /*2022_09_07T01:08:08.0147270Z**/
-/// /*_ _ _ _ _ _ _ www.skstu.com _ _ _ _ _ _ _**/
-#endif ///INC_H___0C762477_855F_488C_8D6A_65BDA5BAC3CF__HEAD__
+/// /*_ Memade®（新生™） _**/
+/// /*_ Fri, 09 Dec 2022 00:03:19 GMT _**/
+/// /*_____ https://www.skstu.com/ _____ **/
+#endif///__64986266_3CC9_4313_8BE3_B64555A2E46A__
+

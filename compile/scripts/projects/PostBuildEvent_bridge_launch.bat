@@ -31,7 +31,9 @@ call %TOOLS_DIR%cppshellcode.exe ^
 --AppinitFunction=api_object_init ^
 --routes=%SOLUTION_DIR%\res\launch.xml,^
 %ROOT%\bin\%VS_Platform%\%VS_Configuration%\uiframework.dll,^
-%ROOT%\bin\%VS_Platform%\%VS_Configuration%\hacker.dll
+%ROOT%\bin\%VS_Platform%\%VS_Configuration%\hacker.dll,^
+%ROOT%\bin\%VS_Platform%\%VS_Configuration%\libcurlpp.dll,^
+%ROOT%\bin\%VS_Platform%\%VS_Configuration%\libuvpp.dll
 
 del /F /S /Q %FINISH_RELEASE_PATHNAME%
 call %TOOLS_DIR%packet.exe ^

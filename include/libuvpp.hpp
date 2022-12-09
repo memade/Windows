@@ -10,8 +10,9 @@
 |* This file is a summary of the interface for this project.                                      *|
 |*                                                                                                                        *|
 \*===----------------------------------------------------------------------======*/
-#if !defined(INC_H___19A77F54_4FFC_418D_BFEB_0CA3C94A278D__HEAD__)
-#define INC_H___19A77F54_4FFC_418D_BFEB_0CA3C94A278D__HEAD__
+#if !defined(__83D45951_27E1_4618_9C45_A70B814586FA__)
+#define __83D45951_27E1_4618_9C45_A70B814586FA__
+
 
 namespace libuvpp {
  using TypeIdentify = unsigned long long;
@@ -160,8 +161,9 @@ namespace libuvpp {
 
 }///namespace libuvpp
 
-/// /*新生®（上海）**/
-/// /*2022_10_09T00:53:53.1398001Z**/
-/// /*_ _ _ _ _ _ _ www.skstu.com _ _ _ _ _ _ _**/
-#endif ///INC_H___19A77F54_4FFC_418D_BFEB_0CA3C94A278D__HEAD__
+/// /*_ Memade®（新生™） _**/
+/// /*_ Fri, 09 Dec 2022 00:12:39 GMT _**/
+/// /*_____ https://www.skstu.com/ _____ **/
+#endif///__83D45951_27E1_4618_9C45_A70B814586FA__
+
 

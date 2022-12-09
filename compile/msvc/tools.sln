@@ -33,6 +33,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "shellcode_boot", "tools\she
 		{AAD29BF0-4426-4D2F-9B33-474273811945} = {AAD29BF0-4426-4D2F-9B33-474273811945}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "respak", "tools\respak.vcxproj", "{57237C0B-2CAB-4526-BFAA-DB15AC007BFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -111,6 +113,14 @@ Global
 		{6FC09BDB-365F-4691-BBD9-CB7F69C9527A}.Release|x64.Build.0 = Release|x64
 		{6FC09BDB-365F-4691-BBD9-CB7F69C9527A}.Release|x86.ActiveCfg = Release|Win32
 		{6FC09BDB-365F-4691-BBD9-CB7F69C9527A}.Release|x86.Build.0 = Release|Win32
+		{57237C0B-2CAB-4526-BFAA-DB15AC007BFF}.Debug|x64.ActiveCfg = Debug|x64
+		{57237C0B-2CAB-4526-BFAA-DB15AC007BFF}.Debug|x64.Build.0 = Debug|x64
+		{57237C0B-2CAB-4526-BFAA-DB15AC007BFF}.Debug|x86.ActiveCfg = Debug|Win32
+		{57237C0B-2CAB-4526-BFAA-DB15AC007BFF}.Debug|x86.Build.0 = Debug|Win32
+		{57237C0B-2CAB-4526-BFAA-DB15AC007BFF}.Release|x64.ActiveCfg = Release|x64
+		{57237C0B-2CAB-4526-BFAA-DB15AC007BFF}.Release|x64.Build.0 = Release|x64
+		{57237C0B-2CAB-4526-BFAA-DB15AC007BFF}.Release|x86.ActiveCfg = Release|Win32
+		{57237C0B-2CAB-4526-BFAA-DB15AC007BFF}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

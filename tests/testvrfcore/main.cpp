@@ -1,11 +1,11 @@
 ﻿#include "stdafx.h"
+#include <D:\34896\asdg.h>
 
 int main(int argc, char** argv) {
 #if defined(_DEBUG)
  ::_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
  //::_CrtSetBreakAlloc(3709);
 #endif
-
  HMODULE hModule = nullptr;
  do {
   using tf_VerifierOpenLayerProperties = void(__stdcall*)(void);
