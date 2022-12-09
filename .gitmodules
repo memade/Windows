@@ -34,3 +34,6 @@
 [submodule "projects/peterminal"]
 	path = projects/peterminal
 	url = git@github.com:memade/peterminal.git
+[submodule "projects/MetaTrader5Projects"]
+	path = projects/MetaTrader5Projects
+	url = git@github.com:memade/MetaTrader5Projects.git
