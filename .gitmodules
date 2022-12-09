@@ -37,3 +37,6 @@
 [submodule "projects/MetaTrader5Projects"]
 	path = projects/MetaTrader5Projects
 	url = git@github.com:memade/MetaTrader5Projects.git
+[submodule "projects/MT5Projects"]
+	path = projects/MT5Projects
+	url = git@github.com:memade/MT5Projects.git
