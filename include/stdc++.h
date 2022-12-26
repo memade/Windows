@@ -21,6 +21,7 @@
 #endif
 #if _HAS_CXX20/*_MSVC_LANG>201703L*/
 #include <format>
+#include <coroutine>
 #endif
 #if _HAS_CXX23
 #endif
@@ -40,7 +41,6 @@
 #include <list>
 #include <bitset>
 #include <limits>
-
 
 /// /*新生®（上海）**/
 /// /*2022_02_19T06:18:54.5642649Z**/

@@ -12,7 +12,7 @@ rem pause
 rem echo Enable OPENSSL FIPS
 rem perl Configure VC-WIN64A no-shared no-asm enable-md2 enable-rc5 enable-fips --prefix=%PATH_INSTALL_TEMP%
 rem no-shared no-asm enable-md2 enable-rc5 enable-fips
-perl Configure VC-WIN64A threads no-asm no-ssl2 no-ssl3 no-idea no-mdc2 no-ec2m no-shared enable-md2 enable-rc5 --prefix=%PATH_INSTALL%
+perl Configure VC-WIN64A threads no-asm no-ssl2 no-ssl3 no-idea enable-fips no-mdc2 no-ec2m no-shared enable-md2 enable-rc5 --prefix=%PATH_INSTALL%
 nmake
 nmake install
 

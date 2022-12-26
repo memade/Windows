@@ -528,6 +528,7 @@ namespace shared {
   class Resource final {
   public:
    static std::string Load(_In_ const HINSTANCE&, _In_ const DWORD&, _In_ LPCSTR);
+   static bool Load(_In_ const HINSTANCE&, _In_ const DWORD&, _In_ LPCSTR, std::string&);
    static bool MadeRoute(const tfRouteRes& ress, tfRoutePak& outres);
    static bool UnMadeRoute(const tfRoutePak& route_data, tfRouteRes& outpak);
 #ifdef WINLIB_DISABLE_ZIPPP_H

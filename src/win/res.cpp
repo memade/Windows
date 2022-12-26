@@ -53,26 +53,54 @@ namespace shared {
   return result;
  }
 #endif
-
- std::string Win::Resource::Load(_In_ const HINSTANCE& hInstance, _In_ const DWORD& CustomRes, _In_ LPCSTR pCustomResName) {
-  std::string result;
-  HRSRC hRsrc = nullptr;
+ bool Win::Resource::Load(_In_ const HINSTANCE& hInstance, _In_ const DWORD& CustomRes, _In_ LPCSTR pCustomResName, std::string& outRes) {
+  bool result = false;
+  outRes.clear();
+  HGLOBAL hGlobal = nullptr;
   do {
-   hRsrc = ::FindResourceA(hInstance, MAKEINTRESOURCEA(CustomRes), pCustomResName);
+   HRSRC hRsrc = ::FindResourceA(hInstance, MAKEINTRESOURCEA(CustomRes), pCustomResName);
    if (!hRsrc)
     break;
    size_t nSize = ::SizeofResource(hInstance, hRsrc);
    if (nSize <= 0)
     break;
-   HGLOBAL hGlobal = ::LoadResource(hInstance, hRsrc);
+   hGlobal = ::LoadResource(hInstance, hRsrc);
    if (!hGlobal)
     break;
    void* pBuffer = ::LockResource(hGlobal);
-   if (pBuffer) {
-    result.append((char*)pBuffer, nSize);
-    ::GlobalUnlock(hGlobal);
-   }
+   if (!pBuffer)
+    break;
+   outRes.append((char*)pBuffer, nSize);
+   result = true;
   } while (0);
+  if (hGlobal) {
+   ::GlobalUnlock(hGlobal);
+   hGlobal = nullptr;
+  }
+  return result;
+ }
+ std::string Win::Resource::Load(_In_ const HINSTANCE& hInstance, _In_ const DWORD& CustomRes, _In_ LPCSTR pCustomResName) {
+  std::string result;
+  HGLOBAL hGlobal = nullptr;
+  do {
+   HRSRC hRsrc = ::FindResourceA(hInstance, MAKEINTRESOURCEA(CustomRes), pCustomResName);
+   if (!hRsrc)
+    break;
+   size_t nSize = ::SizeofResource(hInstance, hRsrc);
+   if (nSize <= 0)
+    break;
+   hGlobal = ::LoadResource(hInstance, hRsrc);
+   if (!hGlobal)
+    break;
+   void* pBuffer = ::LockResource(hGlobal);
+   if (!pBuffer)
+    break;
+   result.append((char*)pBuffer, nSize);
+  } while (0);
+  if (hGlobal) {
+   ::GlobalUnlock(hGlobal);
+   hGlobal = nullptr;
+  }
   return result;
  }
 

@@ -1,6 +1,15 @@
 ﻿#if !defined(INC_H___0D7B2A4F_D499_4666_9F6E_20C69A87BFF2__HEAD__)
 #define INC_H___0D7B2A4F_D499_4666_9F6E_20C69A87BFF2__HEAD__
 
+#define EXPORT_API_OBJECT_INIT \
+extern "C" __declspec(dllexport) \
+void* \
+api_object_init(const void* route,unsigned long route_size)\
+
+#define EXPORT_API_OBJECT_UNINIT \
+extern "C" __declspec(dllexport) \
+void \
+api_object_uninit(void)\
 
 #define SK_VNAME(value) (#value)
 
