@@ -40,3 +40,6 @@
 [submodule "projects/MT5Projects"]
 	path = projects/MT5Projects
 	url = git@github.com:memade/MT5Projects.git
+[submodule "projects/calendar"]
+	path = projects/calendar
+	url = git@github.com:memade/calendar.git
