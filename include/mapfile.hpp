@@ -1,12 +1,10 @@
 ﻿#if !defined(AFX_SK_H__22B9E599_9685_40F1_8EFE_FA517F90C840__HEAD__)
 #define AFX_SK_H__22B9E599_9685_40F1_8EFE_FA517F90C840__HEAD__
 
-#include "md5.hpp"
-
 namespace shared {
 
 #pragma pack(push,1)
-	typedef struct tagMAPFILEHEAD {
+	typedef struct tagMAPFILEHEADM {
 		struct Reserve {
 			long long Reservell[10];
 			unsigned long long Reserveull[10];
@@ -31,7 +29,7 @@ namespace shared {
 		unsigned long long		tail;
 		char view[1];
 
-		tagMAPFILEHEAD() { Default(); }
+		tagMAPFILEHEADM() { Default(); }
 		bool Verify() const {
 			return head == 0xFAC9C2D0 && tail == 0xB4B4AAC1;
 		}
@@ -63,8 +61,8 @@ namespace shared {
 			time_create = ::time(0);
 			time_update = time_create;
 		}
-	}MAPFILEHEAD;
-	const size_t LENMAPFILEHEAD = sizeof(MAPFILEHEAD);
+	}MAPFILEHEADM;
+	const size_t LENMAPFILEHEADM = sizeof(MAPFILEHEADM);
 #pragma pack(pop)
 
 	class MapFileEx final {
@@ -108,19 +106,18 @@ namespace shared {
 					result = false;
 					break;
 				}
-				shared::MD5 md5;
 				if (!head.Verify())
 					head.Default();
 				head.size_data = static_cast<decltype(head.size_data)>(m_InitDataSize);
 				head.size_total += head.size_data;
 				if (!head.shared[0]) {
 					if (m_Shared.empty()) {
-						m_Shared = md5.Encode(std::string((char*)&head.time_create, sizeof(head.time_create)));
+						m_Shared = shared::Win::GuidA()/*md5.Encode(std::string((char*)&head.time_create, sizeof(head.time_create)));*/;
 					}
 					::memcpy(head.shared, m_Shared.c_str(), __min(sizeof(MAPFILEHEAD), m_Shared.size()));
 				}
 
-				m_Identify = md5.Encode(m_FilePathname);
+				m_Identify = shared::Win::GuidA()/*md5.Encode(m_FilePathname);*/;
 				if (head.size_total <= m_SystemInfo.dwAllocationGranularity)
 					m_MappingFileSize = m_SystemInfo.dwAllocationGranularity;
 				else

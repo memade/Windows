@@ -36,6 +36,57 @@
 
 namespace quickfix_1_15_1 {
 
+ class IProtocolSpi : public FIX::Application, public FIX::MessageCracker {
+ public:
+  virtual void onCreate(const FIX::SessionID&) override {}
+  virtual void toAdmin(FIX::Message&, const FIX::SessionID&) override {}
+  virtual void toApp(FIX::Message&, const FIX::SessionID&) override {}
+  virtual void onCreate(const FIX::SessionID&, void**) override {}
+  virtual void onLogon(const FIX::SessionID&) override {}
+  virtual void onLogout(const FIX::SessionID&) override {}
+  virtual void fromAdmin(const FIX::Message&, const FIX::SessionID&) override {}
+  virtual void fromApp(const FIX::Message&, const FIX::SessionID&) override {}
+  virtual void onMessage(const FIX44::SourceRawData&, const FIX::SessionID&) override {}
+ protected:
+  virtual bool Start() = 0;
+  virtual void Stop() = 0;
+ protected:
+  class IProtocol* m_Protocol = nullptr;
+  std::atomic_bool m_IsOpen = false;
+  std::shared_ptr<std::mutex> m_Mutex = std::make_shared<std::mutex>();
+ };
+
+ class IConfig {
+ public:
+  virtual void Release() const = 0;
+  virtual void ProtocolSpi(IProtocolSpi*) = 0;
+  virtual const bool& EnableSSLProtocol() const = 0;
+  virtual IProtocolSpi* ProtocolSpi() const = 0;
+  //!@ FIX protocol configuration from the INI file.
+  virtual bool operator<<(const std::string&) = 0;
+ };
+
+ class IProtocol : public shared::InterfaceDll<IProtocol> {
+ public:
+  virtual IConfig* ConfigGet() const = 0;
+  virtual bool Start() = 0;
+  virtual void Stop() = 0;
+  virtual bool Ready() const = 0;
+  virtual void Release() const = 0;
+  virtual std::uint64_t Account() const = 0;
+  virtual FIX::SEQNUM ExpectedTargetNumGet() const = 0;
+  virtual FIX::IContext* FindContext(const FIX::SessionID&) const = 0;
+  virtual FIX::IContext* FindContext(const unsigned __int64&) const = 0;
+  virtual void IterateContext(const std::function<void(FIX::IContext*)>&) const = 0;
+  virtual std::size_t SendToAllSessions(const FIX::Message&) const = 0;
+  virtual std::size_t SendToAllContexts(const FIX::Message&) const = 0;
+  virtual bool Send(const FIX::Message&) const = 0;
+  virtual bool Send(const FIX::SessionID&, const FIX::Message&) const = 0;
+ };
+
+ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
  class IFixApi
  {
  public:
@@ -72,7 +123,7 @@ namespace quickfix_1_15_1 {
   __inline FIX::IContext* FindContext(const unsigned __int64&) const;
   __inline void IterateContext(const std::function<void(FIX::IContext*)>&) const;
  protected:
-  virtual UINT_PTR ProtocolSetup() { return 0; }
+  virtual void* ProtocolSetup() { return nullptr; }
  public:
   virtual void onCreate(const FIX::SessionID&) {}
   virtual void onCreate(const FIX::SessionID&, void**) {}

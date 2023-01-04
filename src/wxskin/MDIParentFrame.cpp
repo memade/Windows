@@ -37,7 +37,7 @@ namespace shared {
    else {
     auto handle = wxApp::GetInstance();
     if (handle)
-     wxQueueEvent(handle, new wxThreadEvent(wxEVT_THREAD, CMD_APP_TERMINATE));
+     wxQueueEvent(handle, new wxThreadEvent(wxEVT_THREAD, WX_CMD_ONAPPDESTORY));
     wxEvent.Skip();
 
 

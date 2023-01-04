@@ -235,7 +235,18 @@ namespace shared {
   _ISO,
   _WIM,
  }FileType;
+
+ typedef enum class EN_IMAGE_TYPE {
+  _UnKnown,
+  _PNG,
+  _JPEG,
+  _BMP,
+  _GIF,
+  _ICO,
+ }ImageType;
+
  extern const std::map<EN_FILE_TYPE, std::vector<std::uint8_t>> MAP_FILE_SIGNATURES;
+ extern const std::map<EN_IMAGE_TYPE, std::vector<std::uint8_t>> MAP_IMAGE_SIGNATURES;
 
  enum EnSystemProtectedProcessType : unsigned long long {
   wininit = 0x1000,
@@ -1043,6 +1054,10 @@ namespace shared {
   static FileType GetFileTypeByDiskA(const std::string& filePathname);
   static FileType GetFileTypeByDiskW(const std::wstring& filePathname);
   static FileType GetFileTypeByMemory(const std::string& file_buffer);
+
+  static ImageType GetImageTypeByDiskA(const std::string& filePathname);
+  static ImageType GetImageTypeByDiskW(const std::wstring& filePathname);
+  static ImageType GetImageTypeByMemory(const std::string& file_buffer);
 #if !defined(WINLIB_DISABLE_WINDOWS)
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   typedef struct tagWindowConfig final {

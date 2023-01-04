@@ -113,6 +113,8 @@
 #include "wx/odcombo.h"
 #include "wx/dynlib.h"
 #include "wx/msw/wrapwin.h"
+#include "wx/dcbuffer.h"
+#include "wx/mstream.h"
 
 #ifndef RGB
 #define RGB(r,g,b) ((COLORREF)(((BYTE)(r)|((WORD)((BYTE)(g))<<8))|(((DWORD)(BYTE)(b))<<16)))
@@ -120,102 +122,7 @@
 
 namespace shared {
  namespace wx {
-#if 0
-  enum class SkinDataType { XML = 0, JSON = 1, BEGIN = XML, END = JSON, };
-  enum class EncodingType { UTF8 = 0, UTF16 = 1, ASNI = 2, BEGIN = UTF8, END = ASNI, };
-
-  class wxPointEx : public wxPoint {
-  public:
-   wxPointEx(const std::wstring& point_string/*{"x","y"}*/);
-   void operator=(const std::wstring& point_string);
-   wxPoint toPoint() const;
-  };
-  class wxPositionEx : public wxPosition {
-  public:
-   wxPositionEx(const std::wstring& pos_string/*{"x","y"}*/);
-  };
-  typedef class wxRectEx : public wxRect {
-  public:
-   wxRectEx(const std::wstring& string);
-  }wxRange;
-
-  class ISkin {
-  public:
-   void operator=(const ISkin&);
-   bool operator<<(const std::wstring&);
-  public:
-   RECT pos;
-   SIZE size;
-   POINT range;
-   std::wstring title;
-   std::wstring class_name;
-   std::wstring name;
-   bool show;
-   bool center;
-   std::wstring bkimage_pathname;
-   std::string bkimage_buffer;
-   unsigned long bkcolor;
-   unsigned long bkcolor1;
-   unsigned long bkcolor2;
-  protected:
-   ISkin();
-   virtual bool Parse() = 0;
-  protected:
-   std::string m_SkinBuffer;
-   std::wstring m_SkinConfig;
-  };
-
-  typedef class IwxMDIParentFrame : public wxMDIParentFrame, public ISkin {
-  public:
-   IwxMDIParentFrame(
-    const std::wstring& xml,
-    wxWindow* parent = nullptr,
-    const wxWindowID& id = wxID_ANY,
-    const wxString& title = L"",
-    const wxPoint& pos = wxDefaultPosition,
-    const wxSize& size = wxSize(1024, 768),
-    long style = wxDEFAULT_FRAME_STYLE | wxSUNKEN_BORDER);
-   IwxMDIParentFrame(wxWindow* parent = nullptr,
-    const wxWindowID& id = wxID_ANY,
-    const wxString& title = L"",
-    const wxPoint& pos = wxDefaultPosition,
-    const wxSize& size = wxSize(1024, 768),
-    long style = wxDEFAULT_FRAME_STYLE | wxSUNKEN_BORDER);
-   virtual ~IwxMDIParentFrame();
-  protected:
-   bool Parse() override final;
-  }IMDIParentFrame;
-
-  // @Config class is ui configure xm or json
-  // @Support for multiple encoding
-  class IwxApp : public wxApp, public ISkin {
-  public:
-   static IwxApp* Create(const std::string& buffer, const SkinDataType& dataType, const EncodingType& encodingType);
-   bool Ready() const;
-   void Destory();
-  protected:
-   IwxApp(const std::string& config_buffer, const SkinDataType& dataType = SkinDataType::XML, const EncodingType& encodingType = EncodingType::UTF8);
-   IwxApp();
-   virtual ~IwxApp();
-  private:
-   bool Parse();
-   bool ParseXML();
-   bool ParseJSON();
-  private:
-   IMDIParentFrame* m_pFrame;
-   SkinDataType m_DataType;
-   EncodingType m_EncodingType;
-  private:
-   std::atomic_bool m_Ready;
-   std::vector<std::thread> m_Threads;
-  protected:
-   bool OnInit() override;
-   int OnExit() override;
-  };
-#endif
-
-  extern const int CMD_APP_FRAME_SHOW;
-  extern const int CMD_APP_TERMINATE;
+  using IdentifyTheme = std::string;
 
   typedef class IwxMDIParentFrame : public wxMDIParentFrame {
   public:
@@ -233,29 +140,127 @@ namespace shared {
    wxDECLARE_EVENT_TABLE();
   }IMDIParentFrame;
 
-  using tfAppCloseEventNotifyCallback = void(__stdcall*)(void);
+  typedef class IwxFrame : public wxFrame {
+  public:
+   IwxFrame();
+   IwxFrame(wxWindow* parent,
+    wxWindowID id,
+    const wxString& title,
+    const wxPoint& pos = wxDefaultPosition,
+    const wxSize& size = wxDefaultSize,
+    long style = wxDEFAULT_FRAME_STYLE,
+    const wxString& name = wxASCII_STR(wxFrameNameStr));
+   virtual ~IwxFrame();
+  protected:
+   virtual void OnErase(wxEraseEvent&);
+   virtual void OnPaint(wxPaintEvent&);
+   virtual void OnSize(wxSizeEvent&);
+   virtual void OnClose(wxCloseEvent&);
+   virtual bool SetShape(const wxImage&);
+  public:
+   virtual void ReSetShape();
+   virtual void SetBackgroundImage(const wxString&);
+  private:
+   DECLARE_DYNAMIC_CLASS(IwxFrame)
+    wxDECLARE_EVENT_TABLE();
+  protected:
+   wxImage m_ImgShapeBackgroundShape;
+   wxImage m_ImgShapeBackground;
+  };
 
+  class Theme final {
+  public:
+   Theme(const IdentifyTheme& identify, const std::string& shape_img_pathname, const std::string& bgk_img_pathname);
+   ~Theme();
+  public:
+   const wxImage& ImgShape() const;
+   const wxImage& ImgBgk() const;
+   const IdentifyTheme& Identify() const;
+   const wxSize& MainWindowSize() const;
+   const DWORD& ColorBgk() const;
+   bool Ready() const;
+   static bool From(const std::string& imgPathname, wxMemoryInputStream**, wxImage**);
+  private:
+   wxMemoryInputStream* m_pMImgShape = nullptr;
+   wxMemoryInputStream* m_pMImgBgk = nullptr;
+   const IdentifyTheme m_Identify;
+   wxImage* m_pImgShape = nullptr;
+   wxImage* m_pImgBgk = nullptr;
+   std::atomic_bool m_Ready = false;
+   std::map<std::string, wxFont> m_Fonts;
+   wxSize m_MainWindowSize = { 0,0 };
+   DWORD m_BgkColor = RGB(255, 0, 0);
+  };
+
+  class IwxFrameSkin : public wxFrame {
+  public:
+   IwxFrameSkin(wxWindow* parent,
+    wxWindowID id = wxID_ANY,
+    const wxString& title = _TEXT(""),
+    const wxPoint& pos = wxDefaultPosition,
+    const wxSize& size = wxDefaultSize,
+    long style = wxNO_BORDER | wxFRAME_SHAPED,
+    const wxString& name = wxASCII_STR(wxFrameNameStr));
+   virtual ~IwxFrameSkin();
+  public:
+   bool AppendTheme(Theme*);
+   bool SetTheme(const IdentifyTheme& current = "");
+  protected:
+   void OnErase(wxEraseEvent&);
+   void OnPaint(wxPaintEvent&);
+   void OnSize(wxSizeEvent&);
+   void OnClose(wxCloseEvent&);
+   void OnMotion(wxMouseEvent&);
+   void OnLeftDown(wxMouseEvent&);
+   void OnLeftUp(wxMouseEvent&);
+   void OnRightDown(wxMouseEvent&);
+   void OnRightUp(wxMouseEvent&);
+   void OnMouseLost(wxMouseCaptureLostEvent&);
+   void OnEnterWindow(wxMouseEvent&);
+   void OnLeaveWindow(wxMouseEvent&);
+   void OnContextMenu(wxContextMenuEvent&);
+  protected:
+   bool SetShape(const wxImage& img);
+  protected:
+   wxMenu m_MouseRightPopupMenu;
+   wxPoint m_offset{ -1,-1 };
+   wxRect m_rect{ 0,0,0,0 };
+   std::map<IdentifyTheme, Theme*> m_Themes;
+   IdentifyTheme m_CurrentTheme;
+  private:
+   DECLARE_EVENT_TABLE()
+  };
+
+  using tfAppInitEventCallback = std::function<void(const bool&)>;
+  using tfAppCloseEventNotifyCallback = std::function<void(void)>;
+  using tfAppCreateFrameEventCallback = std::function<void(wxFrame*)>;
   class IwxApp : public wxApp {
   public:
    IwxApp();
    virtual ~IwxApp();
   private:
-   IMDIParentFrame* m_pFrame = nullptr;
+   void OnCreateFrame(wxThreadEvent& event);
+   void OnDestory(wxThreadEvent& event);
   public:
    bool OnInit() override;
    int OnExit() override;
-  private:
-   void OnShow(wxThreadEvent& event);
-   void OnTerminate(wxThreadEvent& event);
-  public:
+   wxFrame* FrameGet() const;
+   void RegisterAppInitEventCb(const tfAppInitEventCallback&);
    void RegisterAppCloseEventNotifyCb(const tfAppCloseEventNotifyCallback&);
+   void RegisterAppCreateFrameEventCb(const tfAppCreateFrameEventCallback&);
   protected:
    std::vector<std::thread> m_Threads;
-  private:
-   tfAppCloseEventNotifyCallback m_AppCloseEventNotifyCallback = nullptr;
+   wxFrame* m_pFrame = nullptr;
+   tfAppInitEventCallback m_AppInitEventCb = nullptr;
+   tfAppCloseEventNotifyCallback m_AppCloseEventNotifyCb = nullptr;
+   tfAppCreateFrameEventCallback m_AppCreateFrameEventCb = nullptr;
   };
 
-
+  class Misc final {
+  public:
+  };
+  extern const int WX_CMD_ONAPPCREATEFRAME;
+  extern const int WX_CMD_ONAPPDESTORY;
  }///namespace wx
 }///namespace shared
 

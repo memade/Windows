@@ -33,7 +33,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{720F002C-D354-468A-8832-67673DCD370E}</ProjectGuid>
+    <ProjectGuid>{E8731699-3279-445C-9BFF-63021BF15ED4}</ProjectGuid>
     <RootNamespace>hijack</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>

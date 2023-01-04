@@ -113,13 +113,13 @@ namespace shared {
 			return 0;
 		}
 	public:
-		std::shared_ptr<sk::container::map<KEY, OBJ>>
+		std::shared_ptr<shared::container::map<KEY, OBJ>>
 			Map()
 		{
-			std::shared_ptr<sk::container::map<KEY, OBJ>> result;
+			std::shared_ptr<shared::container::map<KEY, OBJ>> result;
 			std::lock_guard<std::mutex> lock(m_mutex);
 			if (m_Data.empty()) return result;
-			result = std::make_shared<sk::container::map<KEY, OBJ>>();
+			result = std::make_shared<shared::container::map<KEY, OBJ>>();
 			m_Data.iterate(
 				[&](const auto&, auto& node)
 				{
@@ -263,32 +263,32 @@ namespace shared {
 				});
 			return result;
 		}
-		std::shared_ptr<sk::container::map<KEY, OBJ>>
+		std::shared_ptr<shared::container::map<KEY, OBJ>>
 			Search(const std::function<bool(OBJ&, EnNodeChangedFlag&)>& cbCompare)
 		{
-			std::shared_ptr<sk::container::map<KEY, OBJ>> result;
+			std::shared_ptr<shared::container::map<KEY, OBJ>> result;
 			std::lock_guard<std::mutex> lock(m_mutex);
 			m_Data.iterate(
 				[&](const auto& key, auto& obj, const auto&, auto& itbreak)
 				{
 					if (cbCompare(obj.m_Obj, obj.ChangedFlag)) {
-						if (!result) result = std::make_shared<sk::container::map<KEY, OBJ>>();
+						if (!result) result = std::make_shared<shared::container::map<KEY, OBJ>>();
 						result->push(obj.m_Key, obj.m_Obj);
 					}
 				});
 			return result;
 		}
 
-		std::shared_ptr<sk::container::map<KEY, OBJ>>
+		std::shared_ptr<shared::container::map<KEY, OBJ>>
 			Search(const std::function<bool(OBJ&)>& cbCompare)
 		{
-			std::shared_ptr<sk::container::map<KEY, OBJ>> result;
+			std::shared_ptr<shared::container::map<KEY, OBJ>> result;
 			std::lock_guard<std::mutex> lock(m_mutex);
 			m_Data.iterate(
 				[&](const auto& key, auto& obj, const auto&, auto& itbreak)
 				{
 					if (cbCompare(obj.m_Obj)) {
-						if (!result) result = std::make_shared<sk::container::map<KEY, OBJ>>();
+						if (!result) result = std::make_shared<shared::container::map<KEY, OBJ>>();
 						result->push(obj.m_Key, obj.m_Obj);
 					}
 				});
@@ -376,9 +376,9 @@ namespace shared {
 
 		std::mutex m_mutex;
 		sk::file::MapFile* m_pMapFile = nullptr;
-		sk::container::map<KEY, Node> m_Data;/*数据*/
-		sk::container::queue<size_t> m_FreePos;/*空闲偏移*/
-		sk::container::map<KEY, size_t> m_DataPos;/*数据偏移*/
+		shared::container::map<KEY, Node> m_Data;/*数据*/
+		shared::container::queue<size_t> m_FreePos;/*空闲偏移*/
+		shared::container::map<KEY, size_t> m_DataPos;/*数据偏移*/
 	};
 
 }///shared

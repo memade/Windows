@@ -115,6 +115,7 @@ namespace local {
   do {
    if (logData.empty())
     break;
+#if 0
    auto found = m_LoggerMapPtr.find(logType);
    if (found == m_LoggerMapPtr.end())
     break;
@@ -134,6 +135,35 @@ namespace local {
     found->second->info(logData);
     break;
    }
+#endif
+   spdlog::logger* log = nullptr;
+   auto found = m_LoggerMapPtr.find(logType);
+   if (found == m_LoggerMapPtr.end()) {
+    if(m_LoggerMapPtr.empty())
+     break;
+    log = m_LoggerMapPtr.begin()->second;
+   }
+   else {
+    log = found->second;
+   }
+   if (!log)
+    break;
+   switch (logType) {
+   case EnLogType::EN_LOG_TYPE_TRACE: {
+    log->trace(logData);
+   }break;
+   case EnLogType::EN_LOG_TYPE_ERROR:
+    [[fallthrough]];
+   case EnLogType::EN_LOG_TYPE_FAILED: {
+    log->error(logData);
+   }break;
+   case EnLogType::EN_LOG_TYPE_WARN: {
+    log->warn(logData);
+   }break;
+   default:
+    log->info(logData);
+    break;
+   }
   } while (0);
  }
  void Spdlog::LOG(const std::wstring& logData, const EnLogType& logType) {
@@ -141,6 +171,7 @@ namespace local {
   do {
    if (logData.empty())
     break;
+#if 0
    auto found = m_LoggerMapPtr.find(logType);
    if (found == m_LoggerMapPtr.end())
     break;
@@ -158,6 +189,35 @@ namespace local {
    }break;
    default:
     found->second->info(logData);
+    break;
+   }
+#endif
+   spdlog::logger* log = nullptr;
+   auto found = m_LoggerMapPtr.find(logType);
+   if (found == m_LoggerMapPtr.end()) {
+    if (m_LoggerMapPtr.empty())
+     break;
+    log = m_LoggerMapPtr.begin()->second;
+   }
+   else {
+    log = found->second;
+   }
+   if (!log)
+    break;
+   switch (logType) {
+   case EnLogType::EN_LOG_TYPE_TRACE: {
+    log->trace(logData);
+   }break;
+   case EnLogType::EN_LOG_TYPE_ERROR:
+    [[fallthrough]];
+   case EnLogType::EN_LOG_TYPE_FAILED: {
+    log->error(logData);
+   }break;
+   case EnLogType::EN_LOG_TYPE_WARN: {
+    log->warn(logData);
+   }break;
+   default:
+    log->info(logData);
     break;
    }
   } while (0);
