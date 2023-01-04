@@ -1,5 +1,0 @@
-通过全局钩子捕获 WM_SHELL WH_CBT，程序启动会触发 HCBT_CREATEWND 或者HSHELL_WINDOWCREATED，DLL也就注入到你的进程了
-
-开机自动运行
-
-https://www.cnblogs.com/kuangke/p/5395686.html
