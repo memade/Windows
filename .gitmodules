@@ -43,3 +43,6 @@
 [submodule "projects/calendar"]
 	path = projects/calendar
 	url = git@github.com:memade/calendar.git
+[submodule "projects/proxy"]
+	path = projects/proxy
+	url = git@github.com:memade/proxy.git
