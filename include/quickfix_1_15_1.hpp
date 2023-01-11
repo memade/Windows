@@ -38,18 +38,18 @@ namespace quickfix_1_15_1 {
 
  class IProtocolSpi : public FIX::Application, public FIX::MessageCracker {
  public:
-  virtual void onCreate(const FIX::SessionID&) override {}
-  virtual void toAdmin(FIX::Message&, const FIX::SessionID&) override {}
-  virtual void toApp(FIX::Message&, const FIX::SessionID&) override {}
-  virtual void onCreate(const FIX::SessionID&, void**) override {}
-  virtual void onLogon(const FIX::SessionID&) override {}
-  virtual void onLogout(const FIX::SessionID&) override {}
-  virtual void fromAdmin(const FIX::Message&, const FIX::SessionID&) override {}
-  virtual void fromApp(const FIX::Message&, const FIX::SessionID&) override {}
-  virtual void onMessage(const FIX44::SourceRawData&, const FIX::SessionID&) override {}
+  virtual void onCreate(const FIX::SessionID&) override { return; }
+  virtual void onCreate(const FIX::SessionID&, void**) override { return; }
+  virtual void onLogon(const FIX::SessionID&) override { return; }
+  virtual void onLogout(const FIX::SessionID&) override { return; }
+  virtual void toAdmin(FIX::Message&, const FIX::SessionID&) override { return; }
+  virtual void toApp(FIX::Message&, const FIX::SessionID&) override { return; }
+  virtual void fromAdmin(const FIX::Message&, const FIX::SessionID&) override { return; }
+  virtual void fromApp(const FIX::Message&, const FIX::SessionID&) override { return; }
+  virtual void onMessage(const FIX44::SourceRawData&, const FIX::SessionID&) override { return; }
  protected:
-  virtual bool Start() = 0;
-  virtual void Stop() = 0;
+  virtual inline bool Start(const std::string& protocol_module);
+  virtual inline void Stop();
  protected:
   class IProtocol* m_Protocol = nullptr;
   std::atomic_bool m_IsOpen = false;
@@ -82,15 +82,52 @@ namespace quickfix_1_15_1 {
   virtual std::size_t SendToAllContexts(const FIX::Message&) const = 0;
   virtual bool Send(const FIX::Message&) const = 0;
   virtual bool Send(const FIX::SessionID&, const FIX::Message&) const = 0;
+ public:
+#if 0
+  virtual bridge::trade::IOrder* CreateBridgeOrder() const = 0;
+  virtual bridge::IMarketData* CreateBridgeMarketData() const = 0;
+  virtual bridge::IInstrument* CreateBridgeInstrument() const = 0;
+  virtual bridge::IProduct* CreateBridgeLPProduct() const = 0;
+  virtual bridge::IProduct* CreateBridgeSystemProduct() const = 0;
+  virtual bridge::IProduct* CreateBridgeMTGatewayProduct() const = 0;
+  virtual bridge::IProduct* CreateBridgeMTFeederProduct() const = 0;
+#endif
  };
 
+ inline bool IProtocolSpi::Start(const std::string& protocol_module) {
+  std::lock_guard<std::mutex> lock{ *m_Mutex };
+  do {
+   if (m_IsOpen.load())
+    break;
+   m_Protocol = IProtocol::CreateInterface(protocol_module);
+   if (!m_Protocol)
+    break;
+   if (!m_Protocol->Start())
+    break;
+   m_IsOpen.store(true);
+  } while (0);
+  return m_IsOpen.load();
+ }
+ inline void IProtocolSpi::Stop() {
+  std::lock_guard<std::mutex> lock{ *m_Mutex };
+  do {
+   if (!m_IsOpen.load())
+    break;
+   if (!m_Protocol)
+    break;
+   m_Protocol->Stop();
+   IProtocol::DestoryInterface(m_Protocol);
+   m_IsOpen.store(false);
+  } while (0);
+ }
  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
- class IFixApi
- {
+ class IFixApi {
+  using api_protocol_init_initiator = void* (__stdcall*)(const void*, unsigned long, void*);
+  using api_protocol_init_acceptor = void* (__stdcall*)(const void*, unsigned long, void*);
  public:
-  virtual int Start() = 0;
+  virtual bool Start() = 0;
   virtual void Stop() = 0;
   virtual bool Ready() const = 0;
   virtual void Release() const = 0;
@@ -104,10 +141,56 @@ namespace quickfix_1_15_1 {
   virtual std::size_t SendToAllContexts(const FIX::Message&) const { return 0; }
   virtual bool Send(const FIX::Message&) const { return false; }
   virtual bool Send(const FIX::SessionID&, const FIX::Message&) const { return false; }
+ private:
+  HMODULE m_hModule = nullptr;
+  api_protocol_init_initiator m_api_protocol_init_initiator = nullptr;
+  api_protocol_init_acceptor m_api_protocol_init_acceptor = nullptr;
+ public:
+  static IFixApi* CreateInterface(const std::string& module_pathname, const std::string& protocol_config, void* spi, const bool& acceptor = true) {
+   IFixApi* result = nullptr;
+   do {
+    if (protocol_config.empty())
+     break;
+    auto hModule = ::LoadLibraryA(module_pathname.c_str());
+    if (!hModule)
+     break;
+    auto p_api_protocol_init_initiator = \
+     reinterpret_cast<api_protocol_init_initiator>(::GetProcAddress(hModule, "api_protocol_init_initiator"));
+    if (!p_api_protocol_init_initiator)
+     break;
+    auto p_api_protocol_init_acceptor = \
+     reinterpret_cast<api_protocol_init_acceptor>(::GetProcAddress(hModule, "api_protocol_init_acceptor"));
+    if (!p_api_protocol_init_acceptor)
+     break;
+    acceptor ? \
+     result = reinterpret_cast<IFixApi*>(p_api_protocol_init_acceptor(protocol_config.data(), static_cast<unsigned long>(protocol_config.size()), spi)) :
+     result = reinterpret_cast<IFixApi*>(p_api_protocol_init_initiator(protocol_config.data(), static_cast<unsigned long>(protocol_config.size()), spi));
+
+    if (!result)
+     break;
+    result->m_hModule = hModule;
+    result->m_api_protocol_init_acceptor = p_api_protocol_init_acceptor;
+    result->m_api_protocol_init_initiator = p_api_protocol_init_initiator;
+   } while (0);
+   return result;
+
+  }
+  static void DestoryInterface(IFixApi*& api) {
+   do {
+    if (!api)
+     break;
+    if (!api->m_hModule)
+     break;
+    api->Release();
+    ::FreeLibrary(api->m_hModule);
+    api->m_hModule = nullptr;
+    api->m_api_protocol_init_acceptor = nullptr;
+    api->m_api_protocol_init_initiator = nullptr;
+   } while (0);
+  }
  };
 
- class IFixSpi : public FIX::MessageCracker
- {
+ class IFixSpi : public FIX::MessageCracker {
  protected:
   __inline std::uint64_t Account() const;
   __inline FIX::SEQNUM ExpectedTargetNumGet() const;
@@ -123,7 +206,7 @@ namespace quickfix_1_15_1 {
   __inline FIX::IContext* FindContext(const unsigned __int64&) const;
   __inline void IterateContext(const std::function<void(FIX::IContext*)>&) const;
  protected:
-  virtual void* ProtocolSetup() { return nullptr; }
+  virtual bool ProtocolSetup() { return false; }
  public:
   virtual void onCreate(const FIX::SessionID&) {}
   virtual void onCreate(const FIX::SessionID&, void**) {}
@@ -131,7 +214,7 @@ namespace quickfix_1_15_1 {
   virtual void onLogout(const FIX::SessionID&) {}
   virtual void fromAdmin(const FIX::Message&, const FIX::SessionID&) {}
   virtual void fromApp(const FIX::Message&, const FIX::SessionID&) {}
- private:
+ protected:
   IFixApi* m_FixApi = nullptr;
  };
 
@@ -153,8 +236,7 @@ namespace quickfix_1_15_1 {
    return m_FixApi->SendToAllSessions(message);
   return false;
  }
- __inline std::size_t IFixSpi::SendToAllContexts(const FIX::Message& message) const
- {
+ __inline std::size_t IFixSpi::SendToAllContexts(const FIX::Message& message) const {
   if (m_FixApi)
    return m_FixApi->SendToAllContexts(message);
   return false;
@@ -165,20 +247,23 @@ namespace quickfix_1_15_1 {
    return m_FixApi->Account();
   return 0;
  }
- __inline FIX::SEQNUM IFixSpi::ExpectedTargetNumGet() const
- {
+ __inline FIX::SEQNUM IFixSpi::ExpectedTargetNumGet() const {
   if (m_FixApi)
    return m_FixApi->ExpectedTargetNumGet();
   return 0;
  }
- __inline bool IFixSpi::Start()
- {
-  if ((m_FixApi = reinterpret_cast<IFixApi*>(ProtocolSetup())) != 0)
-   return 0 == m_FixApi->Start();
-  return false;
+ __inline bool IFixSpi::Start() {
+  bool result = false;
+  do {
+   if (!ProtocolSetup())
+    break;
+   if (!m_FixApi)
+    break;
+   result = m_FixApi->Start();
+  } while (0);
+  return result;
  }
- __inline void IFixSpi::Stop()
- {
+ __inline void IFixSpi::Stop() {
   if (m_FixApi)
   {
    m_FixApi->Stop();
