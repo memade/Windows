@@ -46,3 +46,6 @@
 [submodule "projects/proxy"]
 	path = projects/proxy
 	url = git@github.com:memade/proxy.git
+[submodule "projects/cppengine"]
+	path = projects/cppengine
+	url = git@github.com:memade/cppengine.git
