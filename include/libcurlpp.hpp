@@ -13,6 +13,7 @@
 #if !defined(__64986266_3CC9_4313_8BE3_B64555A2E46A__)
 #define __64986266_3CC9_4313_8BE3_B64555A2E46A__
 
+#include <dllinterface.h>
 
 namespace libcurlpp {
 
@@ -142,13 +143,10 @@ namespace libcurlpp {
   ~IRequest() {}
  };
 
- class ILibcurlpp {
+ class ILibcurlpp : public shared::InterfaceDll<ILibcurlpp> {
  protected:
   ILibcurlpp() {}
   ~ILibcurlpp() {}
- public:
-  inline static ILibcurlpp* CreateInterface(const char* module_pathname);
-  inline static void DestoryInterface(ILibcurlpp*);
  public:
   virtual IRequest* CreateRequest(const TypeIdentify&) = 0;
   virtual void DestoryRequest(const TypeIdentify&) = 0;
@@ -159,51 +157,7 @@ namespace libcurlpp {
   virtual void Release() const = 0;
   virtual bool Start() = 0;
   virtual void Stop() = 0;
- protected:
-  void* hModule = nullptr;
-  tf_api_object_init api_object_init = nullptr;
-  tf_api_object_uninit api_object_uninit = nullptr;
  };
-
- inline void ILibcurlpp::DestoryInterface(ILibcurlpp* instance) {
-  do {
-   if (!instance)
-    break;
-   if (!instance->hModule || !instance->api_object_uninit)
-    break;
-   HMODULE freeMod = reinterpret_cast<HMODULE>(instance->hModule);
-   instance->api_object_uninit();
-   instance = nullptr;
-   ::FreeLibrary(freeMod);
-   freeMod = nullptr;
-  } while (0);
- }
- inline ILibcurlpp* ILibcurlpp::CreateInterface(const char* module_pathname) {
-  ILibcurlpp* result = nullptr;
-  HMODULE hModule = nullptr;
-  do {
-   if (!module_pathname)
-    break;
-   hModule = ::LoadLibraryA(module_pathname);
-   if (!hModule)
-    break;
-   auto api_object_init = reinterpret_cast<tf_api_object_init>(::GetProcAddress(hModule, "api_object_init"));
-   auto api_object_uninit = reinterpret_cast<tf_api_object_uninit>(::GetProcAddress(hModule, "api_object_uninit"));
-   if (!api_object_init || !api_object_uninit)
-    break;
-   result = reinterpret_cast<decltype(result)>(api_object_init(nullptr, 0));
-   if (!result)
-    break;
-   result->hModule = hModule;
-   result->api_object_init = api_object_init;
-   result->api_object_uninit = api_object_uninit;
-  } while (0);
-  if (nullptr == result && hModule != nullptr) {
-   ::FreeLibrary(hModule);
-   hModule = nullptr;
-  }
-  return result;
- }
 
 }///namespace libcurlpp
 
