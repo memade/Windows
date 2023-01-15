@@ -9,6 +9,7 @@
 #define WIN32_LEAN_AND_MEAN
 #endif
 #include <Windows.h>
+#include <system_error>
 #include <winioctl.h>
 #include <intrin.h>
 #include <sddl.h>
