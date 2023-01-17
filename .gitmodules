@@ -10,9 +10,6 @@
 [submodule "3rdparty"]
 	path = 3rdparty
 	url = https://github.com/memade/3rdparty.git
-[submodule "publish"]
-	path = publish
-	url = git@github.com:memade/publish.git
 [submodule "projects/uiframework"]
 	path = projects/uiframework
 	url = git@github.com:memade/uiframework.git
