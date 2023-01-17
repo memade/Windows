@@ -1,47 +1,12 @@
-# Prerequisites
-*.d
-
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-#*.so
-*.dylib
-#*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-#*.lib
-
-# Executables
-#*.exe
-#!tools/*.exe
-*.out
-*.app
-
-*.idb
-*.pdb
-*.vcxproj.user
-objs/
-.vs/
-#!librarys/
-/bin/
-#cef
-libcef_dll_wrapper.lib
-3rdparty/cef/cef_binary-107.0.3_chromium-107.0.5304.18_x64_beta/Debug
-3rdparty/cef/cef_binary-107.0.3_chromium-107.0.5304.18_x64_beta/Release
-3rdparty/cef/cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta/Debug
-3rdparty/cef/cef_binary-107.0.3_chromium-107.0.5304.18_x86_beta/Release
+# Temp files created by most text editors.
+*~
+# Nested build directory
+/build
+/bin
+# VS2017 and VSCode config files.
+.vscode
+.vs
+# External projects that are tracked independently.
+#projects/*
+!librarys/*.*
+!runtimes/*.*
