@@ -4,6 +4,8 @@
 /build
 /bin
 /lib
+/objs
+/librarys
 # VS2017 and VSCode config files.
 .vscode
 .vs
