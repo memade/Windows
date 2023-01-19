@@ -3,6 +3,7 @@
 # Nested build directory
 /build
 /bin
+/lib
 # VS2017 and VSCode config files.
 .vscode
 .vs

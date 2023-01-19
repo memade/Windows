@@ -140,7 +140,7 @@ namespace shared {
    wxDECLARE_EVENT_TABLE();
   }IMDIParentFrame;
 
-  typedef class IwxFrame : public wxFrame {
+  class IwxFrame : public wxFrame {
   public:
    IwxFrame();
    IwxFrame(wxWindow* parent,

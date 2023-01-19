@@ -2,7 +2,7 @@
 #define INC_H___C3645F03_5567_4DB9_A548_890859855E2E__HEAD__
 
 namespace libconv {
-#include <source/include/iconv.h>
+#include <libiconv/source/include/iconv.h>
 
 	class IConv {
 	public:
