@@ -13,3 +13,4 @@
 #projects/*
 !librarys/*.*
 !runtimes/*.*
+!tools/*.*
