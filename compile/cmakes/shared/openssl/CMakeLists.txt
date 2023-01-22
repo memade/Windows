@@ -31,7 +31,7 @@ ${OPENSSL_INCLUDE_DIR}
 
 target_link_directories(${PROJECT_NAME} 
 PRIVATE 
-${SOLUTION_ROOT_DIR}/librarys/openssl/3.0.5/$(Platform)/
+${OPENSSL_LIBRARY_DIR}/$(Platform)/
 )
 
 

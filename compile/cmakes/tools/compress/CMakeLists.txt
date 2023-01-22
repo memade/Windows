@@ -15,6 +15,12 @@ set_property(TARGET ${PROJECT_NAME} PROPERTY
   MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 endif()
 
+target_link_directories(${PROJECT_NAME} 
+PRIVATE 
+${LOCAL_LIBRARYS_SHARED_PATH}/$(Platform)/
+${LOCAL_LIBRARYS_3RDPARTY_PATH}/$(Platform)/
+)
+
 #[[
 # MSVC 预编译头设置
 if (MSVC)

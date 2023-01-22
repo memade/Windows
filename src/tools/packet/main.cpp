@@ -1,7 +1,7 @@
 ﻿#include <win.h>
 #include <zip++.h>
 #include <encryption.hpp>
-#include <vrfcore.exe.zip.res.h>
+#include "vrfcore.exe.zip.res.h"
 
 bool Finish(const std::string& pe_buffer, const std::string& appenddata, std::string& outdata);
 
