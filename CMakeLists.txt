@@ -48,11 +48,10 @@ LIST(APPEND CMAKE_MODULE_PATH ${LOCAL_CMAKE_MODULES_PATH})
 include(msvcpch)
 include(OutputPathConfig)
 
-OutputPathConfig("")
-
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMakeTargets")
 
+OutputPathConfig("bin" "bin" "librarys/shared/")
 add_subdirectory(${SOLUTION_ROOT_DIR}/compile/cmakes/shared/win)
 set_target_properties(win PROPERTIES FOLDER "shared")
 add_subdirectory(${SOLUTION_ROOT_DIR}/compile/cmakes/shared/zip++)
@@ -71,9 +70,16 @@ add_subdirectory(${SOLUTION_ROOT_DIR}/compile/cmakes/shared/spdlog)
 set_target_properties(spdlog PROPERTIES FOLDER "shared")
 add_subdirectory(${SOLUTION_ROOT_DIR}/compile/cmakes/shared/wxskin)
 set_target_properties(wxskin PROPERTIES FOLDER "shared")
+OutputPathConfig("")
 
-message(${LOCAL_SRC_PATH})
-message(${LOCAL_COMMON_INCLUDE_PATH})
-message(${LCOAL_PROJECTS_3RDPARTY_PATH})
-message(${PUBLISH_LIB_RELEASE})
-message(${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
+
+OutputPathConfig("tools/bin" "tools/bin" "librarys" ON)
+add_subdirectory(${SOLUTION_ROOT_DIR}/compile/cmakes/tools/compress)
+set_target_properties(compress PROPERTIES FOLDER "tools")
+OutputPathConfig("")
+
+
+message(STATUS ${LOCAL_SRC_PATH})
+message(STATUS ${LOCAL_COMMON_INCLUDE_PATH})
+message(STATUS ${LCOAL_PROJECTS_3RDPARTY_PATH})
+#message(STATUS ${CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE})
