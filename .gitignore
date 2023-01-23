@@ -5,7 +5,7 @@
 /bin
 /lib
 /objs
-/librarys
+#/librarys
 # VS2017 and VSCode config files.
 .vscode
 .vs
