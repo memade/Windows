@@ -39,12 +39,15 @@ mkdir %copyto_include_wxwidgets%\x86
 mkdir %copyto_include_wxwidgets%\x64
 mkdir %copyto_librarys_wxwidgets%\x86
 mkdir %copyto_librarys_wxwidgets%\x64
-xcopy %source_directory_x86%\*.h %copyto_include_wxwidgets%\x86 /S /A /Y
-xcopy %source_directory_x64%\*.h %copyto_include_wxwidgets%\x64 /S /A /Y
+rem xcopy %source_directory_x86%\*.h %copyto_include_wxwidgets%\x86 /S /A /Y
+rem xcopy %source_directory_x64%\*.h %copyto_include_wxwidgets%\x64 /S /A /Y
 xcopy %source_directory_x86%\*.lib %copyto_librarys_wxwidgets%\x86 /S /A /Y
 xcopy %source_directory_x64%\*.lib %copyto_librarys_wxwidgets%\x64 /S /A /Y
-rmdir /S/Q %source_directory_x86%
-rmdir /S/Q %source_directory_x64%
+rem rmdir /S/Q %source_directory_x86%
+rem rmdir /S/Q %source_directory_x64%
+del !(%source_directory_x86%\*.h)
+del !(%source_directory_x64%\*.h)
+
 cd %CURRENT%..\..\3rdparty\wxWidgets-3.2.1\
 call clean.bat
 

@@ -30,6 +30,7 @@ endif()
 target_include_directories(${PROJECT_NAME} 
 PRIVATE 
 ${SOURCES_DIR}
+${LOCAL_COMMON_INCLUDE_PATH}/wxwidgets/${PLATFORM}/
 ${LCOAL_PROJECTS_3RDPARTY_PATH}/wxWidgets-3.2.1/include
 )
 

@@ -6,6 +6,13 @@ set(CMAKE_CXX_STANDARD 23)
 # 添加预定义宏
 add_definitions(-DUNICODE -D_UNICODE)
 
+set(PLATFORM "x86")
+if (CMAKE_CL_64)
+set(PLATFORM x64)
+else(CMAKE_CL_64)
+set(PLATFORM x86)
+endif(CMAKE_CL_64)
+
 # 设置默认编译类型
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release;" CACHE STRING "info" FORCE)
 
