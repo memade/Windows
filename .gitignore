@@ -3,14 +3,13 @@
 # Nested build directory
 /build
 /bin
-/lib
 /objs
-#/librarys
 # VS2017 and VSCode config files.
 .vscode
 .vs
 # External projects that are tracked independently.
 #projects/*
 !librarys/*.*
+librarys/wxwidgets
 !runtimes/*.*
 !tools/*.*

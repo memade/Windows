@@ -35,8 +35,8 @@ set build_configure=%x64debug%
 set build_configure=%x64release%
 %devent_dir% %build_target% /ReBuild %build_configure%
 
-mkdir %copyto_include_wxwidgets%\x86
-mkdir %copyto_include_wxwidgets%\x64
+rem mkdir %copyto_include_wxwidgets%\x86
+rem mkdir %copyto_include_wxwidgets%\x64
 mkdir %copyto_librarys_wxwidgets%\x86
 mkdir %copyto_librarys_wxwidgets%\x64
 rem xcopy %source_directory_x86%\*.h %copyto_include_wxwidgets%\x86 /S /A /Y
@@ -45,8 +45,8 @@ xcopy %source_directory_x86%\*.lib %copyto_librarys_wxwidgets%\x86 /S /A /Y
 xcopy %source_directory_x64%\*.lib %copyto_librarys_wxwidgets%\x64 /S /A /Y
 rem rmdir /S/Q %source_directory_x86%
 rem rmdir /S/Q %source_directory_x64%
-del !(%source_directory_x86%\*.h)
-del !(%source_directory_x64%\*.h)
+del /S %source_directory_x86%\*.lib
+del /S %source_directory_x64%\*.lib
 
 cd %CURRENT%..\..\3rdparty\wxWidgets-3.2.1\
 call clean.bat
