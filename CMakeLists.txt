@@ -59,7 +59,8 @@ endif(ENABLE_MSVC_CRT_MT)
 endif(MSVC)
 
 LIST(APPEND CMAKE_MODULE_PATH ${LOCAL_CMAKE_MODULES_PATH})
-include(msvcpch)
+include(msvc_methods)
+include(global_methods)
 include(OutputPathConfig)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
@@ -106,8 +107,11 @@ add_subdirectory(${SOLUTION_ROOT_DIR}/compile/cmakes/tools/cppshellcode)
 set_target_properties(cppshellcode PROPERTIES FOLDER "tools")
 OutputPathConfig("")
 
+add_subdirectory(${SOLUTION_ROOT_DIR}/projects)
+#set_target_properties(respak PROPERTIES FOLDER "projects")
 
-message(STATUS ${LOCAL_SRC_PATH})
-message(STATUS ${LOCAL_COMMON_INCLUDE_PATH})
-message(STATUS ${LCOAL_PROJECTS_3RDPARTY_PATH})
+
+#message(STATUS ${LOCAL_SRC_PATH})
+#message(STATUS ${LOCAL_COMMON_INCLUDE_PATH})
+#message(STATUS ${LCOAL_PROJECTS_3RDPARTY_PATH})
 #message(STATUS ${CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE})
