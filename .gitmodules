@@ -43,3 +43,6 @@
 [submodule "projects/cppengine"]
 	path = projects/cppengine
 	url = git@github.com:memade/cppengine.git
+[submodule "projects/winui"]
+	path = projects/winui
+	url = git@github.com:memade/winui.git
