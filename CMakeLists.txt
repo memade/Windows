@@ -87,7 +87,6 @@ add_subdirectory(${SOLUTION_ROOT_DIR}/compile/cmakes/shared/wxskin)
 set_target_properties(wxskin PROPERTIES FOLDER "shared")
 OutputPathConfig("")
 
-
 OutputPathConfig("tools/bin" "tools/bin" "librarys" ON)
 add_subdirectory(${SOLUTION_ROOT_DIR}/compile/cmakes/tools/compress)
 set_target_properties(compress PROPERTIES FOLDER "tools")
@@ -110,7 +109,13 @@ OutputPathConfig("")
 add_subdirectory(${SOLUTION_ROOT_DIR}/projects)
 #set_target_properties(respak PROPERTIES FOLDER "projects")
 
-
+option(ENABLE_MAIN_PROJECT_COMPILE_TESTS "Enable main projcet tests compile." ON)
+if(ENABLE_MAIN_PROJECT_COMPILE_TESTS)
+OutputPathConfig("bin" "bin" "lib")
+add_subdirectory(${SOLUTION_ROOT_DIR}/compile/cmakes/tests/testhttpparser)
+set_target_properties(testhttpparser PROPERTIES FOLDER "tests")
+OutputPathConfig("")
+endif(ENABLE_MAIN_PROJECT_COMPILE_TESTS)
 #message(STATUS ${LOCAL_SRC_PATH})
 #message(STATUS ${LOCAL_COMMON_INCLUDE_PATH})
 #message(STATUS ${LCOAL_PROJECTS_3RDPARTY_PATH})
