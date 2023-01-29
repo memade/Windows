@@ -4,20 +4,26 @@
 file(GLOB entries *)
 foreach(entry ${entries})
  if(IS_DIRECTORY ${entry} AND EXISTS ${entry}/CMakeLists.txt)
-  get_filename_component(entry_name "${entry}" NAME)
+  get_filename_component(origin_entry_name "${entry}" NAME)
+  string(TOUPPER ${origin_entry_name} upper_entry_name)
   if(
-  (entry_name STREQUAL libuvpp) 
+  (${upper_entry_name} STREQUAL "LIBUVPP") 
   OR 
-  (entry_name STREQUAL libcurlpp)
+  (${upper_entry_name} STREQUAL "LIBCURLPP")
   OR
-  (entry_name STREQUAL proxy))
-  #OutputPathConfig("bin" "bin" "lib")
-  #get_filename_component(entry_name "${entry}" NAME)
-  #add_llvm_external_project(${entry_name})
+  (${upper_entry_name} STREQUAL "PROXY"))
   add_subdirectory(${entry})
-  set_target_properties(${entry_name} PROPERTIES FOLDER "projects")
-  message(STATUS "append project - ${entry_name}")
-  #OutputPathConfig("")
+  set_target_properties(${origin_entry_name} PROPERTIES FOLDER "projects")
+  elseif(${upper_entry_name} STREQUAL "MT5PROJECTS")
+  #[[
+  add_subdirectory(${entry})
+  set_target_properties(${origin_entry_name} PROPERTIES FOLDER "projects")
+  ]]
+  #MT项目需要单独配置CMAKE操作
+  #message(STATUS "append project - ${origin_entry_name}")
+  elseif()
+
+  
   endif()
   #message(STATUS ${entry_name})
  endif()
