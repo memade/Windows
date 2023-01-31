@@ -49,6 +49,6 @@ del /S %source_directory_x86%\*.lib
 del /S %source_directory_x64%\*.lib
 
 cd %CURRENT%..\..\3rdparty\wxWidgets-3.2.1\
-call clean.bat
+rem call clean.bat
 
 exit

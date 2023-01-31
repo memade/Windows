@@ -8,6 +8,8 @@
 # VS2017 and VSCode config files.
 .vscode
 .vs
+.pdb
+.ipbd
 # External projects that are tracked independently.
 #projects/*
 !librarys/*.*

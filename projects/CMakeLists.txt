@@ -7,6 +7,8 @@ foreach(entry ${entries})
   get_filename_component(origin_entry_name "${entry}" NAME)
   string(TOUPPER ${origin_entry_name} upper_entry_name)
   if(
+  (${upper_entry_name} STREQUAL "WINUI") 
+   OR 
   (${upper_entry_name} STREQUAL "LIBUVPP") 
   OR 
   (${upper_entry_name} STREQUAL "LIBCURLPP")
