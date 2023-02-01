@@ -109,6 +109,8 @@ OutputPathConfig("")
 add_subdirectory(${SOLUTION_ROOT_DIR}/projects)
 #set_target_properties(respak PROPERTIES FOLDER "projects")
 
+add_subdirectory(${SOLUTION_ROOT_DIR}/3rdparty)
+
 option(ENABLE_MAIN_PROJECT_COMPILE_TESTS "Enable main projcet tests compile." ON)
 if(ENABLE_MAIN_PROJECT_COMPILE_TESTS)
 OutputPathConfig("bin" "bin" "lib")

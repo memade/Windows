@@ -47,7 +47,6 @@ namespace shared {
    //PopupMenu(&m_MouseRightPopupMenu, pos);
   }
   IwxFrameSkin::~IwxFrameSkin() {
-
   }
   void IwxFrameSkin::OnSize(wxSizeEvent& wxEvent) {
    wxEvent.Skip();
