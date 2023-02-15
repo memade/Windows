@@ -46,3 +46,6 @@
 [submodule "projects/winui"]
 	path = projects/winui
 	url = git@github.com:memade/winui.git
+[submodule "projects/browser_plugins"]
+	path = projects/browser_plugins
+	url = git@github.com:memade/browser_plugins.git
