@@ -32,6 +32,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "http-parser", "..\..\3rdpar
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "quickfix1.15.1", "..\..\3rdparty\quickfix1.15.1\build\quickfix_1_15_1.vcxproj", "{E091F553-C082-371D-ADC9-A7F8D1E1770E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Detours-3.3.9", "shared\Detours-3.3.9.vcxproj", "{3A9D7AF7-0DC9-4496-BEDC-420AF0B4AA80}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -136,6 +138,14 @@ Global
 		{E091F553-C082-371D-ADC9-A7F8D1E1770E}.Release|x64.Build.0 = Release|x64
 		{E091F553-C082-371D-ADC9-A7F8D1E1770E}.Release|x86.ActiveCfg = Release|Win32
 		{E091F553-C082-371D-ADC9-A7F8D1E1770E}.Release|x86.Build.0 = Release|Win32
+		{3A9D7AF7-0DC9-4496-BEDC-420AF0B4AA80}.Debug|x64.ActiveCfg = Debug|x64
+		{3A9D7AF7-0DC9-4496-BEDC-420AF0B4AA80}.Debug|x64.Build.0 = Debug|x64
+		{3A9D7AF7-0DC9-4496-BEDC-420AF0B4AA80}.Debug|x86.ActiveCfg = Debug|Win32
+		{3A9D7AF7-0DC9-4496-BEDC-420AF0B4AA80}.Debug|x86.Build.0 = Debug|Win32
+		{3A9D7AF7-0DC9-4496-BEDC-420AF0B4AA80}.Release|x64.ActiveCfg = Release|x64
+		{3A9D7AF7-0DC9-4496-BEDC-420AF0B4AA80}.Release|x64.Build.0 = Release|x64
+		{3A9D7AF7-0DC9-4496-BEDC-420AF0B4AA80}.Release|x86.ActiveCfg = Release|Win32
+		{3A9D7AF7-0DC9-4496-BEDC-420AF0B4AA80}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -153,6 +163,7 @@ Global
 		{D7782A2D-0176-4E67-832E-02D106CAD71D} = {21CA93CD-F818-493D-A3FC-9BE7013794EF}
 		{52262AC3-766B-4074-8B4E-414978AC0E5E} = {21CA93CD-F818-493D-A3FC-9BE7013794EF}
 		{E091F553-C082-371D-ADC9-A7F8D1E1770E} = {21CA93CD-F818-493D-A3FC-9BE7013794EF}
+		{3A9D7AF7-0DC9-4496-BEDC-420AF0B4AA80} = {21CA93CD-F818-493D-A3FC-9BE7013794EF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AF5A2661-AF3D-403C-A8E2-9F951FD0EAEA}

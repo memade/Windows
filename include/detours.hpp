@@ -4,7 +4,7 @@
 namespace shared {
 	namespace detours {
 #include <detours.h>
-#pragma comment(lib,"detours")
+#pragma comment(lib,"Detours-3.3.9.lib")
 
 	}///namespace detours
 }///namespace shared

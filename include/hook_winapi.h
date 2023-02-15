@@ -1,5 +1,5 @@
-﻿#if !defined(INC_H___BD63BF90_7E1E_4A54_88C9_FFF675CC3020__HEAD__)
-#define INC_H___BD63BF90_7E1E_4A54_88C9_FFF675CC3020__HEAD__
+﻿#if !defined(__4CFE8040_5BA3_4B90_88B3_444B5491B895__)
+#define __4CFE8040_5BA3_4B90_88B3_444B5491B895__
 
 #include "win.h"
 
@@ -9,14 +9,74 @@ namespace shared {
   // @System
   class System {
   public:
-   using tfExitWindowsEx = 
+   using tfExitWindowsEx =
     BOOL
     (WINAPI*)(
      _In_ UINT uFlags,
      _In_ DWORD dwReason);
+
+   using tfGetSystemInfo = VOID(WINAPI*)(
+    _Out_ LPSYSTEM_INFO lpSystemInfo
+    );
+   using tfGetNativeSystemInfo =
+    VOID
+    (WINAPI*)
+    (
+     _Out_ LPSYSTEM_INFO lpSystemInfo
+     );
+
+   using tfGetProductInfo =
+    BOOL
+    (WINAPI*)
+    (
+     _In_ DWORD dwOSMajorVersion,
+     _In_ DWORD dwOSMinorVersion,
+     _In_ DWORD dwSpMajorVersion,
+     _In_ DWORD dwSpMinorVersion,
+     _Out_ PDWORD pdwReturnedProductType
+    );
+
+   using tfGetVersion = DWORD
+   (WINAPI*)
+    (VOID);
+   using tfGetVersionExW = BOOL
+   (WINAPI*)
+    (_Inout_ LPOSVERSIONINFOW lpVersionInformation);
+   using tfGetVersionExA = BOOL
+   (WINAPI*)
+    (_Inout_ LPOSVERSIONINFOA lpVersionInformation);
+   using tfGlobalMemoryStatusEx =
+    BOOL
+    (WINAPI*)
+    (_Out_ LPMEMORYSTATUSEX lpBuffer);
+   using tfGetSystemTime =
+    VOID
+    (WINAPI*)
+    (_Out_ LPSYSTEMTIME lpSystemTime);
+   using tfGlobalMemoryStatus =
+    VOID
+    (WINAPI*)(_Out_ LPMEMORYSTATUS lpBuffer);
   public:
    const tfExitWindowsEx ExitWindowsExLocal = ::ExitWindowsEx;
    tfExitWindowsEx ExitWindowsExRemote = nullptr;
+   const tfGetSystemInfo GetSystemInfoLocal = ::GetSystemInfo;
+   tfGetSystemInfo GetSystemInfoRemote = nullptr;
+   const tfGetNativeSystemInfo GetNativeSystemInfoLocal = ::GetNativeSystemInfo;
+   tfGetNativeSystemInfo GetNativeSystemInfoRemote = nullptr;
+   const tfGetVersion GetVersionLocal = ::GetVersion;
+   const tfGetSystemTime GetSystemTimeLocal = ::GetSystemTime;
+   tfGetSystemTime GetSystemTimeRemote = nullptr;
+   tfGetVersion GetVersionRemote = nullptr;
+   const tfGetVersionExA GetVersionExALocal = ::GetVersionExA;
+   tfGetVersionExA GetVersionExARemote = nullptr;
+   const tfGetVersionExW GetVersionExWLocal = ::GetVersionExW;
+   tfGetVersionExW GetVersionExWRemote = nullptr;
+   const tfGlobalMemoryStatus GlobalMemoryStatusLocal = ::GlobalMemoryStatus;
+   tfGlobalMemoryStatus GlobalMemoryStatusRemote = nullptr;
+   const tfGlobalMemoryStatusEx GlobalMemoryStatusExLocal = ::GlobalMemoryStatusEx;
+   tfGlobalMemoryStatusEx GlobalMemoryStatusExRemote = nullptr;
+   const tfGetProductInfo GetProductInfoLocal = ::GetProductInfo;
+   tfGetProductInfo GetProductInfoRemote = nullptr;
   };
 
   // This class needs to be instantiated and used
@@ -129,18 +189,23 @@ namespace shared {
   //
   class Kernel32 {
   public:
-   Kernel32() {
-    m_hModue = ::GetModuleHandleW(L"Kernel32.dll");
-    if (!m_hModue)
-     m_hModue = ::LoadLibraryW(L"Kernel32.dll");
-    if (m_hModue)
-    {
-     CreateProcessInternalWLocal = reinterpret_cast<decltype(CreateProcessInternalWLocal)>(::GetProcAddress(m_hModue, "CreateProcessInternalW"));
-    }
-   }
-   ~Kernel32() {
-   }
-  public:
+   using
+    tfCreateProcessA =
+    BOOL
+    (WINAPI*)
+    (
+     _In_opt_ LPCSTR lpApplicationName,
+     _Inout_opt_ LPSTR lpCommandLine,
+     _In_opt_ LPSECURITY_ATTRIBUTES lpProcessAttributes,
+     _In_opt_ LPSECURITY_ATTRIBUTES lpThreadAttributes,
+     _In_ BOOL bInheritHandles,
+     _In_ DWORD dwCreationFlags,
+     _In_opt_ LPVOID lpEnvironment,
+     _In_opt_ LPCSTR lpCurrentDirectory,
+     _In_ LPSTARTUPINFOA lpStartupInfo,
+     _Out_ LPPROCESS_INFORMATION lpProcessInformation
+     );
+
    using tfCreateProcessW =
     BOOL
     (WINAPI*)
@@ -156,6 +221,24 @@ namespace shared {
      _In_ LPSTARTUPINFOW lpStartupInfo,
      _Out_ LPPROCESS_INFORMATION lpProcessInformation
      );
+
+   using tfCreateProcessAsUserA =
+    BOOL
+    (WINAPI*)
+    (
+     _In_opt_ HANDLE hToken,
+     _In_opt_ LPCSTR lpApplicationName,
+     _Inout_opt_ LPSTR lpCommandLine,
+     _In_opt_ LPSECURITY_ATTRIBUTES lpProcessAttributes,
+     _In_opt_ LPSECURITY_ATTRIBUTES lpThreadAttributes,
+     _In_ BOOL bInheritHandles,
+     _In_ DWORD dwCreationFlags,
+     _In_opt_ LPVOID lpEnvironment,
+     _In_opt_ LPCSTR lpCurrentDirectory,
+     _In_ LPSTARTUPINFOA lpStartupInfo,
+     _Out_ LPPROCESS_INFORMATION lpProcessInformation
+    );
+
    using tfCreateProcessAsUserW =
     BOOL
     (WINAPI*)
@@ -189,12 +272,14 @@ namespace shared {
   public:
    const tfCreateProcessW CreateProcessWLocal = ::CreateProcessW;
    tfCreateProcessW CreateProcessWRemote = nullptr;
+   const tfCreateProcessA CreateProcessALocal = ::CreateProcessA;
+   tfCreateProcessA CreateProcessARemote = nullptr;
    const tfCreateProcessAsUserW CreateProcessAsUserWLocal = ::CreateProcessAsUserW;
    tfCreateProcessAsUserW CreateProcessAsUserWRemote = nullptr;
+   const tfCreateProcessAsUserA CreateProcessAsUserALocal = ::CreateProcessAsUserA;
+   tfCreateProcessAsUserA CreateProcessAsUserARemote = nullptr;
    tfCreateProcessInternalW CreateProcessInternalWLocal = nullptr;
    tfCreateProcessInternalW CreateProcessInternalWRemote = nullptr;
-  private:
-   HMODULE m_hModue = nullptr;
   };
   // This class needs to be instantiated and used
   // @WinHttp.dll
@@ -406,8 +491,7 @@ namespace shared {
  }///namespace hook
 }///namespace shared
 
-
-/// /*新生®（上海）**/
-/// /*2022_02_23T00:09:06.6067378Z**/
-/// /*_ _ _ _ _ _ _ www.skstu.com _ _ _ _ _ _ _**/
-#endif ///INC_H___BD63BF90_7E1E_4A54_88C9_FFF675CC3020__HEAD__
+/// /*_ Memade®（新生™） _**/
+/// /*_ Fri, 10 Feb 2023 02:29:03 GMT _**/
+/// /*_____ https://www.skstu.com/ _____ **/
+#endif///__4CFE8040_5BA3_4B90_88B3_444B5491B895__

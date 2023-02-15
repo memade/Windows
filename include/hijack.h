@@ -28,7 +28,7 @@ namespace shared {
  }///namespace hijack
 }///namespace shared
 
-#pragma comment(lib,"hijack")
+//#pragma comment(lib,"hijack")
 /// /*新生®（上海）**/
 /// /*2022_02_19T05:51:07.9292267Z**/
 /// /*_ _ _ _ _ _ _ www.skstu.com _ _ _ _ _ _ _**/
