@@ -25,7 +25,7 @@ using namespace DuiLib;
 namespace shared {
 	namespace ui {
 
-		static const UINT m_NOTIFYICONDATA_MESSAGE = WM_USER + 10001;
+		static const UINT WM_NOTIFYICONDATA_MESSAGE = WM_USER + 10001;
 
 		static CControlUI* FindControlParent(CControlUI* child,const std::wstring& parent_name) {
 			CControlUI* result = nullptr;
@@ -51,7 +51,9 @@ namespace shared {
 			virtual ~UIFrame() {
 			}
 		protected:
-			NOTIFYICONDATA m_NOTIFYICONDATA = { 0 };
+			NOTIFYICONDATAW m_NOTIFYICONDATA = { 0 };
+			virtual void CreateTray(PNOTIFYICONDATAW) {}
+			virtual void DestoryTray(PNOTIFYICONDATAW) {}
 		protected:
 			virtual UINT GetClassStyle() const { return /*UI_CLASSSTYLE_FRAME |*/ CS_DBLCLKS; };
 			virtual void OnFinalMessage(HWND hWnd) { delete this; }
@@ -172,6 +174,7 @@ namespace shared {
 				case WM_CREATE:
 				{
 					lRes = OnCreate(uMsg, wParam, lParam, bHandled);
+					CreateTray(&m_NOTIFYICONDATA);
 					/*InitWindow();*/
 				}break;
 				case WM_CHAR: {
@@ -184,6 +187,7 @@ namespace shared {
 					lRes = OnPaint(uMsg, wParam, lParam, bHandled);
 				}break;
 				case WM_DESTROY: {
+					DestoryTray(&m_NOTIFYICONDATA);
 					lRes = OnDestroy(uMsg, wParam, lParam, bHandled);
 				}break;
 				case WM_SIZE: {
@@ -226,8 +230,8 @@ namespace shared {
 				}
 				return WindowImplBase::HandleMessage(uMsg, wParam, lParam);
 			}
-		/*protected:
-			CPaintManagerUI m_PaintManager;*/
+		protected:
+			/*CPaintManagerUI m_PaintManager;*/
 		};///class UIFrame
 
 		class UIWindow final {
