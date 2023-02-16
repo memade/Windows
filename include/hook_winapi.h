@@ -36,6 +36,8 @@ namespace shared {
      _Out_ PDWORD pdwReturnedProductType
     );
 
+   using tfEnumFontFamiliesExW = int  (WINAPI*) (_In_ HDC hdc, _In_ LPLOGFONTW lpLogfont, _In_ FONTENUMPROCW lpProc, _In_ LPARAM lParam, _In_ DWORD dwFlags);
+
    using tfGetVersion = DWORD
    (WINAPI*)
     (VOID);
@@ -56,6 +58,14 @@ namespace shared {
    using tfGlobalMemoryStatus =
     VOID
     (WINAPI*)(_Out_ LPMEMORYSTATUS lpBuffer);
+
+   using tfGetFontData =  DWORD (WINAPI*)(_In_ HDC     hdc,
+     _In_ DWORD   dwTable,
+     _In_ DWORD   dwOffset,
+     _Out_writes_bytes_to_opt_(cjBuffer, return) PVOID pvBuffer,
+     _In_ DWORD   cjBuffer
+    );
+
   public:
    const tfExitWindowsEx ExitWindowsExLocal = ::ExitWindowsEx;
    tfExitWindowsEx ExitWindowsExRemote = nullptr;
@@ -77,6 +87,10 @@ namespace shared {
    tfGlobalMemoryStatusEx GlobalMemoryStatusExRemote = nullptr;
    const tfGetProductInfo GetProductInfoLocal = ::GetProductInfo;
    tfGetProductInfo GetProductInfoRemote = nullptr;
+   const tfEnumFontFamiliesExW EnumFontFamiliesExWLocal = ::EnumFontFamiliesExW;
+   tfEnumFontFamiliesExW EnumFontFamiliesExWRemote = nullptr;
+   const tfGetFontData GetFontDataLocal = ::GetFontData;
+   tfGetFontData GetFontDataRemote = nullptr;
   };
 
   // This class needs to be instantiated and used
