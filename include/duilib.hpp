@@ -26,7 +26,7 @@ namespace shared {
 	namespace ui {
 
 		static const UINT WM_NOTIFYICONDATA_MESSAGE = WM_USER + 10001;
-
+		static const UINT WM_NOTIFYICONDATA_MENU_EXIT = WM_USER + 10002;
 		static CControlUI* FindControlParent(CControlUI* child,const std::wstring& parent_name) {
 			CControlUI* result = nullptr;
 			CControlUI* parent = child;
@@ -47,10 +47,15 @@ namespace shared {
 		class UIFrame : public WindowImplBase {
 		public:
 			UIFrame() {
+				m_hTrayPopMenu = ::CreatePopupMenu();//生成托盘菜单
+				/*::AppendMenuW(m_hTrayPopMenu, MF_STRING, 0, TEXT("提示"));*/
+				::AppendMenuW(m_hTrayPopMenu, MF_STRING, WM_NOTIFYICONDATA_MENU_EXIT, TEXT("退出"));
 			}
 			virtual ~UIFrame() {
+				::DestroyMenu(m_hTrayPopMenu);
 			}
 		protected:
+			HMENU m_hTrayPopMenu = nullptr;
 			NOTIFYICONDATAW m_NOTIFYICONDATA = { 0 };
 			virtual void CreateTray(PNOTIFYICONDATAW) {}
 			virtual void DestoryTray(PNOTIFYICONDATAW) {}
