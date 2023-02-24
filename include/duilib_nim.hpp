@@ -87,17 +87,22 @@ namespace duilib_nim {
     case WM_LBUTTONDBLCLK: {
      if (wParam != m_LogoResID)
       break;
-     if (::IsWindowVisible(GetHWND()))
+     if (::IsWindowVisible(m_hWnd)) {
       ShowWindow(false);
-     else
+     }
+     else {
       ShowWindow(true);
+      /*::SetForegroundWindow(m_hWnd);
+      ::BringWindowToTop(m_hWnd);*/
+      ::SetWindowPos(m_hWnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+     }
     }break;
     case WM_RBUTTONDOWN: {
      if (wParam != m_LogoResID)
       break;
      POINT pt = { 0 };
      ::GetCursorPos(&pt);
-     ::TrackPopupMenu(m_hTrayPopMenu, TPM_RIGHTBUTTON, pt.x, pt.y, NULL, GetHWND(), NULL);
+     ::TrackPopupMenu(m_hTrayPopMenu, TPM_RIGHTBUTTON, pt.x, pt.y, NULL, m_hWnd, NULL);
     }break;
     default:
      break;
@@ -106,7 +111,7 @@ namespace duilib_nim {
    case WM_COMMAND: {
     switch (wParam) {
     case WM_NOTIFYICONDATA_POPMENU_EXIT: {
-     ::PostMessageW(GetHWND(), WM_CLOSE, 0, 0);
+     ::PostMessageW(m_hWnd, WM_CLOSE, 0, 0);
      return TRUE;
     }break;
     default:

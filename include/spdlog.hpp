@@ -2,7 +2,6 @@
 #define INC_H___586DABC5_153C_4C66_96BB_F260D1ADC3C8__HEAD__
 
 #define SPDLOG_ENABLE_EXTEND 1
-#define SPDLOG_ENABLE_EXTEND_SINGLE_FILE 1
 #define SPDLOG_WCHAR_TO_UTF8_SUPPORT
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_color_sinks.h>

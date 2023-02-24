@@ -9,6 +9,27 @@ namespace shared {
   // @System
   class System {
   public:
+
+   using tfGetDeviceCaps = int  ( WINAPI*) (_In_opt_ HDC hdc, _In_ int index);
+
+
+   using tfGetSystemMetrics = 
+    int 
+    (WINAPI*)
+    (_In_ int nIndex);
+   using tfEnumDisplaySettingsA = BOOL
+    (WINAPI*)
+    (
+     _In_opt_ LPCSTR lpszDeviceName,
+     _In_ DWORD iModeNum,
+     _Inout_ DEVMODEA* lpDevMode);
+   using tfEnumDisplaySettingsW =
+    BOOL
+   ( WINAPI*)
+    (
+     _In_opt_ LPCWSTR lpszDeviceName,
+     _In_ DWORD iModeNum,
+     _Inout_ DEVMODEW* lpDevMode);
    using tfExitWindowsEx =
     BOOL
     (WINAPI*)(
@@ -67,6 +88,14 @@ namespace shared {
     );
 
   public:
+   const tfGetDeviceCaps GetDeviceCapsLocal = ::GetDeviceCaps;
+   tfGetDeviceCaps GetDeviceCapsRemote = nullptr;
+   const tfEnumDisplaySettingsA EnumDisplaySettingsALocal = ::EnumDisplaySettingsA;
+   tfEnumDisplaySettingsA EnumDisplaySettingsARemote = nullptr;
+   const tfEnumDisplaySettingsW EnumDisplaySettingsWLocal = ::EnumDisplaySettingsW;
+   tfEnumDisplaySettingsW EnumDisplaySettingsWRemote = nullptr;
+   const tfGetSystemMetrics GetSystemMetricsLocal = ::GetSystemMetrics;
+   tfGetSystemMetrics GetSystemMetricsRemote = nullptr;
    const tfExitWindowsEx ExitWindowsExLocal = ::ExitWindowsEx;
    tfExitWindowsEx ExitWindowsExRemote = nullptr;
    const tfGetSystemInfo GetSystemInfoLocal = ::GetSystemInfo;
