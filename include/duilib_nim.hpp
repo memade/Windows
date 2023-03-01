@@ -4,6 +4,7 @@
 #include "base/base.h"
 #include "duilib/UIlib.h"
 #include "ui_components/ui_components.h"
+#include "ui_components/ui_cef_control.h"
 
 namespace duilib_nim {
 
@@ -18,6 +19,118 @@ namespace duilib_nim {
   virtual void Init() = 0;
   virtual void Cleanup() = 0;
  };
+
+
+ const bool kEnableOffsetRender = false;
+ class ICefFrame :
+  public std::conditional<kEnableOffsetRender, ui::WindowImplBase, nim_comp::ShadowWndBase>::type {
+ public:
+  ICefFrame(const int& logo_res_id = 0, const bool& is_tray = false) :
+   m_EnableTray(is_tray),
+   m_LogoResId(logo_res_id) {
+
+  }
+ public:
+  std::wstring GetWindowClassName() const override {
+   return m_MainIdentify;
+  }
+  std::wstring GetSkinFolder() override {
+   return L"CefMain";
+  }
+  std::wstring GetSkinFile() override {
+   return m_MainIdentify + LR"(.xml)";
+  }
+ public:
+  virtual void CreateTray(_Inout_ PNOTIFYICONDATAW pNotifyIconData) {
+   pNotifyIconData->cbSize = sizeof(*pNotifyIconData);
+   pNotifyIconData->hWnd = m_hWnd;
+   pNotifyIconData->uID = m_LogoResId;
+   pNotifyIconData->uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
+   pNotifyIconData->uCallbackMessage = WM_NOTIFYICONDATA_MESSAGE;
+   pNotifyIconData->hIcon = ::LoadIconW(
+    ::GetModuleHandleW(nullptr), MAKEINTRESOURCE(m_LogoResId));
+   ::swprintf_s(pNotifyIconData->szTip, L"%s", GetWindowClassName().c_str());
+   ::Shell_NotifyIconW(NIM_ADD, pNotifyIconData);
+  }
+  virtual void DestoryTray(_Inout_ PNOTIFYICONDATAW pNotifyIconData) {
+   ::Shell_NotifyIconW(NIM_DELETE, pNotifyIconData);
+  }
+ protected:
+  bool m_EnableTray = false;
+  unsigned int m_LogoResId = 0;
+  HMENU m_hTrayPopMenu = nullptr;
+  const std::wstring m_MainIdentify = L"Main";
+  NOTIFYICONDATAW m_NOTIFYICONDATA = { 0 };
+ protected:
+  virtual LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam) override {
+   switch (uMsg) {
+   case WM_CREATE: {
+    do {//!@ Tray
+     if (!m_EnableTray)
+      break;
+     m_hTrayPopMenu = ::CreatePopupMenu();
+     ::AppendMenuW(m_hTrayPopMenu, MF_STRING, WM_NOTIFYICONDATA_POPMENU_EXIT, TEXT("退出"));
+     CreateTray(&m_NOTIFYICONDATA);
+    } while (0);
+   }break;
+   case WM_DESTROY: {
+
+
+    do {//!@ Tray
+     if (!m_EnableTray)
+      break;
+
+     DestoryTray(&m_NOTIFYICONDATA);
+     ::DestroyMenu(m_hTrayPopMenu);
+    } while (0);
+   }break;
+   case WM_NOTIFYICONDATA_MESSAGE: {
+    switch (lParam) {
+    case WM_LBUTTONDBLCLK: {
+     if (wParam != m_LogoResId)
+      break;
+     if (::IsWindowVisible(m_hWnd)) {
+      ShowWindow(false);
+     }
+     else {
+      ShowWindow(true);
+      /*::SetForegroundWindow(m_hWnd);
+      ::BringWindowToTop(m_hWnd);*/
+      ::SetWindowPos(m_hWnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+     }
+    }break;
+    case WM_RBUTTONDOWN: {
+     if (wParam != m_LogoResId)
+      break;
+     POINT pt = { 0 };
+     ::GetCursorPos(&pt);
+     ::TrackPopupMenu(m_hTrayPopMenu, TPM_RIGHTBUTTON, pt.x, pt.y, NULL, m_hWnd, NULL);
+    }break;
+    default:
+     break;
+    }
+   }break;
+   case WM_COMMAND: {
+    switch (wParam) {
+    case WM_NOTIFYICONDATA_POPMENU_EXIT: {
+     ::PostMessageW(m_hWnd, WM_CLOSE, 0, 0);
+     return TRUE;
+    }break;
+    default:
+     break;
+    }
+   }break;
+   default:
+    break;
+   }
+   return __super::HandleMessage(uMsg, wParam, lParam);
+  }
+ };
+
+
+
+
+
 
  class IFrame : public ui::WindowImplBase {
  protected:
@@ -123,10 +236,7 @@ namespace duilib_nim {
    }
    return __super::HandleMessage(uMsg, wParam, lParam);
   }
-
-
  };
-
 
 
 }///namespace duilib_nim
@@ -152,13 +262,13 @@ namespace duilib_nim {
 #pragma comment(lib,"imm32.lib")
 #pragma comment(lib,"Msimg32.lib")
 #if _DEBUG
-#pragma comment(lib,R"(base\Debug\base.lib)")
-#pragma comment(lib,R"(duilib\Debug\duilib.lib)")
-#pragma comment(lib,R"(ui_components\Debug\ui_components.lib)")
+#pragma comment(lib,R"(base_d.lib)")
+#pragma comment(lib,R"(duilib_d.lib)")
+#pragma comment(lib,R"(ui_components_d.lib)")
 #else
-#pragma comment(lib,R"(base\Release\base.lib)")
-#pragma comment(lib,R"(duilib\Release\duilib.lib)")
-#pragma comment(lib,R"(ui_components\Release\ui_components.lib)")
+#pragma comment(lib,R"(base.lib)")
+#pragma comment(lib,R"(duilib.lib)")
+#pragma comment(lib,R"(ui_components.lib)")
 #endif
 
 /// /*_ Memade®（新生™） _**/
