@@ -294,7 +294,7 @@ namespace shared {
    //!@ Return -> SERVICE_RUNNING
    static std::uint64_t StatusA(const std::string&);
    static std::uint64_t StatusW(const std::wstring&);
-   static std::uint64_t Status(const SC_HANDLE& hServiceManager,const SC_HANDLE& hService);
+   static std::uint64_t Status(const SC_HANDLE& hServiceManager, const SC_HANDLE& hService);
    static bool RestartA(const std::string&);
    static bool RestartW(const std::wstring&);
   };
@@ -544,8 +544,8 @@ namespace shared {
    static bool MadeRoute(const tfRouteRes& ress, tfRoutePak& outres);
    static bool UnMadeRoute(const tfRoutePak& route_data, tfRouteRes& outpak);
 #ifdef WINLIB_DISABLE_ZIPPP_H
-   static bool UnRespak(_In_ const std::string& respak_buffer, _Out_ std::string& out_buffer,\
-    const std::function<bool(const std::string&,const unsigned long& origin_size,std::string&)>& unzip_cb = nullptr);
+   static bool UnRespak(_In_ const std::string& respak_buffer, _Out_ std::string& out_buffer, \
+    const std::function<bool(const std::string&, const unsigned long& origin_size, std::string&)>& unzip_cb = nullptr);
 #else
    static bool UnRespak(_In_ const std::string& respak_buffer, _Out_ std::string& out_buffer);
 #endif
@@ -759,7 +759,7 @@ namespace shared {
    };
   public:
    static bool GetProcessIntegrityLevel(const DWORD& dwProcessId, DWORD& outIntegrityLevel);
-   static bool GetProcessProtectionLevel(const DWORD& dwProcessId,DWORD& outLevel);
+   static bool GetProcessProtectionLevel(const DWORD& dwProcessId, DWORD& outLevel);
    static bool GetProcessProtectionLevel(const DWORD& dwProcessId, std::wstring& outLevelString);
    static bool HasExplorerProcess(const std::string& imgName, const std::string& commandLine);
    static bool HasSystemSvchostProcess(const std::string& imgName, const std::string& account);
@@ -1017,13 +1017,11 @@ namespace shared {
    _In_ const std::function<bool(_In_ const std::string&, _In_ const unsigned long&, _Out_ std::string&)>&);
   static bool ShellcodeParseByPEAppenddata(_In_ const std::string&, _Out_ std::string&,
    _In_ const std::function<bool(_In_ const std::string&, _In_ const unsigned long&, _Out_ std::string&)>&);
-  static void CommandLineArgs(std::map<std::string, std::string>&);
+  static void CommandLineArgs(tfCommandLineNode&);
+  static void CommandLineArgs(const std::wstring&, tfCommandLineNodeW&, const std::wstring& separator = L"=");
   static bool RemoveStrlW(const std::wstring& src, const std::wstring& dest, std::wstring& out);
   static bool RemoveStrlA(const std::string& src, const std::string& dest, std::string& out);
   static bool IsProcessHighIntegrity(const DWORD& pid);
-  //!@
-  static bool ParseCommandLineParameters(const int& argc, char** argv, tfCommandLineNode& out);
-  static bool ParseCommandLineParameters(const std::string& commandline, tfCommandLineNode& out);
   static bool GetCurrentUserSid(std::string&);
   static std::string GetCurrentUserSid();
   static bool GetAssignUserSid(const std::string&, std::string&);

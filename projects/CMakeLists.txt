@@ -8,7 +8,9 @@ foreach(entry ${entries})
   string(TOUPPER ${origin_entry_name} upper_entry_name)
   if(
   (${upper_entry_name} STREQUAL "WINUI") 
-   OR 
+  OR 
+		(${upper_entry_name} STREQUAL "DETOURS")	
+		OR
   (${upper_entry_name} STREQUAL "LIBUVPP") 
   OR 
   (${upper_entry_name} STREQUAL "LIBCURLPP")

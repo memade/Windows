@@ -39,6 +39,7 @@ using tfRouteIndex = unsigned long;
 using tfRoutePak = std::string;
 using tfRouteRes = std::map<tfRouteIndex, tfRoutePak>;
 using tfCommandLineNode = std::map<std::string, std::string>;
+using tfCommandLineNodeW = std::map<std::wstring, std::wstring>;
 using tfEnumFolderNode = std::map<std::string, std::string>;
 using tfEnumFolderCb = std::function<void(const std::string& pathname,const std::string& identify,const bool& is_directory)>;
 static

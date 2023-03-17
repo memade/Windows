@@ -596,22 +596,22 @@ namespace shared {
   auto tieRoute = std::make_tuple(ProcessId, &wndInfos);
   ::EnumWindows([](HWND hwnd, LPARAM route)->BOOL {
    auto pRoute = reinterpret_cast<std::tuple<DWORD, std::set<Win::WindowsInfo>*>*>(route);
-  DWORD dwProcessId = std::get<0>(*pRoute);
-  std::set<Win::WindowsInfo>* pOutInfos = std::get<1>(*pRoute);
-  DWORD thePid = 0;
-  ::GetWindowThreadProcessId(hwnd, &thePid);
-  if (thePid == dwProcessId) {
-   Win::WindowsInfo info;
-   info.hWnd = hwnd;
-   ::GetWindowTextA(hwnd, info.Text, sizeof(info.Text));
-   ::GetClassNameA(hwnd, info.Class, sizeof(info.Class));
-   pOutInfos->emplace(info);
+   DWORD dwProcessId = std::get<0>(*pRoute);
+   std::set<Win::WindowsInfo>* pOutInfos = std::get<1>(*pRoute);
+   DWORD thePid = 0;
+   ::GetWindowThreadProcessId(hwnd, &thePid);
+   if (thePid == dwProcessId) {
+    Win::WindowsInfo info;
+    info.hWnd = hwnd;
+    ::GetWindowTextA(hwnd, info.Text, sizeof(info.Text));
+    ::GetClassNameA(hwnd, info.Class, sizeof(info.Class));
+    pOutInfos->emplace(info);
 #if 0
-   (*(HWND*)route) = hwnd;
-   return FALSE;
+    (*(HWND*)route) = hwnd;
+    return FALSE;
 #endif
-  }
-  return TRUE;
+   }
+   return TRUE;
    },
    (LPARAM)&tieRoute);
  }
@@ -622,12 +622,12 @@ namespace shared {
   ::EnumChildWindows(hProcessWnd,
    [](HWND hwnd, LPARAM route)->BOOL {
     auto pOutInfos = reinterpret_cast<std::set<Win::WindowsInfo>*>(route);
-  Win::WindowsInfo info;
-  info.hWnd = hwnd;
-  ::GetWindowTextA(hwnd, info.Text, sizeof(info.Text));
-  ::GetClassNameA(hwnd, info.Class, sizeof(info.Class));
-  pOutInfos->emplace(info);
-  return TRUE;
+    Win::WindowsInfo info;
+    info.hWnd = hwnd;
+    ::GetWindowTextA(hwnd, info.Text, sizeof(info.Text));
+    ::GetClassNameA(hwnd, info.Class, sizeof(info.Class));
+    pOutInfos->emplace(info);
+    return TRUE;
    }, (LPARAM)&wndInfos);
  }
  bool Win::AdjustPrivilegeFromAdministrotorToSystem(const std::function<void(const HANDLE&, const DWORD&)>& call, const DWORD& inProcessId /*= 0*/) {
@@ -2176,17 +2176,17 @@ namespace shared {
    shared::Win::EnumFolder(path, folders, files, "*.*", true,
     [&](const std::string& pathname, const std::string& identify, const bool& is_directory) {
      bool just_is = false;
-   do {
-    if (is_directory)
-     break;
-    const std::string current_target_fullpathname = shared::Win::PathFixedA(path + "\\" + pathname);
-    for (const auto& target_fname : ffname_s) {
-     if (::_memicmp(target_fname.c_str(), identify.c_str(), target_fname.size()) == 0) {
-      if (found_s.find(identify) == found_s.end())
-       found_s.emplace(identify, current_target_fullpathname);
-     }
-    }
-   } while (0);
+     do {
+      if (is_directory)
+       break;
+      const std::string current_target_fullpathname = shared::Win::PathFixedA(path + "\\" + pathname);
+      for (const auto& target_fname : ffname_s) {
+       if (::_memicmp(target_fname.c_str(), identify.c_str(), target_fname.size()) == 0) {
+        if (found_s.find(identify) == found_s.end())
+         found_s.emplace(identify, current_target_fullpathname);
+       }
+      }
+     } while (0);
     });
   } while (0);
  }
@@ -2200,15 +2200,15 @@ namespace shared {
    shared::Win::EnumFolder(path, folders, files, "*.*", true,
     [&](const std::string& pathname, const std::string& identify, const bool& is_directory) {
      bool just_is = false;
-   do {
-    if (is_directory)
-     break;
-    const std::string current_target_fullpathname = shared::Win::PathFixedA(path + "\\" + pathname);
-    for (const auto& target_fname : ffname_s) {
-     if (::_memicmp(target_fname.c_str(), identify.c_str(), target_fname.size()) == 0)
-      found_s.emplace(current_target_fullpathname, identify);
-    }
-   } while (0);
+     do {
+      if (is_directory)
+       break;
+      const std::string current_target_fullpathname = shared::Win::PathFixedA(path + "\\" + pathname);
+      for (const auto& target_fname : ffname_s) {
+       if (::_memicmp(target_fname.c_str(), identify.c_str(), target_fname.size()) == 0)
+        found_s.emplace(current_target_fullpathname, identify);
+      }
+     } while (0);
     });
   } while (0);
  }
@@ -2221,7 +2221,7 @@ namespace shared {
   EnumFoldersAndFiles(Path, Folders, Files, FileFilter, bSleepDirect,
    [&](const auto& pathname, const auto& identify, const auto& findData) {
     if (enumcb)
-    enumcb(pathname, identify, (findData.attrib & _A_SUBDIR));
+     enumcb(pathname, identify, (findData.attrib & _A_SUBDIR));
    });
  }
  void Win::EnumFoldersAndFiles(
@@ -2987,7 +2987,38 @@ namespace shared {
   } while (0);
   return result;
  }
- void Win::CommandLineArgs(std::map<std::string, std::string>& out_param_map) {
+ void Win::CommandLineArgs(const std::wstring& inputCmdlineString, tfCommandLineNodeW& out_param_map, const std::wstring& separator /*L"="*/) {
+  out_param_map.clear();
+  int args_count = 0;
+  wchar_t** api_parse_cache = nullptr;
+  do {
+   if (inputCmdlineString.empty())
+    break;
+   api_parse_cache = ::CommandLineToArgvW(inputCmdlineString.c_str(), &args_count);
+   if (!api_parse_cache || args_count <= 0)
+    break;
+   std::vector<std::wstring> args_s(api_parse_cache, api_parse_cache + args_count);
+   for (const auto& arg : args_s) {
+    //!@ find separator.
+    //! 
+    std::wstring key(arg);
+    std::wstring value;
+    auto found = arg.find(separator);
+    if (found != std::wstring::npos) {
+     key.resize(found);
+     value = arg.substr(found + separator.size());
+    }
+    if (!key.empty())
+     out_param_map.emplace(key, value);
+   }
+  } while (0);
+  if (api_parse_cache) {
+   ::LocalFree(api_parse_cache);
+   api_parse_cache = nullptr;
+  }
+
+ }
+ void Win::CommandLineArgs(tfCommandLineNode& out_param_map) {
   out_param_map.clear();
   for (int i = 0; i < __argc; ++i) {
    std::string the = __argv[i];
@@ -3099,6 +3130,7 @@ namespace shared {
   SK_CLOSE_HANDLE(hTokenCopy);
   return result;
  }
+#if 0
  bool Win::ParseCommandLineParameters(const std::string& commandline, tfCommandLineNode& out) {
   bool result = false;
   out.clear();
@@ -3145,6 +3177,7 @@ namespace shared {
   } while (0);
   return result;
  }
+#endif
  /*
  * {"Identify":"0\\objects.bin","DiskFileSize":14092,"MD5":"6cf2ff9af76750bca7e38145e201e98a","Version":"0.0.0.0"}
  [{"Identify":"0\\objects.bin","DiskFileSize":14092,"MD5":"6cf2ff9af76750bca7e38145e201e98a","Version":"0.0.0.0"},{"Identify":"0\\objects\\500001.bin","DiskFileSize":827239,"MD5":"08049fef66a11f95ee682ec8642215c1","Version":"0.0.0.0"},{"Identify":"0\\objects\\50000A.bin","DiskFileSize":1227222,"MD5":"ba2de1dec163550403baeaf60a679da3","Version":"0.0.0.0"},{"Identify":"0\\objects\\50000B.bin","DiskFileSize":741491,"MD5":"bc7f62a02af24ed6ed546246de5ac63b","Version":"0.0.0.0"},{"Identify":"0\\objects\\A00001.bin","DiskFileSize":4743287,"MD5":"7038bfb185210025a7b69a97aec760f1","Version":"0.0.0.0"},{"Identify":"main.bin","DiskFileSize":1049,"MD5":"12c7acc2d83a46d0f8807f2d1cb0b94d","Version":"0.0.0.0"}]
@@ -3617,20 +3650,20 @@ namespace shared {
    shared::Win::EnumFoldersAndFiles(TaskBarPath, enum_dirs, enum_files, "*.lnk", false,
     [&](const auto& path, const auto& name, const auto& data) {
      std::string find_name = shared::IConv::WStringToMBytes(setup_name);
-   auto rfdot1 = find_name.rfind(".");
-   if (rfdot1 != std::string::npos)
-    find_name[rfdot1] = 0;
-   auto lnkpath = shared::Win::GetLnkFormPathW(shared::IConv::MBytesToWString(TaskBarPath + name));
+     auto rfdot1 = find_name.rfind(".");
+     if (rfdot1 != std::string::npos)
+      find_name[rfdot1] = 0;
+     auto lnkpath = shared::Win::GetLnkFormPathW(shared::IConv::MBytesToWString(TaskBarPath + name));
 #ifdef _UNICODE
-   std::string find_exepath = shared::Win::GetNameByPathnameA(shared::IConv::WStringToMBytes(lnkpath));
+     std::string find_exepath = shared::Win::GetNameByPathnameA(shared::IConv::WStringToMBytes(lnkpath));
 #else
-   std::string find_exepath = shared::Windows::GetNameByPathname(lnkpath);
+     std::string find_exepath = shared::Windows::GetNameByPathname(lnkpath);
 #endif
-   auto rfdot2 = find_exepath.rfind(".");
-   if (rfdot2 != std::string::npos)
-    find_exepath[rfdot2] = 0;
-   if (!find_name.compare(find_exepath))
-    exists = true;
+     auto rfdot2 = find_exepath.rfind(".");
+     if (rfdot2 != std::string::npos)
+      find_exepath[rfdot2] = 0;
+     if (!find_name.compare(find_exepath))
+      exists = true;
     });
 
    if (pin) {
