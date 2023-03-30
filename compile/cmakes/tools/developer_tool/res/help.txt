@@ -1,4 +1,0 @@
-1           C++ headfile defined.
-2           MD5 generate.
-
-==================================
